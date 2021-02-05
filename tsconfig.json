@@ -14,7 +14,11 @@
     "emitDecoratorMetadata": true,
     "allowSyntheticDefaultImports": true,
     "noEmit": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "paths": {
+      "~/types/*": [ "./types/*" ],
+      "~/*": [ "./src/*" ]
+    }
   },
   "include": [
     "./src/**/*"

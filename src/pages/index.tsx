@@ -1,6 +1,6 @@
 import React from "react"
 import { graphql } from "gatsby"
-import { IndexPageQuery } from "../../types/graphql-types"
+import { IndexPageQuery } from "~/types/graphql-types"
 
 type Props = {
   data: IndexPageQuery
