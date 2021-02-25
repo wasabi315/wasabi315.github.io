@@ -16,7 +16,6 @@
     "noEmit": true,
     "skipLibCheck": true,
     "paths": {
-      "~/types/*": [ "./types/*" ],
       "~/*": [ "./src/*" ]
     }
   },

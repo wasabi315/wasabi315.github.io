@@ -12,11 +12,14 @@ module.exports = {
     },
   },
   plugins: [
+    `gatsby-plugin-typegen`,
     {
-      resolve: `gatsby-plugin-graphql-codegen`,
+      resolve: `gatsby-source-filesystem`,
       options: {
-        fileName: `types/graphql-types.d.ts`,
+        name: `contents`,
+        path: `${__dirname}/contents`,
       },
     },
+    `gatsby-transformer-remark`,
   ],
 }

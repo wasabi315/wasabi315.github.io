@@ -1,10 +1,7 @@
 import React from "react"
-import { graphql } from "gatsby"
-import { IndexPageQuery } from "~/types/graphql-types"
+import { PageProps, graphql } from "gatsby"
 
-type Props = {
-  data: IndexPageQuery
-}
+type Props = PageProps<GatsbyTypes.IndexPageQuery>
 
 const Index: React.FC<Props> = ({ data }) => (
   <div>
