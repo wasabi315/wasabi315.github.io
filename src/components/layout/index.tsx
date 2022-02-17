@@ -8,9 +8,9 @@
 import * as React from "react"
 import { useStaticQuery, graphql } from "gatsby"
 
-import Header from "./header"
 import "../../styles/theme.scss"
 import "./layout.scss"
+import Header from "./header"
 import * as style from "./index.module.scss"
 
 const Layout: React.FC = ({ children }) => {
@@ -30,7 +30,7 @@ const Layout: React.FC = ({ children }) => {
         <Header siteTitle={data.site.siteMetadata?.title || `Title`} />
         <main>{children}</main>
         <footer className={style.footer}>
-          © {new Date().getFullYear()} wasabi315
+          © {new Date().getFullYear()}, Built with Gatsby
         </footer>
       </div>
     </>

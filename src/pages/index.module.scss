@@ -1,0 +1,26 @@
+.hero {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.hero_text {
+  color: var(--theme-fg1);
+  font-size: 64px;
+}
+
+.about {
+  color: var(--theme-fg1);
+  font-size: 24px;
+  margin-bottom: 4rem;
+}
+
+.detail {
+  margin-bottom: 4rem;
+  color: var(--theme-fg1);
+  font-size: 18px;
+
+  & > h2 {
+    font-size: 24px;
+    font-weight: bold;
+  }
+}
