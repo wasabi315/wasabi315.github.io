@@ -26,11 +26,11 @@ const Layout: React.FC = ({ children }) => {
 
   return (
     <>
-      <Header siteTitle={data.site.siteMetadata?.title || `Title`} />
       <div className={style.container}>
+        <Header siteTitle={data.site.siteMetadata?.title || `Title`} />
         <main>{children}</main>
         <footer className={style.footer}>
-          © {new Date().getFullYear()}, wasabi315
+          © {new Date().getFullYear()} wasabi315
         </footer>
       </div>
     </>

@@ -6,15 +6,25 @@ type Prop = {
   siteTitle: string
 }
 
+const navItems = [
+  { to: `/works`, label: `Works` },
+  { to: `/posts`, label: `Posts` },
+]
+
 const Header: React.FC<Prop> = ({ siteTitle = `` }) => (
-  <header className={style.header}>
-    <div className={style.container}>
+  <header>
+    <nav className={style.header}>
       <h1 className={style.title}>
-        <Link to="/" className={style.link_text}>
-          {siteTitle}
-        </Link>
+        <Link to="/">{siteTitle}</Link>
       </h1>
-    </div>
+      <ul className={style.nav}>
+        {navItems.map(({ to, label }) => (
+          <li key={to} className={style.nav_item}>
+            <Link to={to}>{label}</Link>
+          </li>
+        ))}
+      </ul>
+    </nav>
   </header>
 )
 
