@@ -9,8 +9,8 @@ import * as React from "react"
 import { useStaticQuery, graphql } from "gatsby"
 
 import Header from "./header"
-import "./layout.scss"
 import "../styles/theme.scss"
+import "./layout.scss"
 import * as style from "./layout.module.scss"
 
 const Layout: React.FC = ({ children }) => {
