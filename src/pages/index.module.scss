@@ -13,10 +13,7 @@
 
 .about {
   @include foreground-primary;
-  @include text-h3;
-  font-family: $body-font;
-  font-weight: normal;
-  letter-spacing: -0.0125rem;
+  @include text-body;
   margin-bottom: 4rem;
   & a {
     text-decoration: underline;
