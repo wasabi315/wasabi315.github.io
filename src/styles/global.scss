@@ -16,6 +16,7 @@ html {
 }
 
 body {
+  color: $theme-foreground-primary;
   background-color: $theme-background-primary;
   word-wrap: break-word;
   font-kerning: normal;
