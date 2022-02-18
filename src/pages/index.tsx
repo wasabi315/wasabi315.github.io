@@ -1,5 +1,4 @@
 import * as React from "react"
-import { Link } from "gatsby"
 import { StaticImage } from "gatsby-plugin-image"
 
 import Layout from "../components/layout"
@@ -21,7 +20,9 @@ const IndexPage = () => (
     </section>
     <section className={style.about}>
       <p>
-        Hello! I'm an undergraduate student at Tokyo Tech, PSG. <br />
+        Hello! I'm an undergraduate student at Tokyo Tech,{" "}
+        <a href="https://www.psg.c.titech.ac.jp/">Programming Systems Group</a>.{" "}
+        <br />
         My interest is in programming languages, especially functional
         programming languages.
       </p>

@@ -1,7 +1,11 @@
 import * as React from "react"
 import { Link } from "gatsby"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faGithubAlt, faTwitter } from "@fortawesome/free-brands-svg-icons"
+import {
+  faGithubAlt,
+  faGitlab,
+  faTwitter,
+} from "@fortawesome/free-brands-svg-icons"
 
 import * as style from "./header.module.scss"
 
@@ -16,6 +20,7 @@ const navItems = [
 
 const socialItems = [
   { icon: faGithubAlt, url: `https://github.com/wasabi315` },
+  { icon: faGitlab, url: `https://gitlab.com/wasabi315` },
   { icon: faTwitter, url: `https://twitter.com/wasabi65255737` },
 ]
 

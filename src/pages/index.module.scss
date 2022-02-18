@@ -18,6 +18,12 @@
   font-weight: normal;
   letter-spacing: -0.0125rem;
   margin-bottom: 4rem;
+  & a {
+    text-decoration: underline;
+    &:hover {
+      color: $theme-accent-primary;
+    }
+  }
 }
 
 .detail {
