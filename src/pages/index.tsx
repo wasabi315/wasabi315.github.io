@@ -47,8 +47,8 @@ const IndexPage = () => (
       <h2>Certificates</h2>
       <ul>
         <li>Applied Information Technology Enginner</li>
-        <li>TOEIC L/R Test: 855</li>
-        <li>TOEFL: 70</li>
+        <li>TOEIC® L&R Test: 855</li>
+        <li>TOEFL® Test: 70</li>
       </ul>
     </section>
   </Layout>
