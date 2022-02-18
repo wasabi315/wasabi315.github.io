@@ -11,11 +11,14 @@
   margin-right: 3.75rem;
   & > a {
     @include foreground-primary;
+    &:hover {
+      color: $theme-accent-primary;
+    }
   }
 }
 
 .nav {
-  margin: 0.5rem 0 0 0;
+  margin-top: 0.5rem;
   list-style: none;
 }
 
@@ -26,11 +29,11 @@
   & > a {
     @include foreground-tertiary;
     &:hover {
-      @include foreground-primary;
+      color: $theme-accent-primary;
     }
   }
 }
 
-.header a {
-  text-decoration: none;
+.spacer {
+  flex-grow: 1;
 }

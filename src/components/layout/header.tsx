@@ -1,5 +1,8 @@
 import * as React from "react"
 import { Link } from "gatsby"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faGithubAlt, faTwitter } from "@fortawesome/free-brands-svg-icons"
+
 import * as style from "./header.module.scss"
 
 type Prop = {
@@ -11,16 +14,31 @@ const navItems = [
   { to: `/posts`, label: `Posts` },
 ]
 
+const socialItems = [
+  { icon: faGithubAlt, url: `https://github.com/wasabi315` },
+  { icon: faTwitter, url: `https://twitter.com/wasabi65255737` },
+]
+
 const Header: React.FC<Prop> = ({ siteTitle = `` }) => (
   <header>
     <nav className={style.header}>
-      <h1 className={style.title}>
+      <div className={style.title}>
         <Link to="/">{siteTitle}</Link>
-      </h1>
+      </div>
       <ul className={style.nav}>
         {navItems.map(({ to, label }) => (
           <li key={to} className={style.nav_item}>
             <Link to={to}>{label}</Link>
+          </li>
+        ))}
+      </ul>
+      <div className={style.spacer} />
+      <ul className={style.nav}>
+        {socialItems.map(({ icon, url }) => (
+          <li key={url} className={style.nav_item}>
+            <a href={url}>
+              <FontAwesomeIcon icon={icon} />
+            </a>
           </li>
         ))}
       </ul>

@@ -2,7 +2,7 @@
 
 .hero {
   text-align: center;
-  margin-bottom: 4rem;
+  margin-bottom: 5rem;
 }
 
 .hero_text {
@@ -16,6 +16,7 @@
   @include text-h3;
   font-family: $body-font;
   font-weight: normal;
+  letter-spacing: -0.0125rem;
   margin-bottom: 4rem;
 }
 
