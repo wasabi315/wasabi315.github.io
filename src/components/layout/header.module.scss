@@ -1,29 +1,33 @@
+@import "../../styles/common";
+
 .header {
-  background: var(--theme-bg1);
-  padding: 0.875rem 0;
+  padding: 1rem 0;
   margin-bottom: 3rem;
   display: flex;
 }
 
 .title {
-  margin: 0 2.75rem 0 0;
-  font-size: 32px;
+  @include text-h2;
+  margin-right: 3.75rem;
   & > a {
-    color: var(--theme-fg1);
+    @include foreground-primary;
   }
 }
 
 .nav {
-  margin: 0.125rem 0 0 0;
+  margin: 0.5rem 0 0 0;
   list-style: none;
 }
 
 .nav_item {
+  @include text-h3;
   float: left;
-  margin: 0 1.0875rem 0 0;
-  font-size: 24px;
+  margin-right: 1rem;
   & > a {
-    color: var(--theme-fg4);
+    @include foreground-tertiary;
+    &:hover {
+      @include foreground-primary;
+    }
   }
 }
 

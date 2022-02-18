@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Source+Sans+Pro&display=swap');
+
+@import "./reset";
+@import "./variables";
+@import "./mixins";
+
+// * {
+//   outline: 1px solid pink;
+// }
+
+html {
+  font-size: 16px;
+  font-family: $body-font;
+  box-sizing: border-box;
+  overflow-y: scroll;
+}
+
+body {
+  background-color: $theme-background-primary;
+  word-wrap: break-word;
+  font-kerning: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -moz-font-feature-settings: "kern", "liga", "clig", "calt";
+  -ms-font-feature-settings: "kern", "liga", "clig", "calt";
+  -webkit-font-feature-settings: "kern", "liga", "clig", "calt";
+  font-feature-settings: "kern", "liga", "clig", "calt";
+}
+
+h1 {
+  @include text-h1;
+}
+h2 {
+  @include text-h2;
+}
+h3 {
+  @include text-h3;
+}
+
+code {
+  font-family: $code-font;
+}

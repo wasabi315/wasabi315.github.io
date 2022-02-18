@@ -1,10 +1,13 @@
+@import "../../styles/common";
+
 .container {
   margin: 0 auto;
   max-width: 960px;
-  padding: 0.875rem 1.3125rem;
+  padding: 1rem;
 }
 
 .footer {
+  @include text-caption;
+  @include foreground-tertiary;
   margin-top: 2rem;
-  color: var(--theme-fg4)
 }
