@@ -1,20 +1,48 @@
 import * as React from "react"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faHelmetSafety } from "@fortawesome/free-solid-svg-icons"
+import { Link, graphql } from "gatsby"
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 import * as styles from "./works.module.scss"
 
-const WorksPage = () => (
+type Prop = {
+  data: {
+    allMdx: {
+      nodes: {
+        slug: string
+        frontmatter: {
+          title: string
+        }
+      }[]
+    }
+  }
+}
+
+const WorksPage: React.FC<Prop> = ({ data }) => (
   <Layout>
     <Seo title="Works" />
     <h1 className={styles.title}>Works</h1>
-    <p>
-      Under construction
-      <FontAwesomeIcon icon={faHelmetSafety} />
-    </p>
+    <ul>
+      {data.allMdx.nodes.map(({ slug, frontmatter }) => (
+        <li key={slug}>
+          <Link to={`/${slug}`}>{frontmatter.title}</Link>
+        </li>
+      ))}
+    </ul>
   </Layout>
 )
 
 export default WorksPage
+
+export const pageQuery = graphql`
+  query {
+    allMdx(filter: { slug: { regex: "/^works//" } }) {
+      nodes {
+        slug
+        frontmatter {
+          title
+        }
+      }
+    }
+  }
+`

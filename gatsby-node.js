@@ -6,11 +6,9 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   const result = await graphql(`
     {
       allMdx {
-        edges {
-          node {
-            id
-            slug
-          }
+        nodes {
+          id
+          slug
         }
       }
     }
@@ -23,18 +21,16 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     posts: require.resolve(`./src/templates/post.tsx`),
     works: require.resolve(`./src/templates/work.tsx`),
   }
-  result.data.allMdx.edges.forEach(({ node }) => {
-    const template = templates[path.dirname(node.slug)]
+  result.data.allMdx.nodes.forEach(({ id, slug }) => {
+    const template = templates[path.dirname(slug)]
     if (!template) {
-      reporter.panicOnBuild(`No template found for ${node.slug}`)
+      reporter.panicOnBuild(`No template found for ${slug}`)
       return
     }
     createPage({
-      path: node.slug,
+      path: slug,
       component: template,
-      context: {
-        id: node.id,
-      },
+      context: { id },
     })
   })
 }
