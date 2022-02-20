@@ -10,10 +10,7 @@
   @include text-h2;
   margin-right: 3.75rem;
   & > a {
-    @include foreground-primary;
-    &:hover {
-      color: $theme-accent-primary;
-    }
+    text-decoration: none;
   }
 }
 
@@ -28,6 +25,7 @@
   margin-right: 1rem;
   & > a {
     @include foreground-tertiary;
+    text-decoration: none;
     &:hover {
       color: $theme-accent-primary;
     }

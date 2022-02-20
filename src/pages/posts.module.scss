@@ -1,5 +1,6 @@
 @import "../styles/common";
 
 .title {
-    margin-bottom: 1.5rem;
+    @include text-h1;
+    margin-bottom: 2.5rem;
 }

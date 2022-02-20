@@ -16,7 +16,7 @@ html {
 }
 
 body {
-  color: $theme-foreground-primary;
+  @include foreground-primary;
   background-color: $theme-background-primary;
   word-wrap: break-word;
   font-kerning: normal;
@@ -28,16 +28,13 @@ body {
   font-feature-settings: "kern", "liga", "clig", "calt";
 }
 
-h1 {
-  @include text-h1;
-}
-h2 {
-  @include text-h2;
-}
-h3 {
-  @include text-h3;
-}
-
 code {
   font-family: $code-font;
+}
+
+a:visited {
+  color: inherit;
+}
+a:hover {
+  color: $theme-accent-primary;
 }
