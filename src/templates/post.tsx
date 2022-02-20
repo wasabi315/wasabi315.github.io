@@ -1,5 +1,5 @@
 import * as React from "react"
-import { graphql } from "gatsby"
+import { Link, graphql } from "gatsby"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 
 import Layout from "../components/layout"
@@ -12,6 +12,8 @@ type Prop = {
       body: string
       frontmatter: {
         title: string
+        date: string
+        tags: string[]
       }
     }
   }
@@ -22,6 +24,15 @@ const Post: React.FC<Prop> = ({ data: { mdx } }) => {
     <Layout>
       <Seo title={mdx.frontmatter.title} />
       <h1 className={styles.title}>{mdx.frontmatter.title}</h1>
+      <p className={styles.meta}>
+        <time>{mdx.frontmatter.date}</time>
+        {` - `}
+        {mdx.frontmatter.tags.map(tag => (
+          <Link key={tag} to={`/tags/` + tag}>
+            {tag}
+          </Link>
+        ))}
+      </p>
       <MDXRenderer frontmatter={mdx.frontmatter}>{mdx.body}</MDXRenderer>
     </Layout>
   )
@@ -35,6 +46,8 @@ export const pageQuery = graphql`
       body
       frontmatter {
         title
+        date(formatString: "YYYY/MM/DD")
+        tags
       }
     }
   }
