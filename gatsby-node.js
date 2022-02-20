@@ -1,6 +1,6 @@
 const path = require(`path`)
 
-exports.createPages = async ({ graphql, actions, reporter }) => {
+const createEntryPages = async (graphql, actions, reporter) => {
   const { createPage } = actions
 
   const result = await graphql(`
@@ -33,4 +33,35 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       context: { id },
     })
   })
+}
+
+const createTagPages = async (graphql, actions) => {
+  const { createPage } = actions
+
+  const result = await graphql(`
+    {
+      allMdx {
+        group(field: frontmatter___tags) {
+          tag: fieldValue
+          totalCount
+        }
+      }
+    }
+  `)
+  if (result.errors) {
+    throw result.errors
+  }
+
+  result.data.allMdx.group.forEach(({ tag }) => {
+    createPage({
+      path: `/tags/${tag}/`,
+      component: require.resolve(`./src/templates/tags.tsx`),
+      context: { tag },
+    })
+  })
+}
+
+exports.createPages = async ({ graphql, actions, reporter }) => {
+  await createEntryPages(graphql, actions, reporter)
+  await createTagPages(graphql, actions)
 }
