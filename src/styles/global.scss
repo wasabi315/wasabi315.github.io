@@ -32,7 +32,7 @@ code {
   font-family: $code-font;
 }
 
-a:visited {
+a:visited, a:link {
   color: inherit;
 }
 a:hover {
