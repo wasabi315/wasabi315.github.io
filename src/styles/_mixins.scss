@@ -1,40 +1,64 @@
 @import "./variables";
 
 @mixin foreground-primary {
-    color: $theme-foreground-primary;
+  color: $theme-foreground-primary;
 }
 @mixin foreground-secondary {
-    color: $theme-foreground-secondary;
+  color: $theme-foreground-secondary;
 }
 @mixin foreground-tertiary {
-    color: $theme-foreground-tertiary;
+  color: $theme-foreground-tertiary;
+}
+@mixin background-primary {
+  background-color: $theme-background-primary;
+}
+@mixin background-secondary {
+  background-color: $theme-background-secondary;
 }
 
 @mixin text-h1 {
-    font-family: $header-font;
-    font-weight: 800;
-    font-size: 4rem;
-    line-height: 1.5;
+  font-family: $header-font;
+  font-weight: 800;
+  font-size: 4rem;
+  line-height: 1.5;
 }
 @mixin text-h2 {
-    font-family: $header-font;
-    font-weight: 800;
-    font-size: 2rem;
-    line-height: 1.5;
+  font-family: $header-font;
+  font-weight: 800;
+  font-size: 3rem;
+  line-height: 1.5;
 }
 @mixin text-h3 {
-    font-family: $header-font;
-    font-weight: 800;
-    font-size: 1.5rem;
-    line-height: 1.5;
+  font-family: $header-font;
+  font-weight: 800;
+  font-size: 2.5rem;
+  line-height: 1.5;
+}
+@mixin text-h4 {
+  font-family: $header-font;
+  font-weight: 800;
+  font-size: 2rem;
+  line-height: 1.5;
+}
+@mixin text-h5 {
+  font-family: $header-font;
+  font-weight: 800;
+  font-size: 1.75rem;
+  line-height: 1.5;
+}
+@mixin text-h6 {
+  font-family: $header-font;
+  font-weight: 800;
+  font-size: 1.5rem;
+  line-height: 1.5;
 }
 @mixin text-body {
-    font-size: 1.25rem;
-    line-height: 1.5;
+  font-size: 1.125rem;
+  line-height: 1.5;
 }
 @mixin text-body2 {
-    font-size: 1rem;
+  font-size: 1rem;
 }
 @mixin text-caption {
-    font-size: 0.875rem;
+  font-size: 0.875rem;
 }

@@ -7,7 +7,7 @@
 }
 
 .title {
-  @include text-h2;
+  @include text-h4;
   margin-right: 3.75rem;
   & > a {
     text-decoration: none;
@@ -20,11 +20,11 @@
 }
 
 .nav_item {
-  @include text-h3;
+  @include text-h6;
   float: left;
   margin-right: 1rem;
   & > a {
-    @include foreground-tertiary;
+    @include foreground-secondary;
     text-decoration: none;
     &:hover {
       color: $theme-accent-primary;

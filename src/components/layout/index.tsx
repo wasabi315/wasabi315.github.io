@@ -7,11 +7,16 @@
 
 import * as React from "react"
 import { useStaticQuery, graphql } from "gatsby"
+import { MDXProvider } from "@mdx-js/react"
 
 import "../../styles/global.scss"
 import * as style from "./index.module.scss"
-
 import Header from "./header"
+import CodeBlock from "../highlight/CodeBlock"
+
+const components = {
+  pre: CodeBlock,
+}
 
 const Layout: React.FC = ({ children }) => {
   const data = useStaticQuery(graphql`
@@ -25,7 +30,7 @@ const Layout: React.FC = ({ children }) => {
   `)
 
   return (
-    <>
+    <MDXProvider components={components}>
       <div className={style.container}>
         <Header siteTitle={data.site.siteMetadata?.title || `Title`} />
         <main>{children}</main>
@@ -33,7 +38,7 @@ const Layout: React.FC = ({ children }) => {
           © {new Date().getFullYear()}, Built with Gatsby
         </footer>
       </div>
-    </>
+    </MDXProvider>
   )
 }
 

@@ -19,29 +19,29 @@ type Prop = {
   }
 }
 
-const Post: React.FC<Prop> = ({ data: { mdx } }) => {
-  return (
-    <Layout>
-      <Seo title={mdx.frontmatter.title} />
-      <h1 className={styles.title}>{mdx.frontmatter.title}</h1>
-      <p className={styles.meta}>
-        <time>{mdx.frontmatter.date}</time>
-        {` - `}
-        {mdx.frontmatter.tags.map(tag => (
-          <Link key={tag} to={`/tags/` + tag}>
-            {tag}
-          </Link>
-        ))}
-      </p>
+const Post: React.FC<Prop> = ({ data: { mdx } }) => (
+  <Layout>
+    <Seo title={mdx.frontmatter.title} />
+    <h1 className={styles.title}>{mdx.frontmatter.title}</h1>
+    <p className={styles.meta}>
+      <time>{mdx.frontmatter.date}</time>
+      {` - `}
+      {mdx.frontmatter.tags.map(tag => (
+        <Link key={tag} to={`/tags/` + tag}>
+          {tag}
+        </Link>
+      ))}
+    </p>
+    <div className="markdown-body">
       <MDXRenderer frontmatter={mdx.frontmatter}>{mdx.body}</MDXRenderer>
-    </Layout>
-  )
-}
+    </div>
+  </Layout>
+)
 
 export default Post
 
 export const pageQuery = graphql`
-  query PostById($id: String!) {
+  query ($id: String!) {
     mdx(id: { eq: $id }) {
       body
       frontmatter {

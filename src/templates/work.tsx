@@ -17,20 +17,18 @@ type Prop = {
   }
 }
 
-const Work: React.FC<Prop> = ({ data: { mdx } }) => {
-  return (
-    <Layout>
-      <Seo title={mdx.frontmatter.title} />
-      <h1 className={styles.title}>{mdx.frontmatter.title}</h1>
-      <MDXRenderer frontmatter={mdx.frontmatter}>{mdx.body}</MDXRenderer>
-    </Layout>
-  )
-}
+const Work: React.FC<Prop> = ({ data: { mdx } }) => (
+  <Layout>
+    <Seo title={mdx.frontmatter.title} />
+    <h1 className={styles.title}>{mdx.frontmatter.title}</h1>
+    <MDXRenderer frontmatter={mdx.frontmatter}>{mdx.body}</MDXRenderer>
+  </Layout>
+)
 
 export default Work
 
 export const pageQuery = graphql`
-  query WorkById($id: String!) {
+  query ($id: String!) {
     mdx(id: { eq: $id }) {
       body
       frontmatter {

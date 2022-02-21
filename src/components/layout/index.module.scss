@@ -8,6 +8,6 @@
 
 .footer {
   @include text-caption;
-  @include foreground-tertiary;
+  @include foreground-secondary;
   margin-top: 2rem;
 }

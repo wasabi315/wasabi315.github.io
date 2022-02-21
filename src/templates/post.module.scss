@@ -1,19 +1,19 @@
 @import "../styles/common";
 
 .title {
-    @include text-h1;
-    margin-bottom: -0.5rem;
+  @include text-h1;
+  margin-bottom: -0.5rem;
 }
 
 .meta {
-    @include text-body;
-    @include foreground-tertiary;
-    margin-bottom: 2.5rem;
-    & > a {
-        margin-right: 0.375rem;
-        text-decoration: none;
-        &::before {
-            content: "#";
-        }
+  @include text-body;
+  @include foreground-secondary;
+  margin-bottom: 2.5rem;
+  & > a {
+    margin-right: 0.375rem;
+    text-decoration: none;
+    &::before {
+      content: "#";
     }
+  }
 }

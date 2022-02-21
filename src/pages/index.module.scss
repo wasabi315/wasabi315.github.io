@@ -6,7 +6,6 @@
 }
 
 .hero_text {
-  @include foreground-secondary;
   @include text-h1;
   color: $theme-accent-secondary;
 }
@@ -23,7 +22,7 @@
   margin-bottom: 4rem;
 
   & > h2 {
-    @include text-h3;
+    @include text-h6;
     margin-bottom: 0.5rem;
   }
 
