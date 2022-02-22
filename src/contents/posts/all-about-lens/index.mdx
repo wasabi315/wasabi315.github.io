@@ -4,26 +4,63 @@ date: "2022-02-21"
 tags: ["Haskell", "Lens"]
 ---
 
-```haskell
-type Lens s t a b = forall f. Functor f => (a -> f b) -> s -> f t
+```cpp
+#include <iostream>
 
-lens :: (s -> a) -> (s -> b -> t) -> Lens s t a b
-lens sa sbt afb s = sbt s <$> afb (sa s)
+using namespace std;
 
-view :: Lens s t a b -> s -> a
-view l s = getConst $ l Const s
+int main(void) {
+    // Hello, world!
+    cout << "Hello, World!" << endl;
+    return 0;
+}
+```
 
-set :: Lens s t a b -> s -> b -> t
-set l s b = runIdentity $ l (\_ -> Identity b) s
+```c
+#include <stdio.h>
 
-over :: Lens s t a b -> s -> (a -> b) -> t
-over l s f = runIdentity $ l (Identity . f) s
+int main(void) {
+    // Hello, world!
+    printf("Hello, World!\n");
+    return 0;
+}
+```
+
+```rust
+fn main() {
+    // Hello, world!
+    println!("Hello, World!");
+}
+```
+
+```go
+func main() {
+    // Hello, world!
+    println("Hello, World!")
+}
+```
+
+```javascript
+function main() {
+    // Hello, world!
+    console.log("Hello, World!");
+}
+
+main();
 ```
 
 ```haskell
-_1 :: Lens (a, b) (c, b) a c
-_1 = lens fst (\(a, b) c -> (c, b))
+-- Hello, world!
+main :: IO ()
+main = putStrLn "Hello, World!"
+```
 
-_2 :: Lens (a, b) (a, d) b d
-_2 = lens snd (\(a, b) d -> (a, d))
+```ocaml
+(* Hello, world! *)
+let () = print_endline "Hello, World!"
+```
+
+```scheme
+; Hello, world!
+(display "Hello, World!")
 ```

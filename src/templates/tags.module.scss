@@ -11,7 +11,7 @@
 .entry {
   margin-bottom: 1.5rem;
   & > a {
-    @include text-h2;
+    @include text-h4;
     text-decoration: none;
   }
   & > p {
