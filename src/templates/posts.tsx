@@ -3,7 +3,7 @@ import { Link, graphql } from "gatsby"
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
-import * as styles from "./tags.module.scss"
+import * as styles from "./posts.module.scss"
 
 type Prop = {
   data: {
@@ -19,25 +19,20 @@ type Prop = {
     }
   }
   pageContext: {
-    tag: string
-    currentPage: number
     numPages: number
+    currentPage: number
   }
 }
 
-const Tags: React.FC<Prop> = ({ data, pageContext }) => {
+const PostsPage: React.FC<Prop> = ({ data, pageContext }) => {
   const prevPage = Math.max(pageContext.currentPage - 1, 1)
   const nextPage = Math.min(pageContext.currentPage + 1, pageContext.numPages)
-  const prevPageLink = `/tags/${pageContext.tag}/${
-    prevPage === 1 ? `` : prevPage
-  }`
-  const nextPageLink = `/tags/${pageContext.tag}/${
-    nextPage === 1 ? `` : nextPage
-  }`
+  const prevPageLink = `/posts/${prevPage === 1 ? `` : prevPage}`
+  const nextPageLink = `/posts/${nextPage === 1 ? `` : nextPage}`
   return (
     <Layout>
-      <Seo title={`Tag: ${pageContext.tag}`} />
-      <h1 className={styles.title}>{pageContext.tag}</h1>
+      <Seo title="Posts" />
+      <h1 className={styles.title}>Posts</h1>
       <section className={styles.entry_list}>
         {data.allMdx.nodes.map(({ slug, frontmatter }) => (
           <article key={slug} className={styles.entry}>
@@ -65,12 +60,12 @@ const Tags: React.FC<Prop> = ({ data, pageContext }) => {
   )
 }
 
-export default Tags
+export default PostsPage
 
 export const pageQuery = graphql`
-  query ($tag: String!, $limit: Int!, $skip: Int!) {
+  query ($skip: Int!, $limit: Int!) {
     allMdx(
-      filter: { frontmatter: { tags: { in: [$tag] } } }
+      filter: { slug: { regex: "/^posts//" } }
       sort: { fields: frontmatter___date, order: DESC }
       limit: $limit
       skip: $skip

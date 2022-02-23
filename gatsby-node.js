@@ -1,11 +1,14 @@
 const path = require(`path`)
 
-const createEntryPages = async (graphql, actions, reporter) => {
+const createPostPages = async (graphql, actions) => {
   const { createPage } = actions
 
   const result = await graphql(`
     {
-      allMdx {
+      allMdx(
+        filter: { slug: { regex: "/^posts//" } }
+        sort: { fields: frontmatter___date, order: DESC }
+      ) {
         nodes {
           id
           slug
@@ -17,19 +20,58 @@ const createEntryPages = async (graphql, actions, reporter) => {
     throw result.errors
   }
 
-  const templates = {
-    posts: require.resolve(`./src/templates/post.tsx`),
-    works: require.resolve(`./src/templates/work.tsx`),
-  }
+  // Create post list pages.
+  const posts = result.data.allMdx.nodes
+  const postsPerPage = 10
+  const numPages = Math.ceil(posts.length / postsPerPage)
+  Array.from({ length: numPages }).forEach((_, i) => {
+    const currentPage = i + 1
+    createPage({
+      path: currentPage === 1 ? `/posts` : `/posts/${currentPage}`,
+      component: require.resolve(`./src/templates/posts.tsx`),
+      context: {
+        limit: postsPerPage,
+        skip: i * postsPerPage,
+        numPages,
+        currentPage,
+      },
+    })
+  })
+
+  // Create post pages.
   result.data.allMdx.nodes.forEach(({ id, slug }) => {
-    const template = templates[path.dirname(slug)]
-    if (!template) {
-      reporter.panicOnBuild(`No template found for ${slug}`)
-      return
-    }
     createPage({
       path: slug,
-      component: template,
+      component: require.resolve(`./src/templates/post.tsx`),
+      context: { id },
+    })
+  })
+}
+
+const createWorkPages = async (graphql, actions) => {
+  const { createPage } = actions
+
+  const result = await graphql(`
+    {
+      allMdx(
+        filter: { slug: { regex: "/^works//" } }
+        sort: { fields: frontmatter___date, order: DESC }
+      ) {
+        nodes {
+          id
+          slug
+        }
+      }
+    }
+  `)
+  if (result.errors) {
+    throw result.errors
+  }
+
+  result.data.allMdx.nodes.forEach(({ id, slug }) => {
+    createPage({
+      path: slug,
+      component: require.resolve(`./src/templates/work.tsx`),
       context: { id },
     })
   })
@@ -40,7 +82,7 @@ const createTagPages = async (graphql, actions) => {
 
   const result = await graphql(`
     {
-      allMdx {
+      allMdx(sort: { fields: frontmatter___date, order: DESC }) {
         group(field: frontmatter___tags) {
           tag: fieldValue
           totalCount
@@ -52,16 +94,31 @@ const createTagPages = async (graphql, actions) => {
     throw result.errors
   }
 
-  result.data.allMdx.group.forEach(({ tag }) => {
-    createPage({
-      path: `/tags/${tag}/`,
-      component: require.resolve(`./src/templates/tags.tsx`),
-      context: { tag },
+  result.data.allMdx.group.forEach(({ tag, totalCount }) => {
+    const postsPerPage = 10
+    const numPages = Math.ceil(totalCount / postsPerPage)
+    Array.from({ length: numPages }).forEach((_, i) => {
+      const currentPage = i + 1
+      createPage({
+        path:
+          currentPage === 1 ? `/tags/${tag}` : `/tags/${tag}/${currentPage}`,
+        component: require.resolve(`./src/templates/tags.tsx`),
+        context: {
+          tag,
+          limit: postsPerPage,
+          skip: i * postsPerPage,
+          numPages,
+          currentPage,
+        },
+      })
     })
   })
 }
 
-exports.createPages = async ({ graphql, actions, reporter }) => {
-  await createEntryPages(graphql, actions, reporter)
-  await createTagPages(graphql, actions)
+exports.createPages = async ({ graphql, actions }) => {
+  await Promise.all([
+    createPostPages(graphql, actions),
+    createWorkPages(graphql, actions),
+    createTagPages(graphql, actions),
+  ])
 }
