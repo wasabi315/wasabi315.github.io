@@ -12,7 +12,7 @@ import { MDXProvider } from "@mdx-js/react"
 import "../../styles/global.scss"
 import * as style from "./index.module.scss"
 import Header from "./header"
-import CodeBlock from "../highlight/CodeBlock"
+import CodeBlock from "../codeBlock"
 
 const components = {
   pre: CodeBlock,
