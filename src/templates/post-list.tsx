@@ -3,7 +3,7 @@ import { Link, graphql } from "gatsby"
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
-import * as styles from "./posts.module.scss"
+import * as styles from "./post-list.module.scss"
 
 type Prop = {
   data: {
@@ -24,7 +24,7 @@ type Prop = {
   }
 }
 
-const PostsPage: React.FC<Prop> = ({ data, pageContext }) => {
+const PostListPage: React.FC<Prop> = ({ data, pageContext }) => {
   const prevPage = Math.max(pageContext.currentPage - 1, 1)
   const nextPage = Math.min(pageContext.currentPage + 1, pageContext.numPages)
   const prevPageLink = `/posts/${prevPage === 1 ? `` : prevPage}`
@@ -60,7 +60,7 @@ const PostsPage: React.FC<Prop> = ({ data, pageContext }) => {
   )
 }
 
-export default PostsPage
+export default PostListPage
 
 export const pageQuery = graphql`
   query ($skip: Int!, $limit: Int!) {

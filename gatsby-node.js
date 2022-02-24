@@ -28,7 +28,7 @@ const createPostPages = async (graphql, actions) => {
     const currentPage = i + 1
     createPage({
       path: currentPage === 1 ? `/posts` : `/posts/${currentPage}`,
-      component: require.resolve(`./src/templates/posts.tsx`),
+      component: require.resolve(`./src/templates/post-list.tsx`),
       context: {
         limit: postsPerPage,
         skip: i * postsPerPage,
@@ -102,7 +102,7 @@ const createTagPages = async (graphql, actions) => {
       createPage({
         path:
           currentPage === 1 ? `/tags/${tag}` : `/tags/${tag}/${currentPage}`,
-        component: require.resolve(`./src/templates/tags.tsx`),
+        component: require.resolve(`./src/templates/tagged-post-list.tsx`),
         context: {
           tag,
           limit: postsPerPage,

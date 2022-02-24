@@ -3,7 +3,7 @@ import { Link, graphql } from "gatsby"
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
-import * as styles from "./works.module.scss"
+import * as styles from "./work-list.module.scss"
 
 type Prop = {
   data: {
