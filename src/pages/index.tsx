@@ -9,26 +9,19 @@ const IndexPage = () => (
   <Layout>
     <Seo title="Home" />
     <section className={style.hero}>
-      <StaticImage
-        src="../images/wasabi.jpeg"
-        width={256}
-        quality={95}
-        formats={["auto", "webp", "avif"]}
-        alt="wasabi"
-      />
+      <StaticImage src="../images/gatsby-icon.png" width={256} alt="wasabi" />
       <h1 className={style.hero_text}>I'm Satoshi Takimoto.</h1>
     </section>
     <section className={style.about}>
       <p>
         Hello! I'm an undergraduate student at Tokyo Tech,{" "}
-        <a href="https://www.psg.c.titech.ac.jp/">Programming Systems Group</a>.{" "}
-        <br />
+        <a href="https://www.psg.c.titech.ac.jp/">Programming Systems Group</a>.
         My interest is in programming languages, especially functional
         programming languages.
       </p>
     </section>
     <section className={style.detail}>
-      <h2>Research Interests</h2>
+      <h2>Research Area</h2>
       <ul>
         <li>Programming language theory</li>
         <li>Functional reactive programming and embedded systems</li>
