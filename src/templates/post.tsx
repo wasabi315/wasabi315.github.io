@@ -1,10 +1,10 @@
 import * as React from "react"
 import { Link, graphql } from "gatsby"
-import { MDXRenderer } from "gatsby-plugin-mdx"
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 import * as styles from "./post.module.scss"
+import MDXRenderer from "../components/mdx-renderer"
 
 type Prop = {
   data: {
@@ -32,9 +32,7 @@ const Post: React.FC<Prop> = ({ data: { mdx } }) => (
         </Link>
       ))}
     </p>
-    <div className="markdown-body">
-      <MDXRenderer frontmatter={mdx.frontmatter}>{mdx.body}</MDXRenderer>
-    </div>
+    <MDXRenderer frontmatter={mdx.frontmatter}>{mdx.body}</MDXRenderer>
   </Layout>
 )
 

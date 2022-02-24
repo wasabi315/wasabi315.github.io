@@ -1,5 +1,12 @@
 import * as React from "react"
 import Highlight, { defaultProps } from "prism-react-renderer"
+import { Prism } from "prism-react-renderer"
+import "../../styles/prism-wasabi.css"
+;((typeof global !== "undefined" ? global : window) as any).Prism = Prism
+require("prismjs/components/prism-haskell")
+require("prismjs/components/prism-rust")
+require("prismjs/components/prism-ocaml")
+require("prismjs/components/prism-scheme")
 
 // TODO: typings
 const CodeBlock: React.FC<any> = ({ children }) => {
