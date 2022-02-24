@@ -14,21 +14,15 @@ const IndexPage = () => (
     </section>
     <section className={style.about}>
       <p>
-        Hello! I'm an undergraduate student at Tokyo Tech,{" "}
+        Hello! I'm an undergraduate student at Tokyo Tech and a member of {""}
         <a href="https://www.psg.c.titech.ac.jp/">Programming Systems Group</a>.
+        <br />
         My interest is in programming languages, especially functional
         programming languages.
       </p>
     </section>
     <section className={style.detail}>
-      <h2>Research Area</h2>
-      <ul>
-        <li>Programming language theory</li>
-        <li>Functional reactive programming and embedded systems</li>
-      </ul>
-    </section>
-    <section className={style.detail}>
-      <h2>Programming Language Skills</h2>
+      <h2>Programming Language Proficiency</h2>
       <ul>
         <li>Haskell: Intermediate</li>
         <li>Typescript, Javascript: Intermediate</li>
