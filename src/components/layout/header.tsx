@@ -11,6 +11,7 @@ import * as style from "./header.module.scss"
 
 type Prop = {
   siteTitle: string
+  className?: string
 }
 
 const navItems = [
@@ -24,8 +25,8 @@ const socialItems = [
   { icon: faTwitter, url: `https://twitter.com/wasabi65255737` },
 ]
 
-const Header: React.FC<Prop> = ({ siteTitle = `` }) => (
-  <header>
+const Header: React.FC<Prop> = ({ className, siteTitle = `` }) => (
+  <header className={className}>
     <nav className={style.header}>
       <div className={style.title}>
         <Link to="/">{siteTitle}</Link>

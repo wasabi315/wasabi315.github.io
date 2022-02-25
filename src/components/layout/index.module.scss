@@ -6,8 +6,21 @@
   padding: 1rem;
 }
 
+.header {
+  margin-bottom: 3rem;
+}
+
+.main {
+  margin-bottom: 3rem;
+}
+
 .footer {
   @include text-caption;
   @include foreground-secondary;
-  margin-top: 2rem;
+  margin-top: 8rem;
+  padding: 1.5rem 0;
+  border-top: 1px solid $theme-background-tertiary;
+  & > span {
+    float: right;
+  }
 }

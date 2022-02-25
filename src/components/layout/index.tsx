@@ -25,10 +25,19 @@ const Layout: React.FC = ({ children }) => {
 
   return (
     <div className={style.container}>
-      <Header siteTitle={data.site.siteMetadata?.title || `Title`} />
+      <Header
+        className={style.header}
+        siteTitle={data.site.siteMetadata?.title || `Title`}
+      />
       <main>{children}</main>
       <footer className={style.footer}>
-        © {new Date().getFullYear()}, Built with Gatsby
+        © {new Date().getFullYear()} Satoshi Takimoto. All rights reserved.
+        <span>
+          Built with {` `}
+          <a rel="external" href="https://www.gatsbyjs.org">
+            Gatsby
+          </a>
+        </span>
       </footer>
     </div>
   )
