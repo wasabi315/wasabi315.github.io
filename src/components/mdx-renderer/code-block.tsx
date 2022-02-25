@@ -8,7 +8,7 @@ require("prismjs/components/prism-ocaml")
 require("prismjs/components/prism-scheme")
 
 // TODO: typings
-const CodeBlock: React.FC<any> = ({ children }) => {
+const CodeBlock: React.FCX<any> = ({ children }) => {
   const className = children.props.className ?? ""
   const matches = className.match(/language-(?<lang>.*)/)
   const language = matches?.groups?.lang ?? ""

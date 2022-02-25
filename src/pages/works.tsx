@@ -18,7 +18,7 @@ type Prop = {
   }
 }
 
-const WorksPage: React.FC<Prop> = ({ data }) => (
+const WorksPage: React.FCX<Prop> = ({ data }) => (
   <Layout>
     <Seo title="Works" />
     <h1 className={styles.title}>Works</h1>

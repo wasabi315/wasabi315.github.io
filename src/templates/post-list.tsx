@@ -24,7 +24,7 @@ type Prop = {
   }
 }
 
-const PostListPage: React.FC<Prop> = ({ data, pageContext }) => {
+const PostListPage: React.FCX<Prop> = ({ data, pageContext }) => {
   const prevPage = Math.max(pageContext.currentPage - 1, 1)
   const nextPage = Math.min(pageContext.currentPage + 1, pageContext.numPages)
   const prevPageLink = `/posts/${prevPage === 1 ? `` : prevPage}`

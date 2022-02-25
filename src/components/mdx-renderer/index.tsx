@@ -10,7 +10,7 @@ const components = {
 
 type Props = React.ComponentProps<typeof _MDXRenderer>
 
-const MDXRenderer: React.FC<Props> = props => (
+const MDXRenderer: React.FCX<Props> = props => (
   <MDXProvider components={components}>
     <section className={styles.markdown}>
       <_MDXRenderer {...props} />

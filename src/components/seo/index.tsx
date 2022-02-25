@@ -16,7 +16,7 @@ type Prop = {
   title: string
 }
 
-const Seo: React.FC<Prop> = ({
+const Seo: React.FCX<Prop> = ({
   description = ``,
   lang = `en`,
   meta = [],

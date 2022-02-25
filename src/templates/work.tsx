@@ -17,7 +17,7 @@ type Prop = {
   }
 }
 
-const Work: React.FC<Prop> = ({ data: { mdx } }) => (
+const Work: React.FCX<Prop> = ({ data: { mdx } }) => (
   <Layout>
     <Seo title={mdx.frontmatter.title} />
     <h1 className={styles.title}>{mdx.frontmatter.title}</h1>

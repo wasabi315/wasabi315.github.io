@@ -12,7 +12,7 @@ import "../../styles/global.scss"
 import * as style from "./index.module.scss"
 import Header from "./header"
 
-const Layout: React.FC = ({ children }) => {
+const Layout: React.FCX = ({ children }) => {
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
       site {

@@ -19,7 +19,7 @@ type Prop = {
   }
 }
 
-const Post: React.FC<Prop> = ({ data: { mdx } }) => (
+const Post: React.FCX<Prop> = ({ data: { mdx } }) => (
   <Layout>
     <Seo title={mdx.frontmatter.title} />
     <h1 className={styles.title}>{mdx.frontmatter.title}</h1>
