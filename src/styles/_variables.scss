@@ -1,14 +1,26 @@
 @import url('https://fonts.googleapis.com/css2?family=Fira+Code&family=Inter:wght@400;700&family=Source+Sans+Pro&display=swap');
 
-$theme-accent-primary: #a3be8c;
-$theme-accent-secondary: #739956;
-$theme-foreground-primary: #4c566a;
-$theme-foreground-secondary: #828997;
-$theme-foreground-tertiary: #b7bbc3;
-$theme-background-primary: #ffffff;
-$theme-background-secondary: #f6f7fa;
-$theme-background-tertiary: #eceff4;
-$theme-divider: #cdcfd5;
+:root {
+  --theme-accent-primary: #a3be8c;
+  --theme-accent-secondary: #739956;
+  --theme-foreground-primary: #4c566a;
+  --theme-foreground-secondary: #828997;
+  --theme-foreground-tertiary: #b7bbc3;
+  --theme-background-primary: #ffffff;
+  --theme-background-secondary: #f6f7fa;
+  --theme-background-tertiary: #eceff4;
+  --theme-divider: #cdcfd5;
+}
+
+$theme-accent-primary: var(--theme-accent-primary);
+$theme-accent-secondary: var(--theme-accent-secondary);
+$theme-foreground-primary: var(--theme-foreground-primary);
+$theme-foreground-secondary: var(--theme-foreground-secondary);
+$theme-foreground-tertiary: var(--theme-foreground-tertiary);
+$theme-background-primary: var(--theme-background-primary);
+$theme-background-secondary: var(--theme-background-secondary);
+$theme-background-tertiary: var(--theme-background-tertiary);
+$theme-divider: var(--theme-divider);
 
 $header-font: 'Inter', sans-serif;
 $body-font: 'Inter', sans-serif;
