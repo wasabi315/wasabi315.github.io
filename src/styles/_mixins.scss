@@ -22,37 +22,37 @@
   font-family: $header-font;
   font-weight: 800;
   font-size: 4rem;
-  line-height: 1;
+  line-height: 1.2;
 }
 @mixin text-h2 {
   font-family: $header-font;
   font-weight: 800;
   font-size: 3rem;
-  line-height: 1;
+  line-height: 1.2;
 }
 @mixin text-h3 {
   font-family: $header-font;
   font-weight: 800;
   font-size: 2.5rem;
-  line-height: 1;
+  line-height: 1.2;
 }
 @mixin text-h4 {
   font-family: $header-font;
   font-weight: 800;
   font-size: 2rem;
-  line-height: 1;
+  line-height: 1.2;
 }
 @mixin text-h5 {
   font-family: $header-font;
   font-weight: 800;
   font-size: 1.75rem;
-  line-height: 1;
+  line-height: 1.2;
 }
 @mixin text-h6 {
   font-family: $header-font;
   font-weight: 800;
   font-size: 1.5rem;
-  line-height: 1;
+  line-height: 1.2;
 }
 @mixin text-body {
   font-size: 1.125rem;

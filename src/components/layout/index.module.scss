@@ -8,6 +8,9 @@
 
 .header {
   margin-bottom: 3rem;
+  @include respond-below(sm) {
+    margin-bottom: 4rem;
+  }
 }
 
 .main {
