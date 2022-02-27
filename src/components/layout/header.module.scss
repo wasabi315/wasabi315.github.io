@@ -3,20 +3,25 @@
 .header {
   padding: 1.5rem 0;
   display: flex;
-  @include respond-below(sm) {
-    padding: 1rem 0;
+  @include respond-below(md) {
+    padding: 1rem;
     position: fixed;
     top: 0;
+    left: 0;
     width: 100%;
     @include background-primary;
     z-index: 1;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  & a {
+    text-decoration: none;
   }
 }
 
 .menu {
   margin: 0.0625rem 1.5rem 0 0;
   @include text-h6;
-  @include respond-above(sm) {
+  @include respond-above(md) {
     display: none;
   }
 }
@@ -24,10 +29,7 @@
 .title {
   @include text-h4;
   margin-right: 3.75rem;
-  & > a {
-    text-decoration: none;
-  }
-  @include respond-below(sm) {
+  @include respond-below(md) {
     @include text-h6;
   }
 }
@@ -35,20 +37,16 @@
 .nav {
   margin-top: 0.375rem;
   list-style: none;
-  @include respond-below(sm) {
+  @include respond-below(md) {
     display: none;
   }
-}
 
-.nav_item {
-  @include text-h6;
-  float: left;
-  margin-right: 1rem;
-  & > a {
-    @include foreground-secondary;
-    text-decoration: none;
-    &:hover {
-      color: $theme-accent-primary;
+  & .nav_item {
+    @include text-h6;
+    float: left;
+    margin-right: 1rem;
+    & > a:not(:hover) {
+      @include foreground-secondary;
     }
   }
 }

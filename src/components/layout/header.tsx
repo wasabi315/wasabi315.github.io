@@ -38,7 +38,7 @@ const Header: React.FCX<Prop> = ({
       </ul>
       <div className={style.spacer} />
       <ul className={style.nav}>
-        {config.externalLinks.map(({ icon, url }) => (
+        {config.socialLinks.map(({ icon, url }) => (
           <li key={url} className={style.nav_item}>
             <a href={url}>
               <FontAwesomeIcon icon={icon} />

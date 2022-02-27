@@ -8,7 +8,7 @@
 
 .header {
   margin-bottom: 3rem;
-  @include respond-below(sm) {
+  @include respond-below(md) {
     margin-bottom: 4rem;
   }
 }
@@ -25,5 +25,8 @@
   border-top: 1px solid $theme-divider;
   & > span {
     float: right;
+  }
+  @include respond-below(md) {
+    display: none;
   }
 }

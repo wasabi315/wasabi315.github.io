@@ -1,7 +1,6 @@
 @import "../../styles/common";
 
 .side_bar {
-  display: block;
   position: fixed;
   top: 0;
   left: 0;
@@ -10,10 +9,11 @@
   z-index: 2;
   padding: 1.5rem;
   @include background-primary;
+  display: flex;
+  flex-direction: column;
 }
 
 .mask {
-  display: block;
   position: fixed;
   top: 0;
   left: 0;
@@ -34,7 +34,7 @@
   list-style: none;
   margin: 0;
   padding: 0;
-  & > li {
+  & .nav_item {
     @include text-h6;
     margin-bottom: 0.75rem;
   }
@@ -44,15 +44,25 @@
 }
 
 .social {
-  position: absolute;
-  bottom: 0;
   list-style: none;
-  margin: 1.5rem 0;
   padding: 0;
-  & > li {
-    float: left;
+  margin: 0;
+  margin-bottom: 0.75rem;
+  & > .social_item {
     @include text-h6;
     @include foreground-secondary;
     margin-right: 0.75rem;
+    float: left;
   }
+}
+
+.copyright {
+  @include text-caption;
+  @include foreground-secondary;
+  border-top: 1px solid $theme-divider;
+  padding-top: 1rem;
+}
+
+.spacer {
+  flex-grow: 1;
 }
