@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Fira+Code&family=Inter:wght@400;700&family=Source+Sans+Pro&display=swap');
-
+// Colors
 :root {
   --theme-accent-primary: #a3be8c;
   --theme-accent-secondary: #739956;
@@ -22,6 +21,14 @@ $theme-background-secondary: var(--theme-background-secondary);
 $theme-background-tertiary: var(--theme-background-tertiary);
 $theme-divider: var(--theme-divider);
 
+// Fonts
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code&family=Inter:wght@400;700&family=Source+Sans+Pro&display=swap');
 $header-font: 'Inter', sans-serif;
 $body-font: 'Inter', sans-serif;
 $code-font: 'Fira Code', sans-serif;
+
+// Breakpoints
+$sm: 576px;
+$md: 768px;
+$lg: 992px;
+$xl: 1200px;

@@ -1,5 +1,6 @@
 @import "./variables";
 
+// Colors
 @mixin foreground-primary {
   color: $theme-foreground-primary;
 }
@@ -16,6 +17,7 @@
   background-color: $theme-background-secondary;
 }
 
+// Typography
 @mixin text-h1 {
   font-family: $header-font;
   font-weight: 800;
@@ -63,4 +65,26 @@
 @mixin text-caption {
   font-size: 0.875rem;
   line-height: 1;
+}
+
+// Breakpoints
+@mixin sm {
+  @media (max-width: $sm) {
+    @content;
+  }
+}
+@mixin md {
+  @media (max-width: $md) {
+    @content;
+  }
+}
+@mixin lg {
+  @media (max-width: $lg) {
+    @content;
+  }
+}
+@mixin xl {
+  @media (max-width: $xl) {
+    @content;
+  }
 }
