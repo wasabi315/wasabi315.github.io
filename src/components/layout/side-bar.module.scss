@@ -1,0 +1,58 @@
+@import "../../styles/common";
+
+.side_bar {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 80%;
+  z-index: 2;
+  padding: 1.5rem;
+  @include background-primary;
+}
+
+.mask {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  background-color: black;
+  opacity: 0.6;
+}
+
+.close {
+  margin-bottom: 3rem;
+  @include text-h6;
+  @include foreground-secondary;
+}
+
+.nav {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  & > li {
+    @include text-h6;
+    margin-bottom: 0.75rem;
+  }
+  & a {
+    text-decoration: none;
+  }
+}
+
+.social {
+  position: absolute;
+  bottom: 0;
+  list-style: none;
+  margin: 1.5rem 0;
+  padding: 0;
+  & > li {
+    float: left;
+    @include text-h6;
+    @include foreground-secondary;
+    margin-right: 0.75rem;
+  }
+}

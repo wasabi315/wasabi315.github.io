@@ -11,6 +11,14 @@ import { useStaticQuery, graphql } from "gatsby"
 import "../../styles/global.scss"
 import * as style from "./index.module.scss"
 import Header from "./header"
+import SideBar from "./side-bar"
+
+const useToggle = (init: boolean) => {
+  const [value, setValue] = React.useState(init)
+  const setTrue = React.useCallback(() => setValue(true), [])
+  const setFalse = React.useCallback(() => setValue(false), [])
+  return [value, setTrue, setFalse] as const
+}
 
 const Layout: React.FCX = ({ children }) => {
   const data = useStaticQuery(graphql`
@@ -22,16 +30,20 @@ const Layout: React.FCX = ({ children }) => {
       }
     }
   `)
+  const [showSideBar, open, close] = useToggle(false)
+  const display = showSideBar ? undefined : { display: "none" }
 
   return (
     <div className={style.container}>
       <Header
         className={style.header}
         siteTitle={data.site.siteMetadata?.title || `Title`}
+        onClickMenu={open}
       />
+      <SideBar style={display} close={close} />
       <main>{children}</main>
       <footer className={style.footer}>
-        © {new Date().getFullYear()} Satoshi Takimoto. All rights reserved.
+        © {new Date().getFullYear()} Satoshi Takimoto.
         <span>
           Built with {` `}
           <a rel="external" href="https://www.gatsbyjs.org">
