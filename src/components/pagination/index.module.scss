@@ -1,8 +1,15 @@
 @import "../../styles/common.scss";
 
 .pagination {
-  & > a, & > span {
+  & a, & span {
     @include text-body2;
     margin-right: 1.5rem;
+  }
+
+  & .disabled {
+    @include text-body2;
+    @include foreground-tertiary;
+    cursor: not-allowed;
+    text-decoration: none;
   }
 }
