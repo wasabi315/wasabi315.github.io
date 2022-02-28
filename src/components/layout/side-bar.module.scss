@@ -11,6 +11,8 @@
   @include background-primary;
   display: flex;
   flex-direction: column;
+
+  will-change: transform;
   transform: translateX(0);
   transition: transform 0.3s ease-in-out;
   &.no_side_bar {
@@ -26,6 +28,8 @@
   width: 100%;
   z-index: 1;
   background-color: rgba(0, 0, 0, 0.5);
+
+  will-change: display;
   &.no_side_bar {
     display: none;
   }
