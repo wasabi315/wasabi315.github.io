@@ -17,7 +17,6 @@
 }
 
 .menu {
-  margin: 0.0625rem 1.5rem 0 0;
   @include text-h6;
   @include md-and-up {
     display: none;

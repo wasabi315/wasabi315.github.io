@@ -23,9 +23,6 @@ const Header: React.FCX<Prop> = ({
 }) => (
   <header className={`${className} ${styles.header}`}>
     <nav className={styles.container}>
-      <div className={styles.menu}>
-        <FontAwesomeIcon icon={faBars} onClick={onClickMenu} />
-      </div>
       <div className={styles.title}>
         <Link to="/">{siteTitle}</Link>
       </div>
@@ -46,6 +43,9 @@ const Header: React.FCX<Prop> = ({
           </li>
         ))}
       </ul>
+      <div className={styles.menu}>
+        <FontAwesomeIcon icon={faBars} onClick={onClickMenu} />
+      </div>
     </nav>
   </header>
 )
