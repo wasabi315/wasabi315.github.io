@@ -2,7 +2,7 @@
 
 .container {
   margin: 0 auto;
-  max-width: 960px;
+  max-width: $lg;
 }
 
 .header {
@@ -23,7 +23,7 @@
   & > span {
     float: right;
   }
-  @include respond-below(lg) {
+  @include md-and-down {
     display: none;
   }
 }

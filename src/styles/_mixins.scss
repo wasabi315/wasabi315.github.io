@@ -16,6 +16,9 @@
 @mixin background-secondary {
   background-color: $theme-background-secondary;
 }
+@mixin background-secondary {
+  background-color: $theme-background-tertiary;
+}
 
 // Typography
 @mixin text-h1 {
@@ -68,28 +71,44 @@
 }
 
 // Breakpoints
-$breakpoints:(
-  sm: $sm,
-  md: $md,
-  lg: $lg,
-  xl: $xl,
-);
-
-@mixin respond-above($breakpoint) {
-  @if map-has-key($breakpoints, $breakpoint) {
-    @media (min-width: map-get($breakpoints, $breakpoint)) {
-      @content;
-    }
-  } @else {
-    @warn("Invalid breakpoint: #{$breakpoint}");
+@mixin sm-and-up {
+  @media (min-width: $sm) {
+    @content;
   }
 }
-@mixin respond-below($breakpoint) {
-  @if map-has-key($breakpoints, $breakpoint) {
-    @media (max-width: map-get($breakpoints, $breakpoint)) {
-      @content;
-    }
-  } @else {
-    @warn("Invalid breakpoint: #{$breakpoint}");
+@mixin md-and-up {
+  @media (min-width: $md) {
+    @content;
+  }
+}
+@mixin lg-and-up {
+  @media (min-width: $lg) {
+    @content;
+  }
+}
+@mixin xl-and-up {
+  @media (min-width: $xl) {
+    @content;
+  }
+}
+
+@mixin sm-and-down {
+  @media (max-width: calc($sm - 1px)) {
+    @content;
+  }
+}
+@mixin md-and-down {
+  @media (max-width: calc($md - 1px)) {
+    @content;
+  }
+}
+@mixin lg-and-down {
+  @media (max-width: calc($lg - 1px)) {
+    @content;
+  }
+}
+@mixin xl-and-down {
+  @media (max-width: calc($xl - 1px)) {
+    @content;
   }
 }

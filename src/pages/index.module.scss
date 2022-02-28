@@ -8,7 +8,7 @@
 .hero_text {
   @include text-h1;
   color: $theme-accent-primary;
-  @include respond-below(sm) {
+  @include sm-and-down {
     @include text-h2;
   }
 }
