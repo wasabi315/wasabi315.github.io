@@ -3,7 +3,7 @@
 .title {
   @include text-h1;
   margin-bottom: 5rem;
-  @include sm-and-down {
+  @include md-and-down {
     @include text-h3;
   }
 }
@@ -11,7 +11,7 @@
 .body {
   @include text-h4;
   text-align: center;
-  @include sm-and-down {
+  @include md-and-down {
     @include text-h6;
   }
 }

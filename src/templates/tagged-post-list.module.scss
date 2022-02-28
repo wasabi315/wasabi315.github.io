@@ -4,7 +4,7 @@
   @include text-h1;
   @include hash-tag;
   margin-bottom: 2.5rem;
-  @include sm-and-down {
+  @include md-and-down {
     @include text-h3;
     margin-bottom: 1.25rem;
   }

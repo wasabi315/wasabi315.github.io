@@ -2,7 +2,7 @@
 
 .title {
   @include text-h1;
-  @include sm-and-down {
+  @include md-and-down {
     @include text-h3;
   }
 }
