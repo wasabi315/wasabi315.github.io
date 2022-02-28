@@ -31,7 +31,6 @@ const Layout: React.FCX = ({ children }) => {
     }
   `)
   const [showSideBar, open, close] = useToggle(false)
-  const display = showSideBar ? undefined : { display: "none" }
 
   return (
     <div className={styles.container}>
@@ -40,7 +39,7 @@ const Layout: React.FCX = ({ children }) => {
         siteTitle={data.site.siteMetadata?.title || `Title`}
         onClickMenu={open}
       />
-      <SideBar style={display} close={close} />
+      <SideBar showSideBar={showSideBar} close={close} />
       <main className={styles.main}>{children}</main>
       <footer className={styles.footer}>
         © {new Date().getFullYear()} Satoshi Takimoto.
