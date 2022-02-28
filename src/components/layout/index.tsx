@@ -9,7 +9,7 @@ import * as React from "react"
 import { useStaticQuery, graphql } from "gatsby"
 
 import "../../styles/global.scss"
-import * as style from "./index.module.scss"
+import * as styles from "./index.module.scss"
 import Header from "./header"
 import SideBar from "./side-bar"
 
@@ -34,15 +34,15 @@ const Layout: React.FCX = ({ children }) => {
   const display = showSideBar ? undefined : { display: "none" }
 
   return (
-    <div className={style.container}>
+    <div className={styles.container}>
       <Header
-        className={style.header}
+        className={styles.header}
         siteTitle={data.site.siteMetadata?.title || `Title`}
         onClickMenu={open}
       />
       <SideBar style={display} close={close} />
-      <main>{children}</main>
-      <footer className={style.footer}>
+      <main className={styles.main}>{children}</main>
+      <footer className={styles.footer}>
         © {new Date().getFullYear()} Satoshi Takimoto.
         <span>
           Built with {` `}

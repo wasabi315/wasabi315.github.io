@@ -3,7 +3,7 @@ import { Link } from "gatsby"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faBars } from "@fortawesome/free-solid-svg-icons"
 
-import * as style from "./header.module.scss"
+import * as styles from "./header.module.scss"
 import * as config from "./config"
 
 type Prop = {
@@ -21,25 +21,25 @@ const Header: React.FCX<Prop> = ({
   siteTitle = ``,
   onClickMenu,
 }) => (
-  <header className={className}>
-    <nav className={style.header}>
-      <div className={style.menu}>
+  <header className={`${className} ${styles.header}`}>
+    <nav className={styles.container}>
+      <div className={styles.menu}>
         <FontAwesomeIcon icon={faBars} onClick={onClickMenu} />
       </div>
-      <div className={style.title}>
+      <div className={styles.title}>
         <Link to="/">{siteTitle}</Link>
       </div>
-      <ul className={style.nav}>
+      <ul className={styles.nav}>
         {navigationLinks.map(({ to, label }) => (
-          <li key={to} className={style.nav_item}>
+          <li key={to} className={styles.nav_item}>
             <Link to={to}>{label}</Link>
           </li>
         ))}
       </ul>
-      <div className={style.spacer} />
-      <ul className={style.nav}>
+      <div className={styles.spacer} />
+      <ul className={styles.nav}>
         {config.socialLinks.map(({ icon, url }) => (
-          <li key={url} className={style.nav_item}>
+          <li key={url} className={styles.nav_item}>
             <a href={url}>
               <FontAwesomeIcon icon={icon} />
             </a>

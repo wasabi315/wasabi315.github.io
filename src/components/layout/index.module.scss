@@ -3,18 +3,15 @@
 .container {
   margin: 0 auto;
   max-width: 960px;
-  padding: 1rem;
 }
 
 .header {
   margin-bottom: 3rem;
-  @include respond-below(md) {
-    margin-bottom: 4rem;
-  }
 }
 
 .main {
   margin-bottom: 3rem;
+  padding: 0 1rem;
 }
 
 .footer {
@@ -26,7 +23,7 @@
   & > span {
     float: right;
   }
-  @include respond-below(md) {
+  @include respond-below(lg) {
     display: none;
   }
 }
