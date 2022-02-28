@@ -112,3 +112,10 @@
     @content;
   }
 }
+
+// Misc
+@mixin hash-tag {
+  &::before {
+    content: "#";
+  }
+}

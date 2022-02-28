@@ -33,15 +33,21 @@ const PostListPage: React.FCX<Prop> = ({ data, pageContext }) => {
     <Layout>
       <Seo title="Posts" />
       <h1 className={styles.title}>Posts</h1>
-      <section className={styles.entry_list}>
+      <section className={styles.entry}>
         {data.allMdx.nodes.map(({ slug, frontmatter }) => (
-          <article key={slug} className={styles.entry}>
-            <Link to={`/` + slug}>{frontmatter.title}</Link>
-            <p>
+          <article key={slug} className={styles.entry_item}>
+            <Link className={styles.entry_item_title} to={`/` + slug}>
+              {frontmatter.title}
+            </Link>
+            <p className={styles.entry_item_meta}>
               <time>{frontmatter.date}</time>
               {` - `}
               {frontmatter.tags.map(tag => (
-                <Link key={tag} to={`/tags/` + tag}>
+                <Link
+                  key={tag}
+                  className={styles.entry_item_tag}
+                  to={`/tags/` + tag}
+                >
                   {tag}
                 </Link>
               ))}
