@@ -44,8 +44,13 @@ const SideBar: React.FCX<Prop> = ({ showSideBar, close }) => {
             </li>
           ))}
         </ul>
-        <p className={styles.copyright}>
+        <p className={styles.footer}>
           © {new Date().getFullYear()} Satoshi Takimoto.
+          <br />
+          Built with {` `}
+          <a rel="external" href="https://www.gatsbyjs.org">
+            Gatsby
+          </a>
         </p>
       </aside>
       <div className={`${styles.mask} ${noSideBarClass}`} onClick={close} />

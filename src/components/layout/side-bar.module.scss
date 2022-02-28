@@ -68,7 +68,7 @@
   }
 }
 
-.copyright {
+.footer {
   @include text-caption;
   @include foreground-secondary;
   border-top: 1px solid $theme-divider;
