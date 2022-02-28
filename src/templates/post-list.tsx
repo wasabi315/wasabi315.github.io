@@ -3,6 +3,7 @@ import { Link, graphql } from "gatsby"
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
+import Pagination from "../components/pagination"
 import * as styles from "./post-list.module.scss"
 
 type Prop = {
@@ -25,10 +26,6 @@ type Prop = {
 }
 
 const PostListPage: React.FCX<Prop> = ({ data, pageContext }) => {
-  const prevPage = Math.max(pageContext.currentPage - 1, 1)
-  const nextPage = Math.min(pageContext.currentPage + 1, pageContext.numPages)
-  const prevPageLink = `/posts/${prevPage === 1 ? `` : prevPage}`
-  const nextPageLink = `/posts/${nextPage === 1 ? `` : nextPage}`
   return (
     <Layout>
       <Seo title="Posts" />
@@ -55,13 +52,13 @@ const PostListPage: React.FCX<Prop> = ({ data, pageContext }) => {
           </article>
         ))}
       </section>
-      <section className={styles.nav}>
-        <Link to={prevPageLink}>Newer</Link>
-        <span>
-          Page {pageContext.currentPage} of {pageContext.numPages}
-        </span>
-        <Link to={nextPageLink}>Older</Link>
-      </section>
+      <Pagination
+        currentPage={pageContext.currentPage}
+        numPages={pageContext.numPages}
+        createPageLink={page => `/posts/${page === 1 ? `` : page}`}
+        prevText="Newer"
+        nextText="Older"
+      />
     </Layout>
   )
 }

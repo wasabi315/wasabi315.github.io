@@ -4,6 +4,7 @@ import { Link, graphql } from "gatsby"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 import * as styles from "./tagged-post-list.module.scss"
+import Pagination from "../components/pagination"
 
 type Prop = {
   data: {
@@ -26,14 +27,6 @@ type Prop = {
 }
 
 const TaggedPostList: React.FCX<Prop> = ({ data, pageContext }) => {
-  const prevPage = Math.max(pageContext.currentPage - 1, 1)
-  const nextPage = Math.min(pageContext.currentPage + 1, pageContext.numPages)
-  const prevPageLink = `/tags/${pageContext.tag}/${
-    prevPage === 1 ? `` : prevPage
-  }`
-  const nextPageLink = `/tags/${pageContext.tag}/${
-    nextPage === 1 ? `` : nextPage
-  }`
   return (
     <Layout>
       <Seo title={`Tag: ${pageContext.tag}`} />
@@ -60,13 +53,15 @@ const TaggedPostList: React.FCX<Prop> = ({ data, pageContext }) => {
           </article>
         ))}
       </section>
-      <section className={styles.nav}>
-        <Link to={prevPageLink}>Newer</Link>
-        <span>
-          Page {pageContext.currentPage} of {pageContext.numPages}
-        </span>
-        <Link to={nextPageLink}>Older</Link>
-      </section>
+      <Pagination
+        currentPage={pageContext.currentPage}
+        numPages={pageContext.numPages}
+        createPageLink={page =>
+          `/tags/${pageContext.tag}/${page === 1 ? `` : page}`
+        }
+        prevText="Newer"
+        nextText="Older"
+      />
     </Layout>
   )
 }
