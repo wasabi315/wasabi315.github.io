@@ -1,58 +1,58 @@
-@import "./variables";
+@use "./variables" as var;
 
 // Colors
 @mixin foreground-primary {
-  color: $theme-foreground-primary;
+  color: var.$theme-foreground-primary;
 }
 @mixin foreground-secondary {
-  color: $theme-foreground-secondary;
+  color: var.$theme-foreground-secondary;
 }
 @mixin foreground-tertiary {
-  color: $theme-foreground-tertiary;
+  color: var.$theme-foreground-tertiary;
 }
 @mixin background-primary {
-  background-color: $theme-background-primary;
+  background-color: var.$theme-background-primary;
 }
 @mixin background-secondary {
-  background-color: $theme-background-secondary;
+  background-color: var.$theme-background-secondary;
 }
 @mixin background-secondary {
-  background-color: $theme-background-tertiary;
+  background-color: var.$theme-background-tertiary;
 }
 
 // Typography
 @mixin text-h1 {
-  font-family: $header-font;
+  font-family: var.$header-font;
   font-weight: 800;
   font-size: 4rem;
   line-height: 1.2;
 }
 @mixin text-h2 {
-  font-family: $header-font;
+  font-family: var.$header-font;
   font-weight: 800;
   font-size: 3rem;
   line-height: 1.2;
 }
 @mixin text-h3 {
-  font-family: $header-font;
+  font-family: var.$header-font;
   font-weight: 800;
   font-size: 2.5rem;
   line-height: 1.2;
 }
 @mixin text-h4 {
-  font-family: $header-font;
+  font-family: var.$header-font;
   font-weight: 800;
   font-size: 2rem;
   line-height: 1.2;
 }
 @mixin text-h5 {
-  font-family: $header-font;
+  font-family: var.$header-font;
   font-weight: 800;
   font-size: 1.75rem;
   line-height: 1.2;
 }
 @mixin text-h6 {
-  font-family: $header-font;
+  font-family: var.$header-font;
   font-weight: 800;
   font-size: 1.5rem;
   line-height: 1.2;
@@ -72,43 +72,43 @@
 
 // Breakpoints
 @mixin sm-and-up {
-  @media (min-width: $sm) {
+  @media (min-width: var.$sm) {
     @content;
   }
 }
 @mixin md-and-up {
-  @media (min-width: $md) {
+  @media (min-width: var.$md) {
     @content;
   }
 }
 @mixin lg-and-up {
-  @media (min-width: $lg) {
+  @media (min-width: var.$lg) {
     @content;
   }
 }
 @mixin xl-and-up {
-  @media (min-width: $xl) {
+  @media (min-width: var.$xl) {
     @content;
   }
 }
 
 @mixin sm-and-down {
-  @media (max-width: calc($sm - 1px)) {
+  @media (max-width: calc(var.$sm - 1px)) {
     @content;
   }
 }
 @mixin md-and-down {
-  @media (max-width: calc($md - 1px)) {
+  @media (max-width: calc(var.$md - 1px)) {
     @content;
   }
 }
 @mixin lg-and-down {
-  @media (max-width: calc($lg - 1px)) {
+  @media (max-width: calc(var.$lg - 1px)) {
     @content;
   }
 }
 @mixin xl-and-down {
-  @media (max-width: calc($xl - 1px)) {
+  @media (max-width: calc(var.$xl - 1px)) {
     @content;
   }
 }

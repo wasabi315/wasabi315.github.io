@@ -1,6 +1,6 @@
-@import "./reset";
-@import "./variables";
-@import "./mixins";
+@use "./reset";
+@use "./variables" as var;
+@use "./mixins" as mixin;
 
 // * {
 //   outline: 1px solid pink;
@@ -8,14 +8,14 @@
 
 html {
   font-size: 16px;
-  font-family: $body-font;
+  font-family: var.$body-font;
   box-sizing: border-box;
   overflow-y: scroll;
 }
 
 body {
-  @include foreground-primary;
-  background-color: $theme-background-primary;
+  @include mixin.foreground-primary;
+  background-color: var.$theme-background-primary;
   word-wrap: break-word;
   font-kerning: normal;
   -webkit-font-smoothing: antialiased;
@@ -27,12 +27,12 @@ body {
 }
 
 code {
-  font-family: $code-font;
+  font-family: var.$code-font;
 }
 
 a:visited, a:link {
   color: inherit;
 }
 a:hover {
-  color: $theme-accent-primary;
+  color: var.$theme-accent-primary;
 }

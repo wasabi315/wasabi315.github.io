@@ -27,7 +27,7 @@ const Post: React.FCX<Prop> = ({ data: { mdx } }) => (
       <time>{mdx.frontmatter.date}</time>
       {` - `}
       {mdx.frontmatter.tags.map(tag => (
-        <Link key={tag} to={`/tags/` + tag}>
+        <Link key={tag} className={styles.tag} to={`/tags/` + tag}>
           {tag}
         </Link>
       ))}

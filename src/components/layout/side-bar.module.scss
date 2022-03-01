@@ -1,4 +1,4 @@
-@import "../../styles/common";
+@use "../../styles/common";
 
 .side_bar {
   position: fixed;
@@ -8,7 +8,7 @@
   width: 80%;
   z-index: 2;
   padding: 1.5rem;
-  @include background-primary;
+  @include common.background-primary;
   display: flex;
   flex-direction: column;
 
@@ -38,8 +38,8 @@
 .close {
   align-self: flex-end;
   margin-bottom: 1rem;
-  @include text-h6;
-  @include foreground-secondary;
+  @include common.text-h6;
+  @include common.foreground-secondary;
 }
 
 .nav {
@@ -47,7 +47,7 @@
   margin: 0;
   padding: 0;
   & .nav_item {
-    @include text-h6;
+    @include common.text-h6;
     margin-bottom: 0.75rem;
   }
   & a {
@@ -61,17 +61,17 @@
   margin: 0;
   margin-bottom: 0.75rem;
   & > .social_item {
-    @include text-h6;
-    @include foreground-secondary;
+    @include common.text-h6;
+    @include common.foreground-secondary;
     margin-right: 0.75rem;
     float: left;
   }
 }
 
 .footer {
-  @include text-caption;
-  @include foreground-secondary;
-  border-top: 1px solid $theme-divider;
+  @include common.text-caption;
+  @include common.foreground-secondary;
+  border-top: 1px solid common.$theme-divider;
   padding-top: 1rem;
 }
 

@@ -1,21 +1,19 @@
-@import "../styles/common";
+@use "../styles/common";
 
 .title {
-  @include text-h1;
-  @include md-and-down {
-    @include text-h3;
+  @include common.text-h1;
+  @include common.md-and-down {
+    @include common.text-h3;
   }
 }
 
 .meta {
-  @include text-body;
-  @include foreground-secondary;
+  @include common.text-body;
+  @include common.foreground-secondary;
   margin-bottom: 2.5rem;
-  & > a {
+  & .tag {
     margin-right: 0.375rem;
     text-decoration: none;
-    &::before {
-      content: "#";
-    }
+    @include common.hash-tag;
   }
 }

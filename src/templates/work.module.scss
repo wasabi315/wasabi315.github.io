@@ -1,6 +1,6 @@
-@import "../styles/common";
+@use "../styles/common";
 
 .title {
-  @include text-h1;
+  @include common.text-h1;
   margin-bottom: 1.5rem;
 }

@@ -1,13 +1,13 @@
-@import "../styles/common";
+@use "../styles/common";
 
 .title {
-  @include text-h1;
+  @include common.text-h1;
   margin-bottom: 2.5rem;
-  @include md-and-down {
-    @include text-h3;
+  @include common.md-and-down {
+    @include common.text-h3;
   }
 }
 
 .content {
-  @include text-body;
+  @include common.text-body;
 }

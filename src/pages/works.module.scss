@@ -1,17 +1,17 @@
-@import "../styles/common";
+@use "../styles/common";
 
 .title {
-  @include text-h1;
+  @include common.text-h1;
   margin-bottom: 5rem;
-  @include md-and-down {
-    @include text-h3;
+  @include common.md-and-down {
+    @include common.text-h3;
   }
 }
 
 .body {
-  @include text-h4;
+  @include common.text-h4;
   text-align: center;
-  @include md-and-down {
-    @include text-h6;
+  @include common.md-and-down {
+    @include common.text-h6;
   }
 }

@@ -1,4 +1,4 @@
-@import "../styles/common";
+@use "../styles/common";
 
 .hero {
   text-align: center;
@@ -6,26 +6,26 @@
 }
 
 .hero_text {
-  @include text-h1;
-  color: $theme-accent-primary;
-  @include md-and-down {
-    @include text-h2;
+  @include common.text-h1;
+  color: common.$theme-accent-primary;
+  @include common.md-and-down {
+    @include common.text-h2;
   }
 }
 
 .about {
-  @include foreground-primary;
-  @include text-body;
+  @include common.foreground-primary;
+  @include common.text-body;
   margin-bottom: 4rem;
 }
 
 .detail {
-  @include foreground-primary;
-  @include text-body;
+  @include common.foreground-primary;
+  @include common.text-body;
   margin-bottom: 4rem;
 
   & > h2 {
-    @include text-h6;
+    @include common.text-h6;
     margin-bottom: 0.5rem;
   }
 

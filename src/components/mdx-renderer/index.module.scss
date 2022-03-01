@@ -1,50 +1,50 @@
-@import "../../styles/common";
+@use "../../styles/common";
 
 .markdown {
   & p {
-    @include text-body;
+    @include common.text-body;
     margin: 0 0 1rem 0;
   }
 
   & h1 {
-    @include text-h1;
+    @include common.text-h1;
     margin: 0 0 1rem 0;
   }
 
   & h2 {
-    @include text-h2;
+    @include common.text-h2;
     margin: 0 0 1rem 0;
   }
 
   & h3 {
-    @include text-h3;
+    @include common.text-h3;
     margin: 0 0 1rem 0;
   }
 
   & h4 {
-    @include text-h4;
+    @include common.text-h4;
     margin: 0 0 1rem 0;
   }
 
   & h5 {
-    @include text-h5;
+    @include common.text-h5;
     margin: 0 0 1rem 0;
   }
 
   & h6 {
-    @include text-h6;
+    @include common.text-h6;
     margin: 0 0 1rem 0;
   }
 
   & blockquote {
     padding-left: 1rem;
-    border-left: 0.25rem solid $theme-foreground-tertiary;
-    @include foreground-secondary;
+    border-left: 0.25rem solid common.$theme-foreground-tertiary;
+    @include common.foreground-secondary;
   }
 
   & hr {
     height: 0.125rem;
-    background-color: $theme-divider;
+    background-color: common.$theme-divider;
     border: none;
     margin: 2rem 0;
   }
@@ -66,7 +66,7 @@
   }
 
   & li {
-    @include text-body;
+    @include common.text-body;
     line-height: 1.5;
   }
 
@@ -75,19 +75,19 @@
     border-collapse: collapse;
     border-spacing: 0;
     & th, & td {
-      @include text-body;
+      @include common.text-body;
       padding: 0.5rem;
-      border: 1px solid $theme-foreground-tertiary;
+      border: 1px solid common.$theme-foreground-tertiary;
     }
   }
 
   & pre {
-    @include text-body2;
+    @include common.text-body2;
     margin-bottom: 1rem;
   }
 
   & :not(pre) > code {
-    @include background-secondary;
+    @include common.background-secondary;
     padding: 0.375rem 0.5rem;
   }
 }
