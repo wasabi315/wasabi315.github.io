@@ -1,4 +1,5 @@
 import * as React from "react"
+import clsx from "clsx"
 import { Link } from "gatsby"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faBars } from "@fortawesome/free-solid-svg-icons"
@@ -32,12 +33,14 @@ const Header: React.FCX<Prop> = ({
   onClickMenu,
 }) => {
   const scrollY = useScrollY()
-  const showHeaderShadow = scrollY > 0
+  const showShadow = scrollY > 0
   return (
     <header
-      className={`${className} ${styles.header} ${
-        showHeaderShadow ? styles.header_shadow : ``
-      }`}
+      className={clsx(
+        className,
+        styles.header,
+        showShadow && styles.show_shadow
+      )}
     >
       <nav className={styles.container}>
         <div className={styles.title}>

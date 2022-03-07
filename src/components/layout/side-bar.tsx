@@ -1,4 +1,5 @@
 import * as React from "react"
+import clsx from "clsx"
 import { Link } from "gatsby"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faXmark } from "@fortawesome/free-solid-svg-icons"
@@ -18,10 +19,10 @@ const navigationLinks = [
 ]
 
 const SideBar: React.FCX<Prop> = ({ showSideBar, close }) => {
-  const noSideBarClass = showSideBar ? `` : styles.no_side_bar
+  const showSideBarClass = showSideBar && styles.show
   return (
     <>
-      <aside className={`${styles.side_bar} ${noSideBarClass}`}>
+      <aside className={clsx(styles.side_bar, showSideBarClass)}>
         <div className={styles.close}>
           <FontAwesomeIcon icon={faXmark} onClick={close} />
         </div>
@@ -53,7 +54,7 @@ const SideBar: React.FCX<Prop> = ({ showSideBar, close }) => {
           </a>
         </p>
       </aside>
-      <div className={`${styles.mask} ${noSideBarClass}`} onClick={close} />
+      <div className={clsx(styles.mask, showSideBarClass)} onClick={close} />
     </>
   )
 }
