@@ -1,27 +1,21 @@
 import * as React from "react"
 import { Link } from "gatsby"
+import clsx from "clsx"
 
 import * as styles from "./with-anchor-link.module.scss"
 
-type Props = {
-  children: string
-  id?: string
-  className?: string
-}
-
-const withAnchorLink = <P extends Props = Props>(
-  WrappedElement: React.ElementType<P>
-): React.ComponentType<P> => {
-  return props =>
-    React.createElement(
-      WrappedElement,
-      {
-        ...props,
-        id: props.children,
-        className: `${styles.has_anchor_link} ${props.className ?? ``}`,
-      },
-      [<Link to={`#${props.children}`} />, props.children]
-    )
+const withAnchorLink = (
+  WrappedElement: React.ElementType<any>
+): React.FCX<{ children: string }> => {
+  return props => (
+    <WrappedElement
+      id={props.children}
+      className={clsx(styles.has_anchor_link, props.className)}
+    >
+      <Link to={`#${props.children}`} />
+      {props.children}
+    </WrappedElement>
+  )
 }
 
 export default withAnchorLink
