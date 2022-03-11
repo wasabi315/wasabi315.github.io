@@ -42,15 +42,15 @@ code[class*="language-"]::mozselection {
   }
 }
 pre[class*="language-"] {
-  padding: .75em 1em;
-  margin: .5em 0;
+  padding: 0.75em 1em;
+  margin: 0.5em 0;
   overflow: auto;
   background: #f6f7fa;
   border-left: 0.5rem solid #a3be8c;
 }
 :not(pre) > code[class*="language-"] {
-  padding: .1em .3em;
-  border-radius: .3em;
+  padding: 0.1em 0.3em;
+  border-radius: 0.3em;
   color: #4c566a;
   background: #f6f7fa;
 }
@@ -58,7 +58,7 @@ pre[class*="language-"] {
 * Tokens
 */
 .namespace {
-  opacity: .7;
+  opacity: 0.7;
 }
 .token.comment,
 .token.prolog,

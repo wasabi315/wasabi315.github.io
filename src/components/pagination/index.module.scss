@@ -1,7 +1,8 @@
 @use "../../styles/common.scss";
 
 .pagination {
-  & a, & span {
+  & a,
+  & span {
     @include common.text-body2;
     margin-right: 1.5rem;
   }
