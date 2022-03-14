@@ -60,7 +60,7 @@
   padding: 0;
   margin: 0;
   margin-bottom: 0.75rem;
-  & > .social_item {
+  & .social_item {
     @include common.text-h6;
     @include common.foreground-secondary;
     margin-right: 0.75rem;

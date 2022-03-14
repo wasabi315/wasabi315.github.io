@@ -10,7 +10,7 @@ const withAnchorLink = (
   return props => (
     <WrappedElement
       id={props.children}
-      className={clsx(styles.has_anchor_link, props.className)}
+      className={clsx(styles.anchor_link, props.className)}
     >
       <Link to={`#${props.children}`} />
       {props.children}

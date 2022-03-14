@@ -1,7 +1,7 @@
 @use "../../styles/common.scss";
 
 @include common.lg-and-up {
-  .has_anchor_link {
+  .anchor_link {
     position: relative;
     & a::before {
       content: "";
