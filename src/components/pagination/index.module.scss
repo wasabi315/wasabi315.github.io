@@ -11,6 +11,7 @@
     @include common.text-body2;
     @include common.foreground-tertiary;
     cursor: not-allowed;
+    pointer-events: none;
     text-decoration: none;
   }
 }
