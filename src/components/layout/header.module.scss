@@ -31,9 +31,6 @@
   & a {
     text-decoration: none;
   }
-  @include common.md-and-down {
-    @include common.text-h6;
-  }
 }
 
 .nav {

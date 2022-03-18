@@ -6,34 +6,31 @@
     margin: 0 0 1rem 0;
   }
 
-  & h1 {
-    @include common.text-h1;
-    margin: 0 0 1rem 0;
-  }
-
-  & h2 {
-    @include common.text-h2;
-    margin: 0 0 1rem 0;
-  }
-
-  & h3 {
-    @include common.text-h3;
-    margin: 0 0 1rem 0;
-  }
-
-  & h4 {
-    @include common.text-h4;
-    margin: 0 0 1rem 0;
-  }
-
-  & h5 {
-    @include common.text-h5;
-    margin: 0 0 1rem 0;
-  }
-
+  & h1,
+  & h2,
+  & h3,
+  & h4,
+  & h5,
   & h6 {
+    margin: 1.75rem 0 0.5rem 0;
+  }
+  & h1 {
+    @include common.text-h3;
+  }
+  & h2 {
+    @include common.text-h4;
+  }
+  & h3 {
+    @include common.text-h5;
+  }
+  & h4 {
     @include common.text-h6;
-    margin: 0 0 1rem 0;
+  }
+  & h5 {
+    @include common.text-subtitle1;
+  }
+  & h6 {
+    @include common.text-subtitle2;
   }
 
   & blockquote {
@@ -85,12 +82,13 @@
   }
 
   & pre {
-    @include common.text-body2;
+    @include common.text-code;
     margin-bottom: 1rem;
   }
 
   & :not(pre) > code {
     @include common.background-secondary;
-    padding: 0.375rem 0.5rem;
+    @include common.text-code;
+    padding: 0.1rem 0.375rem;
   }
 }

@@ -5,7 +5,7 @@
   @include common.hash-tag;
   margin-bottom: 2.5rem;
   @include common.md-and-down {
-    @include common.text-h3;
+    // @include common.text-h3;
     margin-bottom: 1.25rem;
   }
 }
@@ -22,9 +22,6 @@
     }
     & .entry_item_title {
       @include common.text-h4;
-      @include common.md-and-down {
-        @include common.text-h5;
-      }
     }
     & .entry_item_meta {
       @include common.text-body2;

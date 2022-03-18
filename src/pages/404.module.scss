@@ -3,9 +3,6 @@
 .title {
   @include common.text-h1;
   margin-bottom: 2.5rem;
-  @include common.md-and-down {
-    @include common.text-h3;
-  }
 }
 
 .content {

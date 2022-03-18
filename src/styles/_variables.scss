@@ -22,10 +22,10 @@ $theme-background-tertiary: var(--theme-background-tertiary);
 $theme-divider: var(--theme-divider);
 
 // Fonts
-@import url("https://fonts.googleapis.com/css2?family=Fira+Code&family=Inter:wght@400;700&family=Source+Sans+Pro&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Fira+Code&family=Inter:wght@400;800&family=Source+Sans+Pro&display=swap");
 $header-font: "Inter", sans-serif;
 $body-font: "Inter", sans-serif;
-$code-font: "Fira Code", sans-serif;
+$code-font: "Fira Code", monospace;
 
 // Breakpoints
 $sm: 576px;

@@ -8,9 +8,6 @@
 .hero_text {
   @include common.text-h1;
   color: common.$theme-accent-primary;
-  @include common.md-and-down {
-    @include common.text-h2;
-  }
 }
 
 .about {

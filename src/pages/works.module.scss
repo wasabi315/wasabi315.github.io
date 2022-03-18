@@ -3,15 +3,9 @@
 .title {
   @include common.text-h1;
   margin-bottom: 5rem;
-  @include common.md-and-down {
-    @include common.text-h3;
-  }
 }
 
 .body {
   @include common.text-h4;
   text-align: center;
-  @include common.md-and-down {
-    @include common.text-h6;
-  }
 }

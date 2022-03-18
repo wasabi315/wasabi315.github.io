@@ -2,9 +2,6 @@
 
 .title {
   @include common.text-h1;
-  @include common.md-and-down {
-    @include common.text-h3;
-  }
 }
 
 .meta {
