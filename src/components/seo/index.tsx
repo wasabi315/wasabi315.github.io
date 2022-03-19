@@ -9,6 +9,8 @@ import * as React from "react"
 import { Helmet } from "react-helmet"
 import { useStaticQuery, graphql } from "gatsby"
 
+import ogImage from "../../images/og-image.png"
+
 type Prop = {
   description?: string
   lang?: string
@@ -30,6 +32,7 @@ const Seo: React.FCX<Prop> = ({
             title
             description
             author
+            siteUrl
           }
         }
       }
@@ -38,6 +41,7 @@ const Seo: React.FCX<Prop> = ({
 
   const metaDescription = description || site.siteMetadata.description
   const defaultTitle = site.siteMetadata?.title
+  const ogImageUrl = site.siteMetadata?.siteUrl + ogImage
 
   return (
     <Helmet
@@ -64,6 +68,10 @@ const Seo: React.FCX<Prop> = ({
           content: `website`,
         },
         {
+          property: `og:image`,
+          content: ogImageUrl,
+        },
+        {
           name: `twitter:card`,
           content: `summary`,
         },
@@ -78,6 +86,14 @@ const Seo: React.FCX<Prop> = ({
         {
           name: `twitter:description`,
           content: metaDescription,
+        },
+        {
+          name: `twitter:image`,
+          content: ogImageUrl,
+        },
+        {
+          name: `image`,
+          content: ogImageUrl,
         },
         ...meta,
       ]}
