@@ -1,10 +1,11 @@
 import * as React from "react"
 import { graphql } from "gatsby"
-import { MDXRenderer } from "gatsby-plugin-mdx"
+import { GatsbyImage, getImage, ImageDataLike } from "gatsby-plugin-image"
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
-import * as styles from "./post.module.scss"
+import MDXRenderer from "../components/mdx-renderer"
+import * as styles from "./work.module.scss"
 
 type Prop = {
   data: {
@@ -12,18 +13,31 @@ type Prop = {
       body: string
       frontmatter: {
         title: string
+        featuredImage: ImageDataLike
       }
     }
   }
 }
 
-const Work: React.FCX<Prop> = ({ data: { mdx } }) => (
-  <Layout>
-    <Seo title={mdx.frontmatter.title} />
-    <h1 className={styles.title}>{mdx.frontmatter.title}</h1>
-    <MDXRenderer frontmatter={mdx.frontmatter}>{mdx.body}</MDXRenderer>
-  </Layout>
-)
+const Work: React.FCX<Prop> = ({ data: { mdx } }) => {
+  const featuredImage = getImage(mdx.frontmatter.featuredImage)
+  return (
+    <Layout>
+      <Seo title={mdx.frontmatter.title} />
+      <h1 className={styles.title}>{mdx.frontmatter.title}</h1>
+      {featuredImage && (
+        <div className={styles.featured_image_wrapper}>
+          <GatsbyImage
+            className={styles.featured_image}
+            image={featuredImage}
+            alt="wasabi315's personal page"
+          />
+        </div>
+      )}
+      <MDXRenderer frontmatter={mdx.frontmatter}>{mdx.body}</MDXRenderer>
+    </Layout>
+  )
+}
 
 export default Work
 
@@ -33,6 +47,11 @@ export const pageQuery = graphql`
       body
       frontmatter {
         title
+        featuredImage {
+          childImageSharp {
+            gatsbyImageData(width: 800)
+          }
+        }
       }
     }
   }

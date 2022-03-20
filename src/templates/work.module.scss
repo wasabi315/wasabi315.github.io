@@ -2,5 +2,13 @@
 
 .title {
   @include common.text-h1;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.featured_image_wrapper {
+  margin: 0 auto 2.5rem auto;
+  max-width: fit-content;
+  & .featured_image {
+    @include common.box-shadow;
+  }
 }
