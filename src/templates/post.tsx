@@ -22,17 +22,21 @@ type Prop = {
 const Post: React.FCX<Prop> = ({ data: { mdx } }) => (
   <Layout>
     <Seo title={mdx.frontmatter.title} />
-    <h1 className={styles.title}>{mdx.frontmatter.title}</h1>
-    <p className={styles.meta}>
-      <time>{mdx.frontmatter.date}</time>
-      {` - `}
-      {mdx.frontmatter.tags.map(tag => (
-        <Link key={tag} className={styles.tag} to={`/tags/` + tag}>
-          {tag}
-        </Link>
-      ))}
-    </p>
-    <MDXRenderer frontmatter={mdx.frontmatter}>{mdx.body}</MDXRenderer>
+    <article>
+      <header>
+        <h1 className={styles.title}>{mdx.frontmatter.title}</h1>
+        <p className={styles.meta}>
+          <time>{mdx.frontmatter.date}</time>
+          {` - `}
+          {mdx.frontmatter.tags.map(tag => (
+            <Link key={tag} className={styles.tag} to={`/tags/` + tag}>
+              {tag}
+            </Link>
+          ))}
+        </p>
+      </header>
+      <MDXRenderer frontmatter={mdx.frontmatter}>{mdx.body}</MDXRenderer>
+    </article>
   </Layout>
 )
 

@@ -24,7 +24,11 @@ const Work: React.FCX<Prop> = ({ data: { mdx } }) => {
   return (
     <Layout>
       <Seo title={mdx.frontmatter.title} />
-      <h1 className={styles.title}>{mdx.frontmatter.title}</h1>
+      <article>
+        <header>
+          <h1 className={styles.title}>{mdx.frontmatter.title}</h1>
+        </header>
+      </article>
       {featuredImage && (
         <div className={styles.featured_image_wrapper}>
           <GatsbyImage
