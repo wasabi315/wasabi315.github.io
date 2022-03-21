@@ -39,7 +39,12 @@ module.exports = {
       },
     },
     `gatsby-plugin-sass`,
-    `gatsby-plugin-mdx`,
+    {
+      resolve: `gatsby-plugin-mdx`,
+      options: {
+        remarkPlugins: [require(`remark-emoji`)],
+      },
+    },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
