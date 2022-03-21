@@ -7,10 +7,10 @@ import withAnchorLink from "./with-anchor-link"
 
 const components: MDXProviderComponentsProp = {
   pre: CodeBlock,
-  h1: withAnchorLink(`h1`),
-  h2: withAnchorLink(`h2`),
-  h3: withAnchorLink(`h3`),
-  h4: withAnchorLink(`h4`),
+  // h1: withAnchorLink(`h1`),
+  // h2: withAnchorLink(`h2`),
+  // h3: withAnchorLink(`h3`),
+  // h4: withAnchorLink(`h4`),
 }
 
 type Props = React.ComponentProps<typeof _MDXRenderer>

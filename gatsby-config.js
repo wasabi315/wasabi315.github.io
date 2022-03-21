@@ -43,6 +43,10 @@ module.exports = {
       resolve: `gatsby-plugin-mdx`,
       options: {
         remarkPlugins: [require(`remark-emoji`)],
+        rehypePlugins: [
+          require(`rehype-slug`),
+          [require(`rehype-autolink-headings`), { content: [] }],
+        ],
       },
     },
     {
