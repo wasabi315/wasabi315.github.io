@@ -47,6 +47,7 @@ module.exports = {
           require(`rehype-slug`),
           [require(`rehype-autolink-headings`), { content: [] }],
         ],
+        gatsbyRemarkPlugins: [`gatsby-remark-prismjs`],
       },
     },
     {

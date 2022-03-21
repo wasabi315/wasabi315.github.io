@@ -116,8 +116,6 @@
   }
 
   & :not(pre) > code {
-    @include common.background-secondary;
     @include common.text-code;
-    padding: 0.1rem 0.375rem;
   }
 }
