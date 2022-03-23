@@ -4,6 +4,7 @@ module.exports = {
     description: `wasabi315's personal website`,
     author: `wasabi315`,
     siteUrl: `https://wasabi315.github.io/`,
+    repositoryUrl: `https://github.com/wasabi315/wasabi315.github.io/`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,

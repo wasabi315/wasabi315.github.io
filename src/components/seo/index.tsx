@@ -7,9 +7,10 @@
 
 import * as React from "react"
 import { Helmet } from "react-helmet"
-import { useStaticQuery, graphql } from "gatsby"
+import { graphql } from "gatsby"
 
 import ogImage from "../../images/og-image.png"
+import { useSiteMetadata } from "../../hooks/useSiteMetadata"
 
 type Prop = {
   description?: string
@@ -24,24 +25,10 @@ const Seo: React.FCX<Prop> = ({
   meta = [],
   title,
 }) => {
-  const { site } = useStaticQuery(
-    graphql`
-      query {
-        site {
-          siteMetadata {
-            title
-            description
-            author
-            siteUrl
-          }
-        }
-      }
-    `
-  )
-
-  const metaDescription = description || site.siteMetadata.description
-  const defaultTitle = site.siteMetadata?.title
-  const ogImageUrl = site.siteMetadata?.siteUrl + ogImage
+  const siteMetadata = useSiteMetadata()
+  const metaDescription = description || siteMetadata.description
+  const defaultTitle = siteMetadata?.title
+  const ogImageUrl = siteMetadata?.siteUrl + ogImage
 
   return (
     <Helmet
@@ -77,7 +64,7 @@ const Seo: React.FCX<Prop> = ({
         },
         {
           name: `twitter:creator`,
-          content: site.siteMetadata?.author || ``,
+          content: siteMetadata?.author || ``,
         },
         {
           name: `twitter:title`,

@@ -12,6 +12,7 @@ import "../../styles/global.scss"
 import * as styles from "./index.module.scss"
 import Header from "./header"
 import SideBar from "./side-bar"
+import { useSiteMetadata } from "../../hooks/useSiteMetadata"
 
 const useToggle = (init: boolean) => {
   const [value, setValue] = React.useState(init)
@@ -21,24 +22,12 @@ const useToggle = (init: boolean) => {
 }
 
 const Layout: React.FCX = ({ children }) => {
-  const data = useStaticQuery(graphql`
-    query SiteTitleQuery {
-      site {
-        siteMetadata {
-          title
-        }
-      }
-    }
-  `)
+  const { title } = useSiteMetadata()
   const [showSideBar, open, close] = useToggle(false)
 
   return (
     <div className={styles.container}>
-      <Header
-        className={styles.header}
-        siteTitle={data.site.siteMetadata?.title || `Title`}
-        onClickMenu={open}
-      />
+      <Header className={styles.header} siteTitle={title} onClickMenu={open} />
       <SideBar showSideBar={showSideBar} close={close} />
       <main className={styles.main}>{children}</main>
       <footer className={styles.footer}>
