@@ -1,3 +1,8 @@
+process.env.GATSBY_HEAD_COMMIT_HASH = require(`child_process`)
+  .execSync(`git rev-parse HEAD`)
+  .toString()
+  .trim()
+
 module.exports = {
   siteMetadata: {
     title: `wasabi315`,
@@ -47,6 +52,7 @@ module.exports = {
         rehypePlugins: [
           require(`rehype-slug`),
           [require(`rehype-autolink-headings`), { content: [] }],
+          require(`./plugins/rehype-source-line`),
         ],
         gatsbyRemarkPlugins: [`gatsby-remark-prismjs`],
       },

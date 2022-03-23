@@ -1,0 +1,10 @@
+{
+  "name": "rehype-source-line",
+  "private": true,
+  "version": "0.1.0",
+  "author": "wasabi315 <wasabi.nvim.st@gmail.com>",
+  "license": "0BSD",
+  "dependencies": {
+    "unist-util-visit": "^4.1.0"
+  }
+}
