@@ -1,9 +1,12 @@
-const path = require(`path`)
+import { CreatePagesArgs, GatsbyNode } from "gatsby"
+import path from "path"
 
-const createPostPages = async (graphql, actions) => {
+const createPostPages = async ({ graphql, actions }: CreatePagesArgs) => {
   const { createPage } = actions
 
-  const result = await graphql(`
+  const result = await graphql<{
+    allMdx: { nodes: { id: string; slug: string }[] }
+  }>(`
     {
       allMdx(
         filter: { slug: { regex: "/^posts//" } }
@@ -28,7 +31,7 @@ const createPostPages = async (graphql, actions) => {
     const currentPage = i + 1
     createPage({
       path: currentPage === 1 ? `/posts` : `/posts/${currentPage}`,
-      component: require.resolve(`./src/templates/post-list.tsx`),
+      component: path.resolve(`src/templates/post-list.tsx`),
       context: {
         limit: postsPerPage,
         skip: i * postsPerPage,
@@ -42,16 +45,18 @@ const createPostPages = async (graphql, actions) => {
   result.data.allMdx.nodes.forEach(({ id, slug }) => {
     createPage({
       path: slug,
-      component: require.resolve(`./src/templates/post.tsx`),
+      component: path.resolve(`src/templates/post.tsx`),
       context: { id },
     })
   })
 }
 
-const createWorkPages = async (graphql, actions) => {
+const createWorkPages = async ({ graphql, actions }: CreatePagesArgs) => {
   const { createPage } = actions
 
-  const result = await graphql(`
+  const result = await graphql<{
+    allMdx: { nodes: { id: string; slug: string }[] }
+  }>(`
     {
       allMdx(
         filter: { slug: { regex: "/^works//" } }
@@ -71,16 +76,18 @@ const createWorkPages = async (graphql, actions) => {
   result.data.allMdx.nodes.forEach(({ id, slug }) => {
     createPage({
       path: slug,
-      component: require.resolve(`./src/templates/work.tsx`),
+      component: path.resolve(`src/templates/work.tsx`),
       context: { id },
     })
   })
 }
 
-const createTagPages = async (graphql, actions) => {
+const createTagPages = async ({ graphql, actions }: CreatePagesArgs) => {
   const { createPage } = actions
 
-  const result = await graphql(`
+  const result = await graphql<{
+    allMdx: { group: { tag: string; totalCount: number }[] }
+  }>(`
     {
       allMdx(sort: { fields: frontmatter___date, order: DESC }) {
         group(field: frontmatter___tags) {
@@ -102,7 +109,7 @@ const createTagPages = async (graphql, actions) => {
       createPage({
         path:
           currentPage === 1 ? `/tags/${tag}` : `/tags/${tag}/${currentPage}`,
-        component: require.resolve(`./src/templates/tagged-post-list.tsx`),
+        component: path.resolve(`src/templates/tagged-post-list.tsx`),
         context: {
           tag,
           limit: postsPerPage,
@@ -115,10 +122,10 @@ const createTagPages = async (graphql, actions) => {
   })
 }
 
-exports.createPages = async ({ graphql, actions }) => {
+export const createPages: GatsbyNode["createPages"] = async args => {
   await Promise.all([
-    createPostPages(graphql, actions),
-    createWorkPages(graphql, actions),
-    createTagPages(graphql, actions),
+    createPostPages(args),
+    createWorkPages(args),
+    createTagPages(args),
   ])
 }

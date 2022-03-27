@@ -1,15 +1,33 @@
-process.env.GATSBY_HEAD_COMMIT_HASH = require(`child_process`)
-  .execSync(`git rev-parse HEAD`)
-  .toString()
-  .trim()
+import { GatsbyConfig } from "gatsby"
+import path from "path"
+import { execSync } from "child_process"
+import remarkEmoji from "remark-emoji"
+import rehypeSlug from "rehype-slug"
+import rehypeAutoLinkHeadings from "rehype-autolink-headings"
+import rehypeSourceLine from "rehype-source-line"
 
-module.exports = {
+const readHeadCommitHash = (): string => {
+  let sha: string
+  try {
+    sha = execSync("git rev-parse HEAD").toString().trim()
+  } catch (_) {
+    throw new Error(`Failed to read git commit hash`)
+  }
+  const reSHA1 = /^[0-9a-f]{40}$/
+  if (!reSHA1.test(sha)) {
+    throw new Error(`Invalid git commit hash`)
+  }
+  return sha
+}
+
+const config: GatsbyConfig = {
   siteMetadata: {
     title: `wasabi315`,
     description: `wasabi315's personal website`,
     author: `wasabi315`,
     siteUrl: `https://wasabi315.github.io/`,
     repositoryUrl: `https://github.com/wasabi315/wasabi315.github.io/`,
+    headCommitHash: readHeadCommitHash(),
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -18,7 +36,7 @@ module.exports = {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `images`,
-        path: `${__dirname}/src/images`,
+        path: path.resolve(`src/images`),
       },
     },
     `gatsby-transformer-sharp`,
@@ -48,11 +66,11 @@ module.exports = {
     {
       resolve: `gatsby-plugin-mdx`,
       options: {
-        remarkPlugins: [require(`remark-emoji`)],
+        remarkPlugins: [remarkEmoji],
         rehypePlugins: [
-          require(`rehype-slug`),
-          [require(`rehype-autolink-headings`), { content: [] }],
-          require(`./plugins/rehype-source-line`),
+          rehypeSlug,
+          [rehypeAutoLinkHeadings, { content: [] }],
+          rehypeSourceLine,
         ],
         gatsbyRemarkPlugins: [`gatsby-remark-prismjs`],
       },
@@ -61,7 +79,7 @@ module.exports = {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `posts`,
-        path: `${__dirname}/src/contents`,
+        path: path.resolve(`src/contents`),
       },
     },
     // this (optional) plugin enables Progressive Web App + Offline functionality
@@ -69,3 +87,5 @@ module.exports = {
     // `gatsby-plugin-offline`,
   ],
 }
+
+export default config
