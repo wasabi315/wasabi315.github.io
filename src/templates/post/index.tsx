@@ -1,23 +1,23 @@
-import * as React from "react"
-import { Link, graphql } from "gatsby"
+import * as React from "react";
+import { Link, graphql } from "gatsby";
 
-import Layout from "../../components/layout"
-import Seo from "../../components/seo"
-import MDXRenderer from "../../components/mdx-renderer"
-import * as styles from "./index.module.scss"
+import Layout from "../../components/layout";
+import Seo from "../../components/seo";
+import MDXRenderer from "../../components/mdx-renderer";
+import * as styles from "./index.module.scss";
 
 type Prop = {
   data: {
     mdx: {
-      body: string
+      body: string;
       frontmatter: {
-        title: string
-        date: string
-        tags: string[]
-      }
-    }
-  }
-}
+        title: string;
+        date: string;
+        tags: string[];
+      };
+    };
+  };
+};
 
 const Post: React.FCX<Prop> = ({ data: { mdx } }) => (
   <Layout>
@@ -28,7 +28,7 @@ const Post: React.FCX<Prop> = ({ data: { mdx } }) => (
         <p className={styles.meta}>
           <time>{mdx.frontmatter.date}</time>
           {` - `}
-          {mdx.frontmatter.tags.map(tag => (
+          {mdx.frontmatter.tags.map((tag) => (
             <Link key={tag} className={styles.tag} to={`/tags/` + tag}>
               {tag}
             </Link>
@@ -38,9 +38,9 @@ const Post: React.FCX<Prop> = ({ data: { mdx } }) => (
       <MDXRenderer frontmatter={mdx.frontmatter}>{mdx.body}</MDXRenderer>
     </article>
   </Layout>
-)
+);
 
-export default Post
+export default Post;
 
 export const pageQuery = graphql`
   query ($id: String!) {
@@ -53,4 +53,4 @@ export const pageQuery = graphql`
       }
     }
   }
-`
+`;

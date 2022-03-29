@@ -1,26 +1,26 @@
-import * as React from "react"
-import { graphql } from "gatsby"
-import { GatsbyImage, getImage, ImageDataLike } from "gatsby-plugin-image"
+import * as React from "react";
+import { graphql } from "gatsby";
+import { GatsbyImage, getImage, ImageDataLike } from "gatsby-plugin-image";
 
-import Layout from "../../components/layout"
-import Seo from "../../components/seo"
-import MDXRenderer from "../../components/mdx-renderer"
-import * as styles from "./index.module.scss"
+import Layout from "../../components/layout";
+import Seo from "../../components/seo";
+import MDXRenderer from "../../components/mdx-renderer";
+import * as styles from "./index.module.scss";
 
 type Prop = {
   data: {
     mdx: {
-      body: string
+      body: string;
       frontmatter: {
-        title: string
-        featuredImage: ImageDataLike
-      }
-    }
-  }
-}
+        title: string;
+        featuredImage: ImageDataLike;
+      };
+    };
+  };
+};
 
 const Work: React.FCX<Prop> = ({ data: { mdx } }) => {
-  const featuredImage = getImage(mdx.frontmatter.featuredImage)
+  const featuredImage = getImage(mdx.frontmatter.featuredImage);
   return (
     <Layout>
       <Seo title={mdx.frontmatter.title} />
@@ -40,10 +40,10 @@ const Work: React.FCX<Prop> = ({ data: { mdx } }) => {
       )}
       <MDXRenderer frontmatter={mdx.frontmatter}>{mdx.body}</MDXRenderer>
     </Layout>
-  )
-}
+  );
+};
 
-export default Work
+export default Work;
 
 export const pageQuery = graphql`
   query ($id: String!) {
@@ -59,4 +59,4 @@ export const pageQuery = graphql`
       }
     }
   }
-`
+`;

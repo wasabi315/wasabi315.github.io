@@ -1,8 +1,8 @@
-import * as React from "react"
+import * as React from "react";
 
-import Layout from "../components/layout"
-import Seo from "../components/seo"
-import * as styles from "./404.module.scss"
+import Layout from "../components/layout";
+import Seo from "../components/seo";
+import * as styles from "./404.module.scss";
 
 const NotFoundPage = () => (
   <Layout>
@@ -12,6 +12,6 @@ const NotFoundPage = () => (
       You just hit a route that doesn&#39;t exist... the sadness.
     </p>
   </Layout>
-)
+);
 
-export default NotFoundPage
+export default NotFoundPage;

@@ -1,15 +1,15 @@
-import * as React from "react"
-import { Link } from "gatsby"
+import * as React from "react";
+import { Link } from "gatsby";
 
-import * as styles from "./index.module.scss"
+import * as styles from "./index.module.scss";
 
 type Prop = {
-  currentPage: number
-  numPages: number
-  buildPageLink: (page: number) => string
-  prevText?: string
-  nextText?: string
-}
+  currentPage: number;
+  numPages: number;
+  buildPageLink: (page: number) => string;
+  prevText?: string;
+  nextText?: string;
+};
 
 const Pagination: React.FCX<Prop> = ({
   currentPage,
@@ -18,10 +18,10 @@ const Pagination: React.FCX<Prop> = ({
   prevText = `Prev`,
   nextText = `Next`,
 }) => {
-  const prevPageLink = buildPageLink(Math.max(currentPage - 1, 1))
-  const nextPageLink = buildPageLink(Math.min(currentPage + 1, numPages))
-  const noPrevPage = currentPage === 1
-  const noNextPage = currentPage === numPages
+  const prevPageLink = buildPageLink(Math.max(currentPage - 1, 1));
+  const nextPageLink = buildPageLink(Math.min(currentPage + 1, numPages));
+  const noPrevPage = currentPage === 1;
+  const noNextPage = currentPage === numPages;
   return (
     <div className={styles.pagination}>
       <Link
@@ -40,7 +40,7 @@ const Pagination: React.FCX<Prop> = ({
         {nextText}
       </Link>
     </div>
-  )
-}
+  );
+};
 
-export default Pagination
+export default Pagination;
