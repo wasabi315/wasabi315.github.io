@@ -46,7 +46,7 @@ const createPostPages = async ({ graphql, actions }: CreatePagesArgs) => {
   result.data.allMdx.nodes.forEach(({ id, slug }) => {
     createPage({
       path: slug,
-      component: path.resolve(`src/templates/post.tsx`),
+      component: path.resolve(`src/templates/post/index.tsx`),
       context: { id },
     })
   })
@@ -77,7 +77,7 @@ const createWorkPages = async ({ graphql, actions }: CreatePagesArgs) => {
   result.data.allMdx.nodes.forEach(({ id, slug }) => {
     createPage({
       path: slug,
-      component: path.resolve(`src/templates/work.tsx`),
+      component: path.resolve(`src/templates/work/index.tsx`),
       context: { id },
     })
   })

@@ -1,10 +1,10 @@
 import * as React from "react"
 import { Link, graphql } from "gatsby"
 
-import Layout from "../components/layout"
-import Seo from "../components/seo"
-import * as styles from "./post.module.scss"
-import MDXRenderer from "../components/mdx-renderer"
+import Layout from "../../components/layout"
+import Seo from "../../components/seo"
+import MDXRenderer from "../../components/mdx-renderer"
+import * as styles from "./index.module.scss"
 
 type Prop = {
   data: {

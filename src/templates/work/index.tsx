@@ -2,10 +2,10 @@ import * as React from "react"
 import { graphql } from "gatsby"
 import { GatsbyImage, getImage, ImageDataLike } from "gatsby-plugin-image"
 
-import Layout from "../components/layout"
-import Seo from "../components/seo"
-import MDXRenderer from "../components/mdx-renderer"
-import * as styles from "./work.module.scss"
+import Layout from "../../components/layout"
+import Seo from "../../components/seo"
+import MDXRenderer from "../../components/mdx-renderer"
+import * as styles from "./index.module.scss"
 
 type Prop = {
   data: {

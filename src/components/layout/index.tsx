@@ -12,7 +12,7 @@ import "../../styles/global.scss"
 import * as styles from "./index.module.scss"
 import Header from "./header"
 import SideBar from "./side-bar"
-import { useSiteMetadata } from "../../hooks/useSiteMetadata"
+import { useSiteMetadata } from "../../hooks/use-site-metadata"
 
 const useToggle = (init: boolean) => {
   const [value, setValue] = React.useState(init)

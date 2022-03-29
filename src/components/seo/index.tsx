@@ -10,7 +10,7 @@ import { Helmet } from "react-helmet"
 import { graphql } from "gatsby"
 
 import ogImage from "../../images/og-image.png"
-import { useSiteMetadata } from "../../hooks/useSiteMetadata"
+import { useSiteMetadata } from "../../hooks/use-site-metadata"
 
 type Prop = {
   description?: string
