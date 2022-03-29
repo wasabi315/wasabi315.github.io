@@ -1,10 +1,12 @@
 import * as React from "react"
-import { Link, graphql } from "gatsby"
+import { graphql } from "gatsby"
 
-import Layout from "../components/layout"
-import Seo from "../components/seo"
-import Pagination from "../components/pagination"
-import * as styles from "./post-list.module.scss"
+import Layout from "../../components/layout"
+import Seo from "../../components/seo"
+import PostListItem from "./post-list-item"
+import Pagination from "../../components/pagination"
+import * as styles from "./index.module.scss"
+import buildPaginatedUrl from "../../util/build-paginated-url"
 
 type Prop = {
   data: {
@@ -30,32 +32,15 @@ const PostListPage: React.FCX<Prop> = ({ data, pageContext }) => {
     <Layout>
       <Seo title="Posts" />
       <h1 className={styles.title}>Posts</h1>
-      <section className={styles.entry}>
-        {data.allMdx.nodes.map(({ slug, frontmatter }) => (
-          <article key={slug} className={styles.entry_item}>
-            <Link className={styles.entry_item_title} to={`/` + slug}>
-              {frontmatter.title}
-            </Link>
-            <p className={styles.entry_item_meta}>
-              <time>{frontmatter.date}</time>
-              {` - `}
-              {frontmatter.tags.map(tag => (
-                <Link
-                  key={tag}
-                  className={styles.entry_item_tag}
-                  to={`/tags/` + tag}
-                >
-                  {tag}
-                </Link>
-              ))}
-            </p>
-          </article>
+      <div className={styles.post_list}>
+        {data.allMdx.nodes.map(post => (
+          <PostListItem key={post.slug} {...post} />
         ))}
-      </section>
+      </div>
       <Pagination
         currentPage={pageContext.currentPage}
         numPages={pageContext.numPages}
-        createPageLink={page => `/posts/${page === 1 ? `` : page}`}
+        buildPageLink={page => buildPaginatedUrl(`/posts`, page)}
         prevText="Newer"
         nextText="Older"
       />

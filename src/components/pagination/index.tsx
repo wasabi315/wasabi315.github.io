@@ -6,7 +6,7 @@ import * as styles from "./index.module.scss"
 type Prop = {
   currentPage: number
   numPages: number
-  createPageLink: (page: number) => string
+  buildPageLink: (page: number) => string
   prevText?: string
   nextText?: string
 }
@@ -14,12 +14,12 @@ type Prop = {
 const Pagination: React.FCX<Prop> = ({
   currentPage,
   numPages,
-  createPageLink,
+  buildPageLink,
   prevText = `Prev`,
   nextText = `Next`,
 }) => {
-  const prevPageLink = createPageLink(Math.max(currentPage - 1, 1))
-  const nextPageLink = createPageLink(Math.min(currentPage + 1, numPages))
+  const prevPageLink = buildPageLink(Math.max(currentPage - 1, 1))
+  const nextPageLink = buildPageLink(Math.min(currentPage + 1, numPages))
   const noPrevPage = currentPage === 1
   const noNextPage = currentPage === numPages
   return (

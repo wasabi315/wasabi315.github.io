@@ -1,5 +1,6 @@
 import { CreatePagesArgs, GatsbyNode } from "gatsby"
 import path from "path"
+import buildPaginatedUrl from "./src/util/build-paginated-url"
 
 const createPostPages = async ({ graphql, actions }: CreatePagesArgs) => {
   const { createPage } = actions
@@ -30,8 +31,8 @@ const createPostPages = async ({ graphql, actions }: CreatePagesArgs) => {
   Array.from({ length: numPages }).forEach((_, i) => {
     const currentPage = i + 1
     createPage({
-      path: currentPage === 1 ? `/posts` : `/posts/${currentPage}`,
-      component: path.resolve(`src/templates/post-list.tsx`),
+      path: buildPaginatedUrl(`/posts`, currentPage),
+      component: path.resolve(`src/templates/post-list/index.tsx`),
       context: {
         limit: postsPerPage,
         skip: i * postsPerPage,
@@ -107,9 +108,8 @@ const createTagPages = async ({ graphql, actions }: CreatePagesArgs) => {
     Array.from({ length: numPages }).forEach((_, i) => {
       const currentPage = i + 1
       createPage({
-        path:
-          currentPage === 1 ? `/tags/${tag}` : `/tags/${tag}/${currentPage}`,
-        component: path.resolve(`src/templates/tagged-post-list.tsx`),
+        path: buildPaginatedUrl(`/tags/${tag}`, currentPage),
+        component: path.resolve(`src/templates/post-list/tagged.tsx`),
         context: {
           tag,
           limit: postsPerPage,
