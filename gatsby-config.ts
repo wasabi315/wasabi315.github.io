@@ -69,7 +69,7 @@ const config: GatsbyConfig = {
         remarkPlugins: [remarkEmoji],
         rehypePlugins: [
           rehypeSlug,
-          [rehypeAutoLinkHeadings, { content: [] }],
+          [rehypeAutoLinkHeadings, { test: [`h1`, `h2`, `h3`, `h4`] }],
           rehypeSourceLine,
         ],
         gatsbyRemarkPlugins: [`gatsby-remark-prismjs`],

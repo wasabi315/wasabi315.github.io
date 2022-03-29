@@ -13,6 +13,24 @@
   & h5,
   & h6 {
     margin: 1.75rem 0 0.5rem 0;
+
+    position: relative;
+    & :global(.icon-link)::before {
+      content: "";
+      position: absolute;
+      display: block;
+      top: 0;
+      left: -28px;
+      width: 28px;
+      height: 24px;
+      padding-right: 4px;
+      background: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NDAgNTEyIiBmaWxsPSIjODI4OTk3Ij48IS0tISBGb250IEF3ZXNvbWUgUHJvIDYuMC4wIGJ5IEBmb250YXdlc29tZSAtIGh0dHBzOi8vZm9udGF3ZXNvbWUuY29tIExpY2Vuc2UgLSBodHRwczovL2ZvbnRhd2Vzb21lLmNvbS9saWNlbnNlIChDb21tZXJjaWFsIExpY2Vuc2UpIENvcHlyaWdodCAyMDIyIEZvbnRpY29ucywgSW5jLiAtLT48cGF0aCBkPSJNMTcyLjUgMTMxLjFDMjI4LjEgNzUuNTEgMzIwLjUgNzUuNTEgMzc2LjEgMTMxLjFDNDI2LjEgMTgxLjEgNDMzLjUgMjYwLjggMzkyLjQgMzE4LjNMMzkxLjMgMzE5LjlDMzgxIDMzNC4yIDM2MSAzMzcuNiAzNDYuNyAzMjcuM0MzMzIuMyAzMTcgMzI4LjkgMjk3IDMzOS4yIDI4Mi43TDM0MC4zIDI4MS4xQzM2My4yIDI0OSAzNTkuNiAyMDUuMSAzMzEuNyAxNzcuMkMzMDAuMyAxNDUuOCAyNDkuMiAxNDUuOCAyMTcuNyAxNzcuMkwxMDUuNSAyODkuNUM3My45OSAzMjAuMSA3My45OSAzNzIgMTA1LjUgNDAzLjVDMTMzLjMgNDMxLjQgMTc3LjMgNDM1IDIwOS4zIDQxMi4xTDIxMC45IDQxMC4xQzIyNS4zIDQwMC43IDI0NS4zIDQwNCAyNTUuNSA0MTguNEMyNjUuOCA0MzIuOCAyNjIuNSA0NTIuOCAyNDguMSA0NjMuMUwyNDYuNSA0NjQuMkMxODguMSA1MDUuMyAxMTAuMiA0OTguNyA2MC4yMSA0NDguOEMzLjc0MSAzOTIuMyAzLjc0MSAzMDAuNyA2MC4yMSAyNDQuM0wxNzIuNSAxMzEuMXpNNDY3LjUgMzgwQzQxMSA0MzYuNSAzMTkuNSA0MzYuNSAyNjMgMzgwQzIxMyAzMzAgMjA2LjUgMjUxLjIgMjQ3LjYgMTkzLjdMMjQ4LjcgMTkyLjFDMjU4LjEgMTc3LjggMjc4LjEgMTc0LjQgMjkzLjMgMTg0LjdDMzA3LjcgMTk0LjEgMzExLjEgMjE0LjEgMzAwLjggMjI5LjNMMjk5LjcgMjMwLjlDMjc2LjggMjYyLjEgMjgwLjQgMzA2LjkgMzA4LjMgMzM0LjhDMzM5LjcgMzY2LjIgMzkwLjggMzY2LjIgNDIyLjMgMzM0LjhMNTM0LjUgMjIyLjVDNTY2IDE5MSA1NjYgMTM5LjEgNTM0LjUgMTA4LjVDNTA2LjcgODAuNjMgNDYyLjcgNzYuOTkgNDMwLjcgOTkuOUw0MjkuMSAxMDFDNDE0LjcgMTExLjMgMzk0LjcgMTA3LjEgMzg0LjUgOTMuNThDMzc0LjIgNzkuMiAzNzcuNSA1OS4yMSAzOTEuOSA0OC45NEwzOTMuNSA0Ny44MkM0NTEgNi43MzEgNTI5LjggMTMuMjUgNTc5LjggNjMuMjRDNjM2LjMgMTE5LjcgNjM2LjMgMjExLjMgNTc5LjggMjY3LjdMNDY3LjUgMzgweiIvPjwvc3ZnPg==")
+        no-repeat left content-box;
+      opacity: 0;
+    }
+    &:hover :global(.icon-link)::before {
+      opacity: 1;
+    }
   }
   & h1 {
     @include common.text-h3;
@@ -31,29 +49,6 @@
   }
   & h6 {
     @include common.text-subtitle2;
-  }
-
-  & h1,
-  & h2,
-  & h3,
-  & h4 {
-    position: relative;
-    & a::before {
-      content: "";
-      position: absolute;
-      display: block;
-      top: 0;
-      left: -28px;
-      width: 28px;
-      height: 24px;
-      padding-right: 4px;
-      background: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NDAgNTEyIiBmaWxsPSIjODI4OTk3Ij48IS0tISBGb250IEF3ZXNvbWUgUHJvIDYuMC4wIGJ5IEBmb250YXdlc29tZSAtIGh0dHBzOi8vZm9udGF3ZXNvbWUuY29tIExpY2Vuc2UgLSBodHRwczovL2ZvbnRhd2Vzb21lLmNvbS9saWNlbnNlIChDb21tZXJjaWFsIExpY2Vuc2UpIENvcHlyaWdodCAyMDIyIEZvbnRpY29ucywgSW5jLiAtLT48cGF0aCBkPSJNMTcyLjUgMTMxLjFDMjI4LjEgNzUuNTEgMzIwLjUgNzUuNTEgMzc2LjEgMTMxLjFDNDI2LjEgMTgxLjEgNDMzLjUgMjYwLjggMzkyLjQgMzE4LjNMMzkxLjMgMzE5LjlDMzgxIDMzNC4yIDM2MSAzMzcuNiAzNDYuNyAzMjcuM0MzMzIuMyAzMTcgMzI4LjkgMjk3IDMzOS4yIDI4Mi43TDM0MC4zIDI4MS4xQzM2My4yIDI0OSAzNTkuNiAyMDUuMSAzMzEuNyAxNzcuMkMzMDAuMyAxNDUuOCAyNDkuMiAxNDUuOCAyMTcuNyAxNzcuMkwxMDUuNSAyODkuNUM3My45OSAzMjAuMSA3My45OSAzNzIgMTA1LjUgNDAzLjVDMTMzLjMgNDMxLjQgMTc3LjMgNDM1IDIwOS4zIDQxMi4xTDIxMC45IDQxMC4xQzIyNS4zIDQwMC43IDI0NS4zIDQwNCAyNTUuNSA0MTguNEMyNjUuOCA0MzIuOCAyNjIuNSA0NTIuOCAyNDguMSA0NjMuMUwyNDYuNSA0NjQuMkMxODguMSA1MDUuMyAxMTAuMiA0OTguNyA2MC4yMSA0NDguOEMzLjc0MSAzOTIuMyAzLjc0MSAzMDAuNyA2MC4yMSAyNDQuM0wxNzIuNSAxMzEuMXpNNDY3LjUgMzgwQzQxMSA0MzYuNSAzMTkuNSA0MzYuNSAyNjMgMzgwQzIxMyAzMzAgMjA2LjUgMjUxLjIgMjQ3LjYgMTkzLjdMMjQ4LjcgMTkyLjFDMjU4LjEgMTc3LjggMjc4LjEgMTc0LjQgMjkzLjMgMTg0LjdDMzA3LjcgMTk0LjEgMzExLjEgMjE0LjEgMzAwLjggMjI5LjNMMjk5LjcgMjMwLjlDMjc2LjggMjYyLjEgMjgwLjQgMzA2LjkgMzA4LjMgMzM0LjhDMzM5LjcgMzY2LjIgMzkwLjggMzY2LjIgNDIyLjMgMzM0LjhMNTM0LjUgMjIyLjVDNTY2IDE5MSA1NjYgMTM5LjEgNTM0LjUgMTA4LjVDNTA2LjcgODAuNjMgNDYyLjcgNzYuOTkgNDMwLjcgOTkuOUw0MjkuMSAxMDFDNDE0LjcgMTExLjMgMzk0LjcgMTA3LjEgMzg0LjUgOTMuNThDMzc0LjIgNzkuMiAzNzcuNSA1OS4yMSAzOTEuOSA0OC45NEwzOTMuNSA0Ny44MkM0NTEgNi43MzEgNTI5LjggMTMuMjUgNTc5LjggNjMuMjRDNjM2LjMgMTE5LjcgNjM2LjMgMjExLjMgNTc5LjggMjY3LjdMNDY3LjUgMzgweiIvPjwvc3ZnPg==")
-        no-repeat left content-box;
-      opacity: 0;
-    }
-    &:hover a::before {
-      opacity: 1;
-    }
   }
 
   & blockquote {
