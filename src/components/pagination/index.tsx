@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Link } from "gatsby";
+import clsx from "clsx";
 
 import * as styles from "./index.module.scss";
 
@@ -24,19 +25,13 @@ const Pagination: React.FCX<Prop> = ({
   const noNextPage = currentPage === numPages;
   return (
     <div className={styles.pagination}>
-      <Link
-        to={prevPageLink}
-        className={noPrevPage ? styles.disabled : undefined}
-      >
+      <Link to={prevPageLink} className={clsx(noPrevPage && styles.disabled)}>
         {prevText}
       </Link>
       <span>
         Page {currentPage} of {numPages}
       </span>
-      <Link
-        to={nextPageLink}
-        className={noNextPage ? styles.disabled : undefined}
-      >
+      <Link to={nextPageLink} className={clsx(noNextPage && styles.disabled)}>
         {nextText}
       </Link>
     </div>
