@@ -28,17 +28,17 @@ const Work: React.FCX<Prop> = ({ data: { mdx } }) => {
         <header>
           <h1 className={styles.title}>{mdx.frontmatter.title}</h1>
         </header>
-      </article>
-      {featuredImage && (
         <div className={styles.featured_image_wrapper}>
-          <GatsbyImage
-            className={styles.featured_image}
-            image={featuredImage}
-            alt="wasabi315's personal page"
-          />
+          {featuredImage && (
+            <GatsbyImage
+              className={styles.featured_image}
+              image={featuredImage}
+              alt="featured image"
+            />
+          )}
         </div>
-      )}
-      <MDXRenderer frontmatter={mdx.frontmatter}>{mdx.body}</MDXRenderer>
+        <MDXRenderer frontmatter={mdx.frontmatter}>{mdx.body}</MDXRenderer>
+      </article>
     </Layout>
   );
 };
