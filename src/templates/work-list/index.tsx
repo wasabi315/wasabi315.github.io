@@ -18,7 +18,7 @@ type Prop = {
         };
         frontmatter: {
           title: string;
-          featuredImage: ImageDataLike;
+          thumbnail: ImageDataLike;
         };
       }[];
     };
@@ -64,7 +64,7 @@ export const pageQuery = graphql`
         }
         frontmatter {
           title
-          featuredImage {
+          thumbnail {
             childImageSharp {
               gatsbyImageData(width: 256, height: 320)
             }
