@@ -4,7 +4,9 @@ import { Link } from "gatsby";
 import * as styles from "./post-list-item.module.scss";
 
 type Props = {
-  slug: string;
+  fields: {
+    slug: string;
+  };
   frontmatter: {
     title: string;
     date: string;
@@ -12,9 +14,9 @@ type Props = {
   };
 };
 
-const PostListItem: React.FCX<Props> = ({ slug, frontmatter }) => (
+const PostListItem: React.FCX<Props> = ({ fields: { slug }, frontmatter }) => (
   <article className={styles.entry_item}>
-    <Link className={styles.entry_item_title} to={`/${slug}`}>
+    <Link className={styles.entry_item_title} to={slug}>
       {frontmatter.title}
     </Link>
     <p className={styles.entry_item_meta}>

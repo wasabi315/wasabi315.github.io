@@ -1,0 +1,14 @@
+@use "../../styles/common";
+
+.entry_item {
+  & .entry_item_image {
+    @include common.box-shadow;
+    margin-bottom: 1rem;
+  }
+  & a {
+    text-decoration: none;
+  }
+  & .entry_item_title {
+    @include common.text-h6;
+  }
+}

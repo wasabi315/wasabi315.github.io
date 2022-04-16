@@ -1,131 +1,188 @@
-import { CreatePagesArgs, GatsbyNode } from "gatsby";
+import type { GatsbyNode, Page } from "gatsby";
+import { createFilePath } from "gatsby-source-filesystem";
 import path from "path";
 import buildPaginatedUrl from "./src/util/build-paginated-url";
 
-const createPostPages = async ({ graphql, actions }: CreatePagesArgs) => {
-  const { createPage } = actions;
+export const onCreateNode: GatsbyNode[`onCreateNode`] = async ({
+  node,
+  actions,
+  getNode,
+}) => {
+  const { createNodeField } = actions;
 
-  const result = await graphql<{
-    allMdx: { nodes: { id: string; slug: string }[] };
-  }>(`
-    {
-      allMdx(
-        filter: { slug: { regex: "/^posts//" } }
-        sort: { fields: frontmatter___date, order: DESC }
-      ) {
-        nodes {
-          id
-          slug
-        }
-      }
+  if (node.internal.type === `Mdx`) {
+    const parent = getNode(node.parent);
+    const { sourceInstanceName } = parent;
+    createNodeField({
+      name: "sourceFileType",
+      node,
+      value: sourceInstanceName,
+    });
+
+    switch (sourceInstanceName) {
+      case `posts`:
+        createNodeField({
+          name: `slug`,
+          node,
+          value: `/posts${createFilePath({ node, getNode })}`,
+        });
+        break;
+
+      case `works`:
+        const [, order, ...fp] = createFilePath({ node, getNode }).split(`/`);
+        createNodeField({
+          name: `order`,
+          node,
+          value: order,
+        });
+        createNodeField({
+          name: `slug`,
+          node,
+          value: `/works/${fp.join(`/`)}`,
+        });
+        break;
+
+      default:
+        throw new Error(`Unknown sourceInstanceName: ${sourceInstanceName}`);
     }
-  `);
-  if (result.errors) {
-    throw result.errors;
   }
-
-  // Create post list pages.
-  const posts = result.data.allMdx.nodes;
-  const postsPerPage = 10;
-  const numPages = Math.ceil(posts.length / postsPerPage);
-  Array.from({ length: numPages }).forEach((_, i) => {
-    const currentPage = i + 1;
-    createPage({
-      path: buildPaginatedUrl(`/posts`, currentPage),
-      component: path.resolve(`src/templates/post-list/index.tsx`),
-      context: {
-        limit: postsPerPage,
-        skip: i * postsPerPage,
-        numPages,
-        currentPage,
-      },
-    });
-  });
-
-  // Create post pages.
-  result.data.allMdx.nodes.forEach(({ id, slug }) => {
-    createPage({
-      path: slug,
-      component: path.resolve(`src/templates/post/index.tsx`),
-      context: { id },
-    });
-  });
 };
 
-const createWorkPages = async ({ graphql, actions }: CreatePagesArgs) => {
-  const { createPage } = actions;
+export const createPages: GatsbyNode[`createPages`] = async ({
+  graphql,
+  actions: { createPage },
+}) => {
+  await Promise.all([createPostPages(), createWorkPages(), createTagPages()]);
 
-  const result = await graphql<{
-    allMdx: { nodes: { id: string; slug: string }[] };
-  }>(`
-    {
-      allMdx(
-        filter: { slug: { regex: "/^works//" } }
-        sort: { fields: frontmatter___date, order: DESC }
-      ) {
-        nodes {
-          id
-          slug
-        }
-      }
-    }
-  `);
-  if (result.errors) {
-    throw result.errors;
-  }
-
-  result.data.allMdx.nodes.forEach(({ id, slug }) => {
-    createPage({
-      path: slug,
-      component: path.resolve(`src/templates/work/index.tsx`),
-      context: { id },
-    });
-  });
-};
-
-const createTagPages = async ({ graphql, actions }: CreatePagesArgs) => {
-  const { createPage } = actions;
-
-  const result = await graphql<{
-    allMdx: { group: { tag: string; totalCount: number }[] };
-  }>(`
-    {
-      allMdx(sort: { fields: frontmatter___date, order: DESC }) {
-        group(field: frontmatter___tags) {
-          tag: fieldValue
-          totalCount
-        }
-      }
-    }
-  `);
-  if (result.errors) {
-    throw result.errors;
-  }
-
-  result.data.allMdx.group.forEach(({ tag, totalCount }) => {
-    const postsPerPage = 10;
-    const numPages = Math.ceil(totalCount / postsPerPage);
-    Array.from({ length: numPages }).forEach((_, i) => {
+  function createPagination<T>(
+    args: Page<T> & { itemsPerPage: number; itemCount: number },
+  ) {
+    const { itemsPerPage, itemCount, ...page } = args;
+    const numPages = Math.ceil(itemCount / itemsPerPage);
+    for (let i = 0; i < numPages; i++) {
       const currentPage = i + 1;
       createPage({
-        path: buildPaginatedUrl(`/tags/${tag}`, currentPage),
-        component: path.resolve(`src/templates/post-list/tagged.tsx`),
+        ...page,
+        path: buildPaginatedUrl(args.path, currentPage),
         context: {
-          tag,
-          limit: postsPerPage,
-          skip: i * postsPerPage,
+          ...page.context,
+          limit: itemsPerPage,
+          skip: i * itemsPerPage,
           numPages,
           currentPage,
         },
       });
-    });
-  });
-};
+    }
+  }
 
-export const createPages: GatsbyNode["createPages"] = async (args) => {
-  await Promise.all([
-    createPostPages(args),
-    createWorkPages(args),
-    createTagPages(args),
-  ]);
+  async function createPostPages() {
+    const result = await graphql<{
+      allMdx: { nodes: { id: string; fields: { slug: string } }[] };
+    }>(`
+      {
+        allMdx(
+          filter: { fields: { sourceFileType: { eq: "posts" } } }
+          sort: { fields: frontmatter___date, order: DESC }
+        ) {
+          nodes {
+            id
+            fields {
+              slug
+            }
+          }
+        }
+      }
+    `);
+    if (result.errors) {
+      throw result.errors;
+    }
+
+    // Create post-list pages
+    createPagination({
+      path: `/posts`,
+      component: path.resolve(`src/templates/post-list/index.tsx`),
+      context: {},
+      itemCount: result.data.allMdx.nodes.length,
+      itemsPerPage: 10,
+    });
+
+    // Create post pages
+    result.data.allMdx.nodes.forEach(({ id, fields: { slug } }) => {
+      createPage({
+        path: slug,
+        component: path.resolve(`src/templates/post/index.tsx`),
+        context: { id },
+      });
+    });
+  }
+
+  async function createWorkPages() {
+    const result = await graphql<{
+      allMdx: { nodes: { id: string; fields: { slug: string } }[] };
+    }>(`
+      {
+        allMdx(
+          filter: { fields: { sourceFileType: { eq: "works" } } }
+          sort: { fields: fields___order }
+        ) {
+          nodes {
+            id
+            fields {
+              slug
+            }
+          }
+        }
+      }
+    `);
+    if (result.errors) {
+      throw result.errors;
+    }
+
+    // Create work-list pages
+    createPagination({
+      path: `/works`,
+      component: path.resolve(`src/templates/work-list/index.tsx`),
+      context: {},
+      itemCount: result.data.allMdx.nodes.length,
+      itemsPerPage: 10,
+    });
+
+    // Create work pages
+    result.data.allMdx.nodes.forEach(({ id, fields: { slug } }) => {
+      createPage({
+        path: slug,
+        component: path.resolve(`src/templates/work/index.tsx`),
+        context: { id },
+      });
+    });
+  }
+
+  async function createTagPages() {
+    const result = await graphql<{
+      allMdx: { group: { tag: string; totalCount: number }[] };
+    }>(`
+      {
+        allMdx(sort: { fields: frontmatter___date, order: DESC }) {
+          group(field: frontmatter___tags) {
+            tag: fieldValue
+            totalCount
+          }
+        }
+      }
+    `);
+    if (result.errors) {
+      throw result.errors;
+    }
+
+    // Create tag pages
+    result.data.allMdx.group.forEach(({ tag, totalCount }) => {
+      createPagination({
+        path: `/tags/${tag}`,
+        component: path.resolve(`src/templates/post-list/tagged.tsx`),
+        context: { tag },
+        itemCount: totalCount,
+        itemsPerPage: 10,
+      });
+    });
+  }
 };

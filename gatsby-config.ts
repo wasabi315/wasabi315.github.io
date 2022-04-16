@@ -79,7 +79,14 @@ const config: GatsbyConfig = {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `posts`,
-        path: path.resolve(`src/contents`),
+        path: path.resolve(`src/contents/posts`),
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `works`,
+        path: path.resolve(`src/contents/works`),
       },
     },
     // this (optional) plugin enables Progressive Web App + Offline functionality

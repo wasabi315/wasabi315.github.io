@@ -12,7 +12,9 @@ type Prop = {
   data: {
     allMdx: {
       nodes: {
-        slug: string;
+        fields: {
+          slug: string;
+        };
         frontmatter: {
           title: string;
           date: string;
@@ -35,7 +37,7 @@ const TaggedPostList: React.FCX<Prop> = ({ data, pageContext }) => {
       <h1 className={styles.title}>{pageContext.tag}</h1>
       <div className={styles.post_list}>
         {data.allMdx.nodes.map((post) => (
-          <PostListItem key={post.slug} {...post} />
+          <PostListItem key={post.fields.slug} {...post} />
         ))}
       </div>
       <Pagination
@@ -56,13 +58,18 @@ export default TaggedPostList;
 export const pageQuery = graphql`
   query ($tag: String!, $limit: Int!, $skip: Int!) {
     allMdx(
-      filter: { frontmatter: { tags: { in: [$tag] } } }
+      filter: {
+        fields: { sourceFileType: { eq: "posts" } }
+        frontmatter: { tags: { in: [$tag] } }
+      }
       sort: { fields: frontmatter___date, order: DESC }
       limit: $limit
       skip: $skip
     ) {
       nodes {
-        slug
+        fields {
+          slug
+        }
         frontmatter {
           title
           date(formatString: "YYYY/MM/DD")
