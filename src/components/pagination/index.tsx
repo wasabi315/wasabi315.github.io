@@ -5,33 +5,37 @@ import clsx from "clsx";
 import * as styles from "./index.module.scss";
 
 type Prop = {
-  currentPage: number;
-  numPages: number;
-  buildPageLink: (page: number) => string;
+  previousPagePath: string;
+  nextPagePath: string;
+  numberOfPages: number;
+  humanPageNumber: number;
   prevText?: string;
   nextText?: string;
 };
 
 const Pagination: React.FCX<Prop> = ({
-  currentPage,
-  numPages,
-  buildPageLink,
+  previousPagePath,
+  nextPagePath,
+  numberOfPages,
+  humanPageNumber,
   prevText = `Prev`,
   nextText = `Next`,
 }) => {
-  const prevPageLink = buildPageLink(Math.max(currentPage - 1, 1));
-  const nextPageLink = buildPageLink(Math.min(currentPage + 1, numPages));
-  const noPrevPage = currentPage === 1;
-  const noNextPage = currentPage === numPages;
   return (
     <div className={styles.pagination}>
-      <Link to={prevPageLink} className={clsx(noPrevPage && styles.disabled)}>
+      <Link
+        to={previousPagePath}
+        className={clsx(!previousPagePath && styles.disabled)}
+      >
         {prevText}
       </Link>
       <span>
-        Page {currentPage} of {numPages}
+        Page {humanPageNumber} of {numberOfPages}
       </span>
-      <Link to={nextPageLink} className={clsx(noNextPage && styles.disabled)}>
+      <Link
+        to={nextPagePath}
+        className={clsx(!nextPagePath && styles.disabled)}
+      >
         {nextText}
       </Link>
     </div>

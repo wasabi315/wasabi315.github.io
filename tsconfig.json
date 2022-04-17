@@ -63,5 +63,5 @@
     /* Advanced Options */
     "forceConsistentCasingInFileNames": true /* Disallow inconsistently-cased references to the same file. */
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx"]
+  "include": ["gatsby-browser.tsx", "gatsby-config.ts", "gatsby-node.ts", "src/**/*.ts", "src/**/*.tsx"]
 }

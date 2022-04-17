@@ -1,12 +1,12 @@
 import * as React from "react";
 import { graphql } from "gatsby";
 import { ImageDataLike } from "gatsby-plugin-image";
+import { PaginationContext } from "gatsby-awesome-pagination";
 
 import Layout from "../../components/layout";
 import Seo from "../../components/seo";
 import Pagination from "../../components/pagination";
 import WorkListItem from "./work-list-item";
-import buildPaginatedUrl from "../../util/build-paginated-url";
 import * as styles from "./index.module.scss";
 
 type Prop = {
@@ -23,10 +23,7 @@ type Prop = {
       }[];
     };
   };
-  pageContext: {
-    numPages: number;
-    currentPage: number;
-  };
+  pageContext: PaginationContext;
 };
 
 const WorkListPage: React.FCX<Prop> = ({ data, pageContext }) => {
@@ -39,11 +36,7 @@ const WorkListPage: React.FCX<Prop> = ({ data, pageContext }) => {
           <WorkListItem key={node.fields.slug} {...node} />
         ))}
       </div>
-      <Pagination
-        currentPage={pageContext.currentPage}
-        numPages={pageContext.numPages}
-        buildPageLink={(page) => buildPaginatedUrl(`/works`, page)}
-      />
+      <Pagination {...pageContext} />
     </Layout>
   );
 };

@@ -1,20 +1,23 @@
-import type { GatsbyNode, Page } from "gatsby";
+import type { GatsbyNode } from "gatsby";
 import { createFilePath } from "gatsby-source-filesystem";
 import path from "path";
-import buildPaginatedUrl from "./src/util/build-paginated-url";
+import { paginate } from "gatsby-awesome-pagination";
 
 export const onCreateNode: GatsbyNode[`onCreateNode`] = async ({
   node,
-  actions,
+  actions: { createNodeField },
   getNode,
+  reporter,
 }) => {
-  const { createNodeField } = actions;
-
   if (node.internal.type === `Mdx`) {
-    const parent = getNode(node.parent);
-    const { sourceInstanceName } = parent;
+    const parent = node.parent && getNode(node.parent);
+    if (!parent) {
+      reporter.panicOnBuild(`No parent found for ${node.id}`);
+      return;
+    }
+    const sourceInstanceName = parent.sourceInstanceName as string;
     createNodeField({
-      name: "sourceFileType",
+      name: `sourceFileType`,
       node,
       value: sourceInstanceName,
     });
@@ -33,7 +36,7 @@ export const onCreateNode: GatsbyNode[`onCreateNode`] = async ({
         createNodeField({
           name: `order`,
           node,
-          value: order,
+          value: parseInt(order, 10),
         });
         createNodeField({
           name: `slug`,
@@ -43,7 +46,10 @@ export const onCreateNode: GatsbyNode[`onCreateNode`] = async ({
         break;
 
       default:
-        throw new Error(`Unknown sourceInstanceName: ${sourceInstanceName}`);
+        reporter.panicOnBuild(
+          `Unknown sourceInstanceName: ${sourceInstanceName}`,
+        );
+        return;
     }
   }
 };
@@ -51,29 +57,9 @@ export const onCreateNode: GatsbyNode[`onCreateNode`] = async ({
 export const createPages: GatsbyNode[`createPages`] = async ({
   graphql,
   actions: { createPage },
+  reporter,
 }) => {
   await Promise.all([createPostPages(), createWorkPages(), createTagPages()]);
-
-  function createPagination<T>(
-    args: Page<T> & { itemsPerPage: number; itemCount: number },
-  ) {
-    const { itemsPerPage, itemCount, ...page } = args;
-    const numPages = Math.ceil(itemCount / itemsPerPage);
-    for (let i = 0; i < numPages; i++) {
-      const currentPage = i + 1;
-      createPage({
-        ...page,
-        path: buildPaginatedUrl(args.path, currentPage),
-        context: {
-          ...page.context,
-          limit: itemsPerPage,
-          skip: i * itemsPerPage,
-          numPages,
-          currentPage,
-        },
-      });
-    }
-  }
 
   async function createPostPages() {
     const result = await graphql<{
@@ -93,17 +79,18 @@ export const createPages: GatsbyNode[`createPages`] = async ({
         }
       }
     `);
-    if (result.errors) {
-      throw result.errors;
+    if (result.errors || !result.data) {
+      reporter.panicOnBuild(result.errors);
+      return;
     }
 
     // Create post-list pages
-    createPagination({
-      path: `/posts`,
-      component: path.resolve(`src/templates/post-list/index.tsx`),
-      context: {},
-      itemCount: result.data.allMdx.nodes.length,
+    paginate({
+      createPage,
+      items: result.data.allMdx.nodes,
       itemsPerPage: 10,
+      pathPrefix: `/posts`,
+      component: path.resolve(`./src/templates/post-list/index.tsx`),
     });
 
     // Create post pages
@@ -117,8 +104,27 @@ export const createPages: GatsbyNode[`createPages`] = async ({
   }
 
   async function createWorkPages() {
+    type ImageData = {
+      absolutePath: string;
+      childImageSharp: {
+        original: {
+          height: number;
+          width: number;
+        };
+      };
+    };
+
     const result = await graphql<{
-      allMdx: { nodes: { id: string; fields: { slug: string } }[] };
+      allMdx: {
+        nodes: {
+          id: string;
+          fields: { slug: string };
+          frontmatter: {
+            featuredImage: ImageData;
+            thumbnail: ImageData;
+          };
+        }[];
+      };
     }>(`
       {
         allMdx(
@@ -130,21 +136,57 @@ export const createPages: GatsbyNode[`createPages`] = async ({
             fields {
               slug
             }
+            frontmatter {
+              featuredImage {
+                absolutePath
+                childImageSharp {
+                  original {
+                    height
+                    width
+                  }
+                }
+              }
+              thumbnail {
+                absolutePath
+                childImageSharp {
+                  original {
+                    height
+                    width
+                  }
+                }
+              }
+            }
           }
         }
       }
     `);
-    if (result.errors) {
-      throw result.errors;
+    if (result.errors || !result.data) {
+      reporter.panicOnBuild(result.errors);
+      return;
     }
 
+    // Check aspect ratio of featured images and thumbnails
+    const checkAspectRatio = (expected: number, image: ImageData) => {
+      const { height, width } = image.childImageSharp.original;
+      const actual = height / width;
+      if (expected !== actual) {
+        reporter.warn(
+          `Expected aspect ratio of ${expected} but got ${actual} for ${height}x${width}: ${image.absolutePath}`,
+        );
+      }
+    };
+    result.data.allMdx.nodes.forEach(({ frontmatter }) => {
+      checkAspectRatio(9 / 16, frontmatter.featuredImage);
+      checkAspectRatio(5 / 4, frontmatter.thumbnail);
+    });
+
     // Create work-list pages
-    createPagination({
-      path: `/works`,
-      component: path.resolve(`src/templates/work-list/index.tsx`),
-      context: {},
-      itemCount: result.data.allMdx.nodes.length,
+    paginate({
+      createPage,
+      items: result.data.allMdx.nodes,
       itemsPerPage: 10,
+      pathPrefix: `/works`,
+      component: path.resolve(`./src/templates/work-list/index.tsx`),
     });
 
     // Create work pages
@@ -159,29 +201,33 @@ export const createPages: GatsbyNode[`createPages`] = async ({
 
   async function createTagPages() {
     const result = await graphql<{
-      allMdx: { group: { tag: string; totalCount: number }[] };
+      allMdx: { group: { tag: string; nodes: { id: string }[] }[] };
     }>(`
       {
         allMdx(sort: { fields: frontmatter___date, order: DESC }) {
           group(field: frontmatter___tags) {
             tag: fieldValue
-            totalCount
+            nodes {
+              id
+            }
           }
         }
       }
     `);
-    if (result.errors) {
-      throw result.errors;
+    if (result.errors || !result.data) {
+      reporter.panicOnBuild(result.errors);
+      return;
     }
 
     // Create tag pages
-    result.data.allMdx.group.forEach(({ tag, totalCount }) => {
-      createPagination({
-        path: `/tags/${tag}`,
-        component: path.resolve(`src/templates/post-list/tagged.tsx`),
-        context: { tag },
-        itemCount: totalCount,
+    result.data.allMdx.group.forEach(({ tag, nodes }) => {
+      paginate({
+        createPage,
+        items: nodes,
         itemsPerPage: 10,
+        pathPrefix: `/tags/${tag}`,
+        component: path.resolve(`./src/templates/post-list/tagged.tsx`),
+        context: { tag },
       });
     });
   }
