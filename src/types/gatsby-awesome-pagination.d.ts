@@ -1,17 +1,17 @@
 declare module "gatsby-awesome-pagination" {
   import type { Actions } from "gatsby";
 
-  type PaginateArgs<TCtx> = {
+  type PaginateArgs = {
     createPage: Actions[`createPage`];
     items: unknown[];
     itemsPerPage: number;
     itemsPerFirstPage?: number;
     pathPrefix: string;
     component: string;
-    context?: TCtx;
+    context?: unknown;
   };
 
-  export const paginate: <TCtx>(args: PaginateArgs<TCtx>) => void;
+  export const paginate: (args: PaginateArgs) => void;
 
   export type PaginationContext = {
     humanPageNumber: number;
