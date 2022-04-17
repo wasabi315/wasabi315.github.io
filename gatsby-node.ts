@@ -104,25 +104,11 @@ export const createPages: GatsbyNode[`createPages`] = async ({
   }
 
   async function createWorkPages() {
-    type ImageData = {
-      absolutePath: string;
-      childImageSharp: {
-        original: {
-          height: number;
-          width: number;
-        };
-      };
-    };
-
     const result = await graphql<{
       allMdx: {
         nodes: {
           id: string;
           fields: { slug: string };
-          frontmatter: {
-            featuredImage: ImageData;
-            thumbnail: ImageData;
-          };
         }[];
       };
     }>(`
@@ -136,26 +122,6 @@ export const createPages: GatsbyNode[`createPages`] = async ({
             fields {
               slug
             }
-            frontmatter {
-              featuredImage {
-                absolutePath
-                childImageSharp {
-                  original {
-                    height
-                    width
-                  }
-                }
-              }
-              thumbnail {
-                absolutePath
-                childImageSharp {
-                  original {
-                    height
-                    width
-                  }
-                }
-              }
-            }
           }
         }
       }
@@ -164,21 +130,6 @@ export const createPages: GatsbyNode[`createPages`] = async ({
       reporter.panicOnBuild(result.errors);
       return;
     }
-
-    // Check aspect ratio of featured images and thumbnails
-    const checkAspectRatio = (expected: number, image: ImageData) => {
-      const { height, width } = image.childImageSharp.original;
-      const actual = height / width;
-      if (expected !== actual) {
-        reporter.warn(
-          `Expected aspect ratio of ${expected} but got ${actual} for ${height}x${width}: ${image.absolutePath}`,
-        );
-      }
-    };
-    result.data.allMdx.nodes.forEach(({ frontmatter }) => {
-      checkAspectRatio(9 / 16, frontmatter.featuredImage);
-      checkAspectRatio(5 / 4, frontmatter.thumbnail);
-    });
 
     // Create work-list pages
     paginate({
