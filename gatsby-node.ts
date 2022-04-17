@@ -7,13 +7,11 @@ export const onCreateNode: GatsbyNode[`onCreateNode`] = async ({
   node,
   actions: { createNodeField },
   getNode,
-  reporter,
 }) => {
   if (node.internal.type === `Mdx`) {
     const parent = node.parent && getNode(node.parent);
     if (!parent) {
-      reporter.panicOnBuild(`No parent found for ${node.id}`);
-      return;
+      throw new Error(`Error: parent not found for node ${node.id}`);
     }
     const sourceInstanceName = parent.sourceInstanceName as string;
     createNodeField({
@@ -46,10 +44,7 @@ export const onCreateNode: GatsbyNode[`onCreateNode`] = async ({
         break;
 
       default:
-        reporter.panicOnBuild(
-          `Unknown sourceInstanceName: ${sourceInstanceName}`,
-        );
-        return;
+        throw new Error(`Unknown sourceInstanceName: ${sourceInstanceName}`);
     }
   }
 };
@@ -57,7 +52,6 @@ export const onCreateNode: GatsbyNode[`onCreateNode`] = async ({
 export const createPages: GatsbyNode[`createPages`] = async ({
   graphql,
   actions: { createPage },
-  reporter,
 }) => {
   await Promise.all([createPostPages(), createWorkPages(), createTagPages()]);
 
@@ -80,8 +74,7 @@ export const createPages: GatsbyNode[`createPages`] = async ({
       }
     `);
     if (result.errors || !result.data) {
-      reporter.panicOnBuild(result.errors);
-      return;
+      throw result.errors;
     }
 
     // Create post-list pages
@@ -127,8 +120,7 @@ export const createPages: GatsbyNode[`createPages`] = async ({
       }
     `);
     if (result.errors || !result.data) {
-      reporter.panicOnBuild(result.errors);
-      return;
+      throw result.errors;
     }
 
     // Create work-list pages
@@ -166,8 +158,7 @@ export const createPages: GatsbyNode[`createPages`] = async ({
       }
     `);
     if (result.errors || !result.data) {
-      reporter.panicOnBuild(result.errors);
-      return;
+      throw result.errors;
     }
 
     // Create tag pages
