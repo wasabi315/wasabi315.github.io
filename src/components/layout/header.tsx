@@ -4,6 +4,7 @@ import { Link } from "gatsby";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 
+import { useScrollY } from "../../hooks/use-scroll";
 import * as styles from "./header.module.scss";
 import * as config from "./config";
 
@@ -16,16 +17,6 @@ const navigationLinks = [
   { to: `/works`, label: `Works` },
   { to: `/posts`, label: `Posts` },
 ];
-
-const useScrollY = (): number => {
-  const [scrollY, setScrollY] = React.useState(0);
-  React.useEffect(() => {
-    const handleScroll = () => setScrollY(window.scrollY);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-  return scrollY;
-};
 
 const Header: React.FCX<Prop> = ({
   className,
