@@ -39,7 +39,7 @@ const SideBar: React.FCX<Prop> = ({ showSideBar, close }) => {
         <ul className={styles.social}>
           {config.socialLinks.map(({ icon, url }) => (
             <li key={url} className={styles.social_item}>
-              <a href={url}>
+              <a href={url} target="_blank" rel="external noopener noreferrer">
                 <FontAwesomeIcon icon={icon} />
               </a>
             </li>

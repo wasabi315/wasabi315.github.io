@@ -48,7 +48,7 @@ const Header: React.FCX<Prop> = ({
         <ul className={styles.nav}>
           {config.socialLinks.map(({ icon, url }) => (
             <li key={url} className={styles.nav_item}>
-              <a href={url}>
+              <a href={url} target="_blank" rel="external noopener noreferrer">
                 <FontAwesomeIcon icon={icon} />
               </a>
             </li>
