@@ -5,12 +5,16 @@ import { GatsbyImage, getImage, ImageDataLike } from "gatsby-plugin-image";
 import Layout from "../../components/layout";
 import Seo from "../../components/seo";
 import MDXRenderer from "../../components/mdx-renderer";
+import ViewOnGitHubLink from "../../components/view-on-github-link";
 import * as styles from "./index.module.scss";
 
 type Prop = {
   data: {
     mdx: {
       body: string;
+      fields: {
+        filePath: string;
+      };
       frontmatter: {
         title: string;
         featuredImage: ImageDataLike;
@@ -38,6 +42,9 @@ const Work: React.FCX<Prop> = ({ data: { mdx } }) => {
           )}
         </div>
         <MDXRenderer frontmatter={mdx.frontmatter}>{mdx.body}</MDXRenderer>
+        <footer className={styles.footer}>
+          <ViewOnGitHubLink filePath={mdx.fields.filePath} />
+        </footer>
       </article>
     </Layout>
   );
@@ -49,6 +56,9 @@ export const pageQuery = graphql`
   query ($id: String!) {
     mdx(id: { eq: $id }) {
       body
+      fields {
+        filePath
+      }
       frontmatter {
         title
         featuredImage {

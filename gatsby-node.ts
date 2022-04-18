@@ -20,8 +20,14 @@ export const onCreateNode: GatsbyNode[`onCreateNode`] = async ({
       value: sourceInstanceName,
     });
 
+    const filePath = parent.relativePath as string;
     switch (sourceInstanceName) {
       case `posts`:
+        createNodeField({
+          name: `filePath`,
+          node,
+          value: `/posts/${filePath}`,
+        });
         createNodeField({
           name: `slug`,
           node,
@@ -30,6 +36,11 @@ export const onCreateNode: GatsbyNode[`onCreateNode`] = async ({
         break;
 
       case `works`:
+        createNodeField({
+          name: `filePath`,
+          node,
+          value: `/works/${filePath}`,
+        });
         const [, order, ...fp] = createFilePath({ node, getNode }).split(`/`);
         createNodeField({
           name: `order`,

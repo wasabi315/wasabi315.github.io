@@ -1,0 +1,8 @@
+@use "../../styles/common";
+
+.link {
+  @include common.text-body2;
+  .icon {
+    margin-right: 0.5rem;
+  }
+}
