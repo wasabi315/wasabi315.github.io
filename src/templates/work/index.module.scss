@@ -1,8 +1,17 @@
 @use "../../styles/common";
 
-.title {
-  @include common.text-h1;
+.header {
   margin-bottom: 2.5rem;
+
+  & .title {
+    @include common.text-h1;
+    margin-bottom: 0.25rem;
+  }
+
+  & .description {
+    @include common.text-body;
+    @include common.foreground-secondary;
+  }
 }
 
 .featured_image_wrapper {

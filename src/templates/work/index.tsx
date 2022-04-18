@@ -17,6 +17,7 @@ type Prop = {
       };
       frontmatter: {
         title: string;
+        description: string;
         featuredImage: ImageDataLike;
       };
     };
@@ -29,8 +30,9 @@ const Work: React.FCX<Prop> = ({ data: { mdx } }) => {
     <Layout>
       <Seo title={mdx.frontmatter.title} />
       <article>
-        <header>
+        <header className={styles.header}>
           <h1 className={styles.title}>{mdx.frontmatter.title}</h1>
+          <p className={styles.description}>{mdx.frontmatter.description}</p>
         </header>
         <div className={styles.featured_image_wrapper}>
           {featuredImage && (
@@ -61,6 +63,7 @@ export const pageQuery = graphql`
       }
       frontmatter {
         title
+        description
         featuredImage {
           childImageSharp {
             gatsbyImageData(width: 800, height: 450)
