@@ -6,6 +6,7 @@ type SiteMetadata = {
   author: string;
   siteUrl: string;
   repositoryUrl: string;
+  headCommitHash: string;
 };
 
 export const useSiteMetadata = (): SiteMetadata => {
@@ -19,6 +20,7 @@ export const useSiteMetadata = (): SiteMetadata => {
             description
             siteUrl
             repositoryUrl
+            headCommitHash
           }
         }
       }

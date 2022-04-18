@@ -10,12 +10,12 @@ type Props = {
 };
 
 const ViewOnGitHubLink: React.FCX<Props> = ({ filePath }) => {
-  const { repositoryUrl } = useSiteMetadata();
+  const { repositoryUrl, headCommitHash } = useSiteMetadata();
   return (
     <a
       target="_blank"
       rel="external noopener noreferrer"
-      href={`${repositoryUrl}blob/develop/src/contents${filePath}?plain=1`}
+      href={`${repositoryUrl}blob/${headCommitHash}/src/contents${filePath}?plain=1`}
       className={styles.link}
     >
       <FontAwesomeIcon className={styles.icon} icon={faGithubAlt} />
