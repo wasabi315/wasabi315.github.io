@@ -11,22 +11,24 @@ type Props = {
   frontmatter: {
     title: string;
     thumbnail: ImageDataLike;
+    description: string;
   };
 };
 
 const WorkListItem: React.FCX<Props> = ({ fields: { slug }, frontmatter }) => {
   const thumbnail = getImage(frontmatter.thumbnail);
   return (
-    <article className={styles.entry_item}>
+    <article className={styles.entry}>
       <Link to={slug}>
         {thumbnail && (
           <GatsbyImage
-            className={styles.entry_item_image}
+            className={styles.entry_image}
             image={thumbnail}
             alt="thumbnail"
           />
         )}
-        <h3 className={styles.entry_item_title}>{frontmatter.title}</h3>
+        <h3 className={styles.entry_title}>{frontmatter.title}</h3>
+        <p className={styles.entry_description}>{frontmatter.description}</p>
       </Link>
     </article>
   );

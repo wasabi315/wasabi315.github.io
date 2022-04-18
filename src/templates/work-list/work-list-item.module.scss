@@ -1,14 +1,22 @@
 @use "../../styles/common";
 
-.entry_item {
-  & .entry_item_image {
+.entry {
+  & .entry_image {
     @include common.box-shadow;
-    margin-bottom: 1rem;
+    margin: 0 auto 1rem auto;
   }
   & a {
     text-decoration: none;
   }
-  & .entry_item_title {
+  & .entry_title {
     @include common.text-h6;
+    margin-bottom: 0.25rem;
+  }
+  & .entry_description {
+    @include common.text-body2;
+    @include common.foreground-secondary;
+    @include common.sm-and-down {
+      display: none;
+    }
   }
 }
