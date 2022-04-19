@@ -72,7 +72,16 @@ const config: GatsbyConfig = {
           [rehypeAutoLinkHeadings, { test: [`h1`, `h2`, `h3`, `h4`] }],
           // rehypeSourceLine,
         ],
-        gatsbyRemarkPlugins: [`gatsby-remark-prismjs`],
+        gatsbyRemarkPlugins: [
+          {
+            resolve: `gatsby-remark-prismjs`,
+            options: {
+              prompt: {
+                global: true,
+              },
+            },
+          },
+        ],
       },
     },
     {
