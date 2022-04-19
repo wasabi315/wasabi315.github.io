@@ -24,4 +24,10 @@
 
 .footer {
   margin-top: 2.5rem;
+  & .link {
+    @include common.text-body2;
+    & .icon {
+      margin-right: 0.5rem;
+    }
+  }
 }

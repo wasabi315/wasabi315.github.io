@@ -1,10 +1,12 @@
 import * as React from "react";
 import { Link, graphql } from "gatsby";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGithubAlt } from "@fortawesome/free-brands-svg-icons";
 
 import Layout from "../../components/layout";
 import Seo from "../../components/seo";
 import MDXRenderer from "../../components/mdx-renderer";
-import ViewOnGitHubLink from "../../components/view-on-github-link";
+import ContentGitHubLink from "../../components/content-github-link";
 import * as styles from "./index.module.scss";
 
 type Prop = {
@@ -42,7 +44,13 @@ const Post: React.FCX<Prop> = ({ data: { mdx } }) => {
         </header>
         <MDXRenderer frontmatter={mdx.frontmatter}>{mdx.body}</MDXRenderer>
         <footer className={styles.footer}>
-          <ViewOnGitHubLink filePath={mdx.fields.filePath} />
+          <ContentGitHubLink
+            className={styles.link}
+            filePath={mdx.fields.filePath}
+          >
+            <FontAwesomeIcon className={styles.icon} icon={faGithubAlt} />
+            View the source of this article
+          </ContentGitHubLink>
         </footer>
       </article>
     </Layout>

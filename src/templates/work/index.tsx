@@ -1,11 +1,13 @@
 import * as React from "react";
 import { graphql } from "gatsby";
 import { GatsbyImage, getImage, ImageDataLike } from "gatsby-plugin-image";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGithubAlt } from "@fortawesome/free-brands-svg-icons";
 
 import Layout from "../../components/layout";
 import Seo from "../../components/seo";
 import MDXRenderer from "../../components/mdx-renderer";
-import ViewOnGitHubLink from "../../components/view-on-github-link";
+import ContentGitHubLink from "../../components/content-github-link";
 import * as styles from "./index.module.scss";
 
 type Prop = {
@@ -45,7 +47,13 @@ const Work: React.FCX<Prop> = ({ data: { mdx } }) => {
         </div>
         <MDXRenderer frontmatter={mdx.frontmatter}>{mdx.body}</MDXRenderer>
         <footer className={styles.footer}>
-          <ViewOnGitHubLink filePath={mdx.fields.filePath} />
+          <ContentGitHubLink
+            className={styles.link}
+            filePath={mdx.fields.filePath}
+          >
+            <FontAwesomeIcon className={styles.icon} icon={faGithubAlt} />
+            View the source of this article
+          </ContentGitHubLink>
         </footer>
       </article>
     </Layout>
