@@ -3,17 +3,18 @@ title: "LkProver"
 featuredImage: "./featured-image.png"
 thumbnail: "./thumbnail.png"
 description: "A simple command line tool for LK proofs"
+repositoryUrl: "https://github.com/wasabi315/LkProver"
 ---
 
 LkProver converts LK sequents into proofs written in the format of LaTeX's `bussproofs` package.
 
 ## Usage
 
-Dune[^1] is required to run this tool.
+[Dune](https://dune.build/) is required to run this tool.
 
 ```bash
 git clone https://github.com/wasabi315/LkProver.git && cd LkProver
-echo '|- ((p -> q) -> p) -> p' | dune exec bin/main.exe
+dune exec bin/main.exe '|- ((p -> q) -> p) -> p'
 ```
 
 The above command will output the following LaTeX snippet:
@@ -47,5 +48,11 @@ You can use the following symbols in the input sequent:
 - parentheses : `(`, `)`
 
 ## Inference Rules
-LkProver adopts the following inference rules:
+LkProver adopts the following inference rules (what I learned in a lecture):
 ![Inference rules](./inference-rules.png)
+
+## Implementaion
+LkProver is implemented in OCaml. This project is for learning OCaml.
+
+I used [Menhir](http://cambium.inria.fr/~fpottier/menhir/) and [sedlex](https://github.com/ocaml-community/sedlex) for parsing the input sequent.
+I realized sedlex is great because lexer specifications are embedded in regular OCaml source codes so the OCaml language server is (somewhat) able to work on them.
