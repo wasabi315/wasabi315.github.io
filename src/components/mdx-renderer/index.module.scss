@@ -117,4 +117,14 @@
   & :not(pre) > code {
     @include common.text-code;
   }
+
+  // For gatsby-remark-images
+  & span:global(.gatsby-resp-image-wrapper) {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  & :global(.footnotes) {
+    margin-top: 3rem;
+  }
 }
