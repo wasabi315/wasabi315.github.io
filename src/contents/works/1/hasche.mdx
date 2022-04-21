@@ -2,7 +2,51 @@
 title: "Hasche"
 featuredImage: "./featured-image.png"
 thumbnail: "./thumbnail.png"
-description: "An interpreter of a subset of Scheme written in Haskell"
+description: "An interpreter of a Scheme-like language written in Haskell"
 ---
 
-I created an scheme interpreter in Haskell.
+> Hasche (/hæʃ/): **Ha**skell + **Sche**me
+
+Hasche is a toy interpreter of a Scheme-like language.
+You can find the more detailed document and the source code of Hasche on [GitHub](https://github.com/wasabi315/Hasche).
+Feel free to fork it and send me a pull request!
+
+## Try It out!
+Cabal[^1] is required to run Hasche.
+
+[^1]: https://www.haskell.org/cabal/
+
+```bash
+git clone https://github.com/wasabi315/Hasche.git
+cd Hasche
+cabal build
+cabal exec hasche -- exec ./programs/hello.scm # Execute a program
+cabal exec hasche -- repl # Launch REPL
+```
+
+## Features
+
+### Read-Eval-Print Loop (REPL)
+```scheme
+hasche> (display "Hello, world!\n")
+Hello, world!
+#<undef>
+hasche> (load "./programs/hello.scm")
+Hello, world!
+#<undef>
+```
+
+### call-with-current-continuation
+The procedure `call-with-current-continuation` (`call/cc`) blah.
+
+### Non-hygienic Macros
+Hasche supports non-hygienic macros. They are defined with the `define-macro` special form.
+The special form `match`, `quasiquote`, `unquote`, and `unquote-splicing` are also supported and they help us write more readable macro definitions.
+```scheme
+(define-macro (and . l)
+  (match l
+    (() #t)
+    ((test1 . test2) `(if ,test1 (and ,@test2) #f))))
+
+(and t1 t2 t3) ; expands to (if t1 (and t2 t3) #f)
+```
