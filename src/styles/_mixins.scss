@@ -73,6 +73,12 @@
   @include rfs.font-size(1.125rem);
   line-height: 1.25;
 }
+@mixin text-subtitle3 {
+  font-family: var.$header-font;
+  font-weight: 800;
+  @include rfs.font-size(1rem);
+  line-height: 1.25;
+}
 @mixin text-body {
   font-family: var.$body-font;
   @include rfs.font-size(1.125rem);

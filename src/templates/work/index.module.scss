@@ -17,13 +17,13 @@
       margin-left: auto;
       text-decoration: none;
       padding: 0.25rem 0.5rem;
-      @include common.text-subtitle2;
+      @include common.text-subtitle3;
       border: 2px solid common.$theme-foreground-primary;
       &:hover {
         border-color: common.$theme-accent-primary;
       }
       & .icon {
-        margin-right: 0.5rem;
+        margin-right: 0.25rem;
       }
     }
   }
