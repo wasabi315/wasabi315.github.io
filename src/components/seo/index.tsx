@@ -5,18 +5,18 @@
  * See: https://www.gatsbyjs.com/docs/use-static-query/
  */
 
-import * as React from "react"
-import { Helmet } from "react-helmet"
-import { useStaticQuery, graphql } from "gatsby"
+import * as React from "react";
+import { Helmet } from "react-helmet";
 
-import ogImage from "../../images/og-image.png"
+import ogImage from "../../images/og-image.png";
+import { useSiteMetadata } from "../../hooks/use-site-metadata";
 
 type Prop = {
-  description?: string
-  lang?: string
-  meta?: JSX.IntrinsicElements["meta"][]
-  title: string
-}
+  description?: string;
+  lang?: string;
+  meta?: JSX.IntrinsicElements["meta"][];
+  title: string;
+};
 
 const Seo: React.FCX<Prop> = ({
   description = ``,
@@ -24,24 +24,10 @@ const Seo: React.FCX<Prop> = ({
   meta = [],
   title,
 }) => {
-  const { site } = useStaticQuery(
-    graphql`
-      query {
-        site {
-          siteMetadata {
-            title
-            description
-            author
-            siteUrl
-          }
-        }
-      }
-    `
-  )
-
-  const metaDescription = description || site.siteMetadata.description
-  const defaultTitle = site.siteMetadata?.title
-  const ogImageUrl = site.siteMetadata?.siteUrl + ogImage
+  const siteMetadata = useSiteMetadata();
+  const metaDescription = description || siteMetadata.description;
+  const defaultTitle = siteMetadata?.title;
+  const ogImageUrl = siteMetadata?.siteUrl + ogImage;
 
   return (
     <Helmet
@@ -77,7 +63,7 @@ const Seo: React.FCX<Prop> = ({
         },
         {
           name: `twitter:creator`,
-          content: site.siteMetadata?.author || ``,
+          content: siteMetadata?.author || ``,
         },
         {
           name: `twitter:title`,
@@ -98,7 +84,7 @@ const Seo: React.FCX<Prop> = ({
         ...meta,
       ]}
     />
-  )
-}
+  );
+};
 
-export default Seo
+export default Seo;

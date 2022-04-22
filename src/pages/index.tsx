@@ -1,9 +1,9 @@
-import * as React from "react"
-import { StaticImage } from "gatsby-plugin-image"
+import * as React from "react";
+import { StaticImage } from "gatsby-plugin-image";
 
-import Layout from "../components/layout"
-import Seo from "../components/seo"
-import * as style from "./index.module.scss"
+import Layout from "../components/layout";
+import Seo from "../components/seo";
+import * as style from "./index.module.scss";
 
 const IndexPage = () => (
   <Layout>
@@ -14,7 +14,7 @@ const IndexPage = () => (
     </section>
     <section className={style.about}>
       <p>
-        Hello! I'm an undergraduate student at Tokyo Tech and a member of {""}
+        Hello! I'm a master's student at Tokyo Tech and a member of {""}
         <a href="https://www.psg.c.titech.ac.jp/">Programming Systems Group</a>.
         <br />
         My interest is in programming languages, especially functional
@@ -40,6 +40,6 @@ const IndexPage = () => (
       </ul>
     </section>
   </Layout>
-)
+);
 
-export default IndexPage
+export default IndexPage;

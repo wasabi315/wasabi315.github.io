@@ -1,5 +1,0 @@
-{
-    "yaml.schemas": {
-        "https://json.schemastore.org/github-workflow.json": "file:///Users/wasabi/workspace/wasabi315.github.io/.github/workflows/deploy.yaml"
-    }
-}

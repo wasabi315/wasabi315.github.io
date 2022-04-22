@@ -1,45 +1,36 @@
-import * as React from "react"
-import clsx from "clsx"
-import { Link } from "gatsby"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faBars } from "@fortawesome/free-solid-svg-icons"
+import * as React from "react";
+import clsx from "clsx";
+import { Link } from "gatsby";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
 
-import * as styles from "./header.module.scss"
-import * as config from "./config"
+import { useScrollY } from "../../hooks/use-scroll";
+import * as styles from "./header.module.scss";
+import * as config from "./config";
 
 type Prop = {
-  siteTitle: string
-  onClickMenu?: () => void
-}
+  siteTitle: string;
+  onClickMenu?: () => void;
+};
 
 const navigationLinks = [
   { to: `/works`, label: `Works` },
   { to: `/posts`, label: `Posts` },
-]
-
-const useScrollY = (): number => {
-  const [scrollY, setScrollY] = React.useState(0)
-  React.useEffect(() => {
-    const handleScroll = () => setScrollY(window.scrollY)
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
-  return scrollY
-}
+];
 
 const Header: React.FCX<Prop> = ({
   className,
   siteTitle = ``,
   onClickMenu,
 }) => {
-  const scrollY = useScrollY()
-  const showShadow = scrollY > 0
+  const scrollY = useScrollY();
+  const showShadow = scrollY > 0;
   return (
     <header
       className={clsx(
         className,
         styles.header,
-        showShadow && styles.show_shadow
+        showShadow && styles.show_shadow,
       )}
     >
       <nav className={styles.container}>
@@ -57,7 +48,7 @@ const Header: React.FCX<Prop> = ({
         <ul className={styles.nav}>
           {config.socialLinks.map(({ icon, url }) => (
             <li key={url} className={styles.nav_item}>
-              <a href={url}>
+              <a href={url} target="_blank" rel="external noopener noreferrer">
                 <FontAwesomeIcon icon={icon} />
               </a>
             </li>
@@ -68,7 +59,7 @@ const Header: React.FCX<Prop> = ({
         </div>
       </nav>
     </header>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

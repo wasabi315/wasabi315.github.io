@@ -8,6 +8,7 @@
   --theme-background-primary: #ffffff;
   --theme-background-secondary: #f6f7fa;
   --theme-background-tertiary: #eceff4;
+  --theme-shadow: #4c566a24;
   --theme-divider: #cdcfd5;
 }
 
@@ -19,6 +20,7 @@ $theme-foreground-tertiary: var(--theme-foreground-tertiary);
 $theme-background-primary: var(--theme-background-primary);
 $theme-background-secondary: var(--theme-background-secondary);
 $theme-background-tertiary: var(--theme-background-tertiary);
+$theme-shadow: var(--theme-shadow);
 $theme-divider: var(--theme-divider);
 
 // Fonts

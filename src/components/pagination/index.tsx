@@ -1,46 +1,42 @@
-import * as React from "react"
-import { Link } from "gatsby"
+import * as React from "react";
+import { Link } from "gatsby";
+import clsx from "clsx";
+import type { PaginationContext } from "gatsby-awesome-pagination";
 
-import * as styles from "./index.module.scss"
+import * as styles from "./index.module.scss";
 
-type Prop = {
-  currentPage: number
-  numPages: number
-  createPageLink: (page: number) => string
-  prevText?: string
-  nextText?: string
-}
+type Prop = PaginationContext & {
+  prevText?: string;
+  nextText?: string;
+};
 
 const Pagination: React.FCX<Prop> = ({
-  currentPage,
-  numPages,
-  createPageLink,
+  previousPagePath,
+  nextPagePath,
+  numberOfPages,
+  humanPageNumber,
   prevText = `Prev`,
   nextText = `Next`,
 }) => {
-  const prevPageLink = createPageLink(Math.max(currentPage - 1, 1))
-  const nextPageLink = createPageLink(Math.min(currentPage + 1, numPages))
-  const noPrevPage = currentPage === 1
-  const noNextPage = currentPage === numPages
   return (
     <div className={styles.pagination}>
       <Link
-        to={prevPageLink}
-        className={noPrevPage ? styles.disabled : undefined}
+        to={previousPagePath}
+        className={clsx(!previousPagePath && styles.disabled)}
       >
         {prevText}
       </Link>
       <span>
-        Page {currentPage} of {numPages}
+        Page {humanPageNumber} of {numberOfPages}
       </span>
       <Link
-        to={nextPageLink}
-        className={noNextPage ? styles.disabled : undefined}
+        to={nextPagePath}
+        className={clsx(!nextPagePath && styles.disabled)}
       >
         {nextText}
       </Link>
     </div>
-  )
-}
+  );
+};
 
-export default Pagination
+export default Pagination;

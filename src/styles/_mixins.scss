@@ -20,6 +20,9 @@
 @mixin background-secondary {
   background-color: var.$theme-background-tertiary;
 }
+@mixin box-shadow {
+  box-shadow: 0 4px 10px var.$theme-shadow;
+}
 
 // Typography
 @mixin text-h1 {

@@ -1,5 +1,5 @@
-import * as React from "react"
+import * as React from "react";
 
 declare module "react" {
-  type FCX<P = {}> = React.FC<P & { className?: string }>
+  type FCX<P = {}> = React.FC<P & { className?: string }>;
 }

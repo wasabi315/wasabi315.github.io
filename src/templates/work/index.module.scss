@@ -1,0 +1,53 @@
+@use "../../styles/common";
+
+.header {
+  margin-bottom: 2.5rem;
+
+  & .title_container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+
+    & .title {
+      @include common.text-h1;
+    }
+
+    & .repo_url {
+      display: block;
+      margin-left: auto;
+      text-decoration: none;
+      padding: 0.25rem 0.5rem;
+      @include common.text-subtitle2;
+      border: 2px solid common.$theme-foreground-primary;
+      &:hover {
+        border-color: common.$theme-accent-primary;
+      }
+      & .icon {
+        margin-right: 0.5rem;
+      }
+    }
+  }
+
+  & .description {
+    @include common.text-body;
+    @include common.foreground-secondary;
+  }
+}
+
+.featured_image_wrapper {
+  margin: 0 auto 2.5rem auto;
+  max-width: fit-content;
+  & .featured_image {
+    @include common.box-shadow;
+  }
+}
+
+.footer {
+  margin-top: 2.5rem;
+  & .link {
+    @include common.text-body2;
+    & .icon {
+      margin-right: 0.5rem;
+    }
+  }
+}
