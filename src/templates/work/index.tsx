@@ -2,7 +2,7 @@ import * as React from "react";
 import { graphql } from "gatsby";
 import { GatsbyImage, getImage, ImageDataLike } from "gatsby-plugin-image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGithubAlt } from "@fortawesome/free-brands-svg-icons";
+import { faGithubAlt, faGitlab } from "@fortawesome/free-brands-svg-icons";
 
 import Layout from "../../components/layout";
 import Seo from "../../components/seo";
@@ -20,6 +20,7 @@ type Prop = {
       frontmatter: {
         title: string;
         description: string;
+        githubRepository?: string;
         featuredImage: ImageDataLike;
       };
     };
@@ -33,7 +34,18 @@ const Work: React.FCX<Prop> = ({ data: { mdx } }) => {
       <Seo title={mdx.frontmatter.title} />
       <article>
         <header className={styles.header}>
-          <h1 className={styles.title}>{mdx.frontmatter.title}</h1>
+          <div className={styles.title_container}>
+            <h1 className={styles.title}>{mdx.frontmatter.title}</h1>
+            {mdx.frontmatter.githubRepository && (
+              <a
+                className={styles.repo_url}
+                href={`https://github.com/${mdx.frontmatter.githubRepository}`}
+              >
+                <FontAwesomeIcon className={styles.icon} icon={faGithubAlt} />
+                View on GitHub
+              </a>
+            )}
+          </div>
           <p className={styles.description}>{mdx.frontmatter.description}</p>
         </header>
         <div className={styles.featured_image_wrapper}>
@@ -52,7 +64,7 @@ const Work: React.FCX<Prop> = ({ data: { mdx } }) => {
             filePath={mdx.fields.filePath}
           >
             <FontAwesomeIcon className={styles.icon} icon={faGithubAlt} />
-            View the source of this article
+            View this article on GitHub
           </ContentGitHubLink>
         </footer>
       </article>
@@ -72,6 +84,7 @@ export const pageQuery = graphql`
       frontmatter {
         title
         description
+        githubRepository
         featuredImage {
           childImageSharp {
             gatsbyImageData(width: 800, height: 450)

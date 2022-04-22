@@ -49,7 +49,7 @@ const Post: React.FCX<Prop> = ({ data: { mdx } }) => {
             filePath={mdx.fields.filePath}
           >
             <FontAwesomeIcon className={styles.icon} icon={faGithubAlt} />
-            View the source of this article
+            View this article on GitHub
           </ContentGitHubLink>
         </footer>
       </article>

@@ -13,15 +13,7 @@ const ContentGitHubLink = React.forwardRef<HTMLAnchorElement, Props>(
       const url = `${repositoryUrl}blob/${headCommitHash}/src/contents${filePath}?plain=1`;
       return range ? `${url}#L${range.start}-L${range.end}` : url;
     }, [filePath, headCommitHash, repositoryUrl, range]);
-    return (
-      <a
-        {...props}
-        ref={ref}
-        target="_blank"
-        rel="external noopener noreferrer"
-        href={link}
-      />
-    );
+    return <a {...props} ref={ref} href={link} />;
   },
 );
 

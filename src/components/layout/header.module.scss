@@ -45,9 +45,11 @@
   & .nav_item {
     @include common.text-h6;
     float: left;
-    margin-right: 1rem;
     & > a:not(:hover) {
       @include common.foreground-secondary;
+    }
+    &:not(:first-child) {
+      margin-left: 1rem;
     }
   }
 }
