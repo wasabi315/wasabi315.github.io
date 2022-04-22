@@ -3,18 +3,17 @@ title: "Hasche"
 featuredImage: "./featured-image.png"
 thumbnail: "./thumbnail.png"
 description: "An interpreter of a Scheme-like language written in Haskell"
+repositoryUrl: "https://github.com/wasabi315/Hasche"
 ---
 
 > Hasche (/hæʃ/): **Ha**skell + **Sche**me
 
-Hasche is a toy interpreter of a Scheme-like language.
-You can find the more detailed document and the source code of Hasche on [GitHub](https://github.com/wasabi315/Hasche).
-Feel free to fork it and send me a pull request!
+Hasche is a toy interpreter of a Scheme-like language written in Haskell.
+I made this for a "newcomer project" of a research group I am joining.
+I enjoyed writing this and got some basic knowledge of programming language implementation.
 
 ## Try It out!
-Cabal[^1] is required to run Hasche.
-
-[^1]: https://www.haskell.org/cabal/
+[Cabal](https://www.haskell.org/cabal/) is required to run Hasche.
 
 ```bash
 git clone https://github.com/wasabi315/Hasche.git
@@ -27,6 +26,9 @@ cabal exec hasche -- repl # Launch REPL
 ## Features
 
 ### Read-Eval-Print Loop (REPL)
+Hasche offers the REPL feature.
+You can use it to try Hasche's features interactively.
+
 ```scheme
 hasche> (display "Hello, world!\n")
 Hello, world!
@@ -37,11 +39,26 @@ Hello, world!
 ```
 
 ### call-with-current-continuation
-The procedure `call-with-current-continuation` (`call/cc`) blah.
+The procedure `call-with-current-continuation` (`call/cc`) is supported.
+A continuation object is first-class in Hasche and represented as a unary function.
+I used [continuation monad](https://hackage.haskell.org/package/mtl-2.2.2/docs/Control-Monad-Cont.html) to implement this procedure.
+
+```scheme
+; Adopted from https://en.wikipedia.org/wiki/Call-with-current-continuation
+
+(define (f return)
+  (return 2)
+  3)
+
+(display (f (lambda (x) x))) ; displays 3
+
+(display (call-with-current-continuation f)) ; displays 2
+```
 
 ### Non-hygienic Macros
-Hasche supports non-hygienic macros. They are defined with the `define-macro` special form.
-The special form `match`, `quasiquote`, `unquote`, and `unquote-splicing` are also supported and they help us write more readable macro definitions.
+Hasche supports non-hygienic macros. Use the special form `define-macro` to define them.
+The special forms `match`, `quasiquote`, `unquote`, and `unquote-splicing` are available and help us write more readable macro definitions.
+
 ```scheme
 (define-macro (and . l)
   (match l
@@ -50,3 +67,6 @@ The special form `match`, `quasiquote`, `unquote`, and `unquote-splicing` are al
 
 (and t1 t2 t3) ; expands to (if t1 (and t2 t3) #f)
 ```
+
+## Contribute
+Feel free to fork it and send me a pull request!
