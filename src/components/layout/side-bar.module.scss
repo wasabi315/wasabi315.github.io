@@ -6,7 +6,7 @@
   left: 0;
   height: 100%;
   width: 80%;
-  z-index: 3;
+  z-index: 4;
   padding: 1.5rem;
   @include common.background-primary;
   display: flex;
@@ -26,7 +26,7 @@
   left: 0;
   height: 100%;
   width: 100%;
-  z-index: 1;
+  z-index: 3;
   background-color: rgba(0, 0, 0, 0.5);
 
   will-change: display;
