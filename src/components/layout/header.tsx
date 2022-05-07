@@ -24,40 +24,39 @@ const Header: React.FCX<Prop> = ({
   onClickMenu,
 }) => {
   const scrollY = useScrollY();
-  const showShadow = scrollY > 0;
+
   return (
     <header
       className={clsx(
         className,
         styles.header,
-        showShadow && styles.show_shadow,
+        scrollY > 0 && styles.show_shadow,
       )}
     >
-      <nav className={styles.container}>
-        <div className={styles.title}>
-          <Link to="/">{siteTitle}</Link>
-        </div>
-        <ul className={styles.nav}>
+      <h1>
+        <Link to="/">{siteTitle}</Link>
+      </h1>
+      <nav>
+        <ul>
           {navigationLinks.map(({ to, label }) => (
-            <li key={to} className={styles.nav_item}>
+            <li key={to}>
               <Link to={to}>{label}</Link>
             </li>
           ))}
         </ul>
-        <div className={styles.spacer} />
-        <ul className={styles.nav}>
+        <ul>
           {config.socialLinks.map(({ icon, url }) => (
-            <li key={url} className={styles.nav_item}>
+            <li key={url}>
               <a href={url} target="_blank" rel="external noopener noreferrer">
                 <FontAwesomeIcon icon={icon} />
               </a>
             </li>
           ))}
         </ul>
-        <div className={styles.menu}>
-          <FontAwesomeIcon icon={faBars} onClick={onClickMenu} />
-        </div>
       </nav>
+      <button onClick={onClickMenu}>
+        <FontAwesomeIcon icon={faBars} />
+      </button>
     </header>
   );
 };
