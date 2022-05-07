@@ -21,16 +21,16 @@
     text-decoration: none;
   }
 
-  & h1 {
+  & > h1 {
     @include common.text-h4;
     margin-right: 3.75rem;
   }
 
-  & nav {
+  & > nav {
     flex-grow: 1;
   }
 
-  & nav ul {
+  & > nav ul {
     @include common.md-and-down {
       display: none;
     }
@@ -40,22 +40,22 @@
     padding: 0;
     list-style: none;
 
-    & li {
+    & > li {
       display: inline-block;
       @include common.text-h6;
       margin-left: 1rem;
     }
   }
 
-  & nav ul:nth-child(2) {
+  & > nav ul:nth-child(2) {
     float: right;
   }
 
-  & nav a:not(:hover) {
+  & > nav a:not(:hover) {
     @include common.foreground-secondary;
   }
 
-  & button {
+  & > button {
     @include common.md-and-up {
       display: none;
     }

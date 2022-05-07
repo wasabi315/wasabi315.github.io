@@ -23,29 +23,28 @@ const SideBar: React.FCX<Prop> = ({ showSideBar, close }) => {
   return (
     <>
       <aside className={clsx(styles.side_bar, showSideBarClass)}>
-        <div className={styles.close}>
+        <button>
           <FontAwesomeIcon icon={faXmark} onClick={close} />
-        </div>
+        </button>
         <ul className={styles.nav}>
           {navigationLinks.map(({ to, label }) => (
-            <li key={to} className={styles.nav_item}>
+            <li key={to}>
               <Link to={to} onClick={close}>
                 {label}
               </Link>
             </li>
           ))}
         </ul>
-        <div className={styles.spacer} />
         <ul className={styles.social}>
           {config.socialLinks.map(({ icon, url }) => (
-            <li key={url} className={styles.social_item}>
+            <li key={url}>
               <a href={url} target="_blank" rel="external noopener noreferrer">
                 <FontAwesomeIcon icon={icon} />
               </a>
             </li>
           ))}
         </ul>
-        <p className={styles.footer}>
+        <p>
           © {new Date().getFullYear()} Satoshi Takimoto.
           <br />
           Built with {` `}
