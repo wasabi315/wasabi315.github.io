@@ -25,11 +25,11 @@ const Layout: React.FCX = ({ children }) => {
   const [showSideBar, open, close] = useToggle(false);
 
   return (
-    <div className={styles.container}>
-      <Header className={styles.header} siteTitle={title} onClickMenu={open} />
+    <div className={styles.layout}>
+      <Header siteTitle={title} onClickMenu={open} />
       <SideBar showSideBar={showSideBar} close={close} />
-      <main className={styles.main}>{children}</main>
-      <footer className={styles.footer}>
+      <main>{children}</main>
+      <footer>
         © {new Date().getFullYear()} Satoshi Takimoto.
         <span>
           Built with {` `}

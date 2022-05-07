@@ -18,21 +18,11 @@ const navigationLinks = [
   { to: `/posts`, label: `Posts` },
 ];
 
-const Header: React.FCX<Prop> = ({
-  className,
-  siteTitle = ``,
-  onClickMenu,
-}) => {
+const Header: React.FCX<Prop> = ({ siteTitle = ``, onClickMenu }) => {
   const scrollY = useScrollY();
 
   return (
-    <header
-      className={clsx(
-        className,
-        styles.header,
-        scrollY > 0 && styles.show_shadow,
-      )}
-    >
+    <header className={clsx(styles.header, scrollY > 0 && styles.show_shadow)}>
       <h1>
         <Link to="/">{siteTitle}</Link>
       </h1>
