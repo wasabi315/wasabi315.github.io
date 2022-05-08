@@ -34,17 +34,20 @@
 
   & > ul.nav {
     margin: 0;
+
     & > li {
       @include common.text-h6;
       margin-bottom: 0.75rem;
     }
-    & a {
+
+    a {
       text-decoration: none;
     }
   }
 
   & > ul.social {
     margin: auto 0 0.75rem 0;
+
     & > li {
       display: inline-block;
       @include common.text-h6;
