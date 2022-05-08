@@ -1,20 +1,24 @@
 @use "../../styles/common";
 
-.entry_item {
+.entry {
   &:not(:last-child) {
     margin-bottom: 1.5rem;
   }
-  & a {
+
+  a {
     text-decoration: none;
   }
-  & .entry_item_title {
+
+  & > h3 {
     @include common.text-h4;
   }
-  & .entry_item_meta {
+
+  & > p {
     @include common.text-body2;
     @include common.foreground-secondary;
   }
-  & .entry_item_tag {
+
+  & > p > a {
     margin-right: 0.375rem;
     @include common.hash-tag;
   }
