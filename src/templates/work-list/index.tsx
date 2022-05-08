@@ -5,9 +5,7 @@ import { PaginationContext } from "gatsby-awesome-pagination";
 
 import Layout from "../../components/layout";
 import Seo from "../../components/seo";
-import Pagination from "../../components/pagination";
-import WorkListItem from "./work-list-item";
-import * as styles from "./index.module.scss";
+import WorkList from "./work-list";
 
 type Prop = {
   data: {
@@ -31,13 +29,7 @@ const WorkListPage: React.FCX<Prop> = ({ data, pageContext }) => {
   return (
     <Layout>
       <Seo title="Works" />
-      <h1 className={styles.title}>Works</h1>
-      <div className={styles.entry}>
-        {data.allMdx.nodes.map((node) => (
-          <WorkListItem key={node.fields.slug} {...node} />
-        ))}
-      </div>
-      <Pagination {...pageContext} />
+      <WorkList works={data.allMdx.nodes} pageContext={pageContext} />
     </Layout>
   );
 };
