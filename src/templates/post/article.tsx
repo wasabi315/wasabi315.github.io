@@ -5,6 +5,7 @@ import { faGithubAlt } from "@fortawesome/free-brands-svg-icons";
 
 import MDXRenderer from "../../components/mdx-renderer";
 import ContentGitHubLink from "../../components/content-github-link";
+import Tag from "../../components/tag";
 import * as styles from "./article.module.scss";
 
 type Props = {
@@ -31,7 +32,7 @@ const Article: React.FCX<Props> = ({ post }) => {
           {` - `}
           {post.frontmatter.tags.map((tag) => (
             <Link key={tag} to={`/tags/${tag}`}>
-              {tag}
+              <Tag tag={tag} />
             </Link>
           ))}
         </p>

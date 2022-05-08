@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Link } from "gatsby";
 
+import Tag from "../../components/tag";
 import * as styles from "./post-list-item.module.scss";
 
 type Props = {
@@ -26,7 +27,7 @@ const PostListItem: React.FCX<Props> = ({ post }) => (
       {` - `}
       {post.frontmatter.tags.map((tag) => (
         <Link key={tag} to={`/tags/${tag}`}>
-          {tag}
+          <Tag tag={tag} />
         </Link>
       ))}
     </p>
