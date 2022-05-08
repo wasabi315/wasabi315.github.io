@@ -12,17 +12,11 @@ import * as styles from "./index.module.scss";
 import Header from "./header";
 import SideBar from "./side-bar";
 import { useSiteMetadata } from "../../hooks/use-site-metadata";
-
-const useToggle = (init: boolean) => {
-  const [value, setValue] = React.useState(init);
-  const setTrue = React.useCallback(() => setValue(true), []);
-  const setFalse = React.useCallback(() => setValue(false), []);
-  return [value, setTrue, setFalse] as const;
-};
+import { useFlag } from "../../hooks/use-flag";
 
 const Layout: React.FCX = ({ children }) => {
   const { title } = useSiteMetadata();
-  const [showSideBar, open, close] = useToggle(false);
+  const { flag: showSideBar, set: open, clear: close } = useFlag(false);
 
   return (
     <div className={styles.layout}>
