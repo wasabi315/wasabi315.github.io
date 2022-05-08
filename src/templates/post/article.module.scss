@@ -1,0 +1,26 @@
+@use "../../styles/common";
+
+.article {
+  & > header > h1 {
+    @include common.text-h1;
+  }
+
+  & > header > p {
+    @include common.text-body;
+    @include common.foreground-secondary;
+    margin-bottom: 2.5rem;
+
+    & a {
+      margin-right: 0.375rem;
+      text-decoration: none;
+    }
+  }
+
+  & > footer {
+    margin-top: 2.5rem;
+
+    & a {
+      @include common.text-body2;
+    }
+  }
+}

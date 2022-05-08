@@ -1,0 +1,51 @@
+@use "../../styles/common";
+
+.article {
+  & > header {
+    margin-bottom: 2.5rem;
+  }
+
+  & > header > div {
+    display: flex;
+    align-items: center;
+
+    & > h1 {
+      margin-right: auto;
+      width: fit-content;
+      @include common.text-h1;
+    }
+
+    & > a {
+      text-decoration: none;
+      padding: 0.25rem 0.5rem;
+      @include common.text-subtitle3;
+
+      border: 2px solid common.$theme-foreground-primary;
+      &:hover {
+        border-color: common.$theme-accent-primary;
+      }
+    }
+  }
+
+  & > header > p {
+    @include common.text-body;
+    @include common.foreground-secondary;
+  }
+
+  & > figure {
+    text-align: center;
+    margin-bottom: 2.5rem;
+
+    .featured_image {
+      @include common.box-shadow;
+    }
+  }
+
+  & > footer {
+    margin-top: 2.5rem;
+
+    & a {
+      @include common.text-body2;
+    }
+  }
+}

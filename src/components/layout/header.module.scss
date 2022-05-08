@@ -1,59 +1,66 @@
 @use "../../styles/common";
 
 .header {
+  display: flex;
+  align-items: flex-end;
+  @include common.background-primary;
   padding: 1.5rem 1rem;
+  z-index: 2;
+
   @include common.md-and-down {
     position: sticky;
     top: 0;
     padding: 1rem;
-    @include common.background-primary;
-    z-index: 2;
+
     &.show_shadow {
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
   }
-}
 
-.container {
-  display: flex;
-}
-
-.menu {
-  @include common.text-h6;
-  @include common.md-and-up {
-    display: none;
-  }
-}
-
-.title {
-  @include common.text-h4;
-  margin-right: 3.75rem;
-  & a {
+  a {
     text-decoration: none;
   }
-}
 
-.nav {
-  margin-top: 0.375rem;
-  list-style: none;
-  @include common.md-and-down {
-    display: none;
+  & > h1 {
+    @include common.text-h4;
+    margin-right: 3.75rem;
   }
-  & a {
-    text-decoration: none;
+
+  & > nav {
+    flex-grow: 1;
   }
-  & .nav_item {
-    @include common.text-h6;
-    float: left;
-    & > a:not(:hover) {
-      @include common.foreground-secondary;
+
+  & > nav ul {
+    @include common.md-and-down {
+      display: none;
     }
-    &:not(:first-child) {
+
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    & > li {
+      display: inline-block;
+      @include common.text-h6;
       margin-left: 1rem;
     }
   }
-}
 
-.spacer {
-  flex-grow: 1;
+  & > nav ul:nth-child(2) {
+    float: right;
+  }
+
+  & > nav a:not(:hover) {
+    @include common.foreground-secondary;
+  }
+
+  & > button {
+    @include common.md-and-up {
+      display: none;
+    }
+
+    all: unset;
+    @include common.text-h6;
+  }
 }

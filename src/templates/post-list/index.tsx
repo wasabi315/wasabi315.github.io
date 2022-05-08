@@ -4,9 +4,7 @@ import { PaginationContext } from "gatsby-awesome-pagination";
 
 import Layout from "../../components/layout";
 import Seo from "../../components/seo";
-import PostListItem from "./post-list-item";
-import Pagination from "../../components/pagination";
-import * as styles from "./index.module.scss";
+import PostList from "./post-list";
 
 type Prop = {
   data: {
@@ -30,13 +28,11 @@ const PostListPage: React.FCX<Prop> = ({ data, pageContext }) => {
   return (
     <Layout>
       <Seo title="Posts" />
-      <h1 className={styles.title}>Posts</h1>
-      <div className={styles.post_list}>
-        {data.allMdx.nodes.map((post) => (
-          <PostListItem key={post.fields.slug} {...post} />
-        ))}
-      </div>
-      <Pagination {...pageContext} prevText="Newer" nextText="Older" />
+      <PostList
+        title="Posts"
+        posts={data.allMdx.nodes}
+        pageContext={pageContext}
+      />
     </Layout>
   );
 };

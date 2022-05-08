@@ -1,30 +1,33 @@
 import * as React from "react";
 import { Link } from "gatsby";
 
+import Tag from "../../components/tag";
 import * as styles from "./post-list-item.module.scss";
 
 type Props = {
-  fields: {
-    slug: string;
-  };
-  frontmatter: {
-    title: string;
-    date: string;
-    tags: string[];
+  post: {
+    fields: {
+      slug: string;
+    };
+    frontmatter: {
+      title: string;
+      date: string;
+      tags: string[];
+    };
   };
 };
 
-const PostListItem: React.FCX<Props> = ({ fields: { slug }, frontmatter }) => (
-  <article className={styles.entry_item}>
-    <Link className={styles.entry_item_title} to={slug}>
-      {frontmatter.title}
-    </Link>
-    <p className={styles.entry_item_meta}>
-      <time>{frontmatter.date}</time>
+const PostListItem: React.FCX<Props> = ({ post }) => (
+  <article className={styles.entry}>
+    <h3>
+      <Link to={post.fields.slug}>{post.frontmatter.title}</Link>
+    </h3>
+    <p>
+      <time>{post.frontmatter.date}</time>
       {` - `}
-      {frontmatter.tags.map((tag) => (
-        <Link key={tag} className={styles.entry_item_tag} to={`/tags/${tag}`}>
-          {tag}
+      {post.frontmatter.tags.map((tag) => (
+        <Link key={tag} to={`/tags/${tag}`}>
+          <Tag tag={tag} />
         </Link>
       ))}
     </p>

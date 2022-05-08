@@ -1,29 +1,26 @@
 @use "../../styles/common";
 
-.container {
+.layout {
   margin: 0 auto;
   max-width: common.$lg;
-}
 
-.header {
-  margin-bottom: 3rem;
-}
-
-.main {
-  margin-bottom: 3rem;
-  padding: 0 1rem;
-}
-
-.footer {
-  @include common.text-caption;
-  @include common.foreground-secondary;
-  margin: 8rem 1rem 0 1rem;
-  padding: 1.5rem 0;
-  border-top: 1px solid common.$theme-divider;
-  & > span {
-    float: right;
+  & > main {
+    margin: 3rem 0;
+    padding: 0 1rem;
   }
-  @include common.md-and-down {
-    display: none;
+
+  & > footer {
+    @include common.md-and-down {
+      display: none;
+    }
+
+    @include common.text-caption;
+    @include common.foreground-secondary;
+    margin: 8rem 1rem 0 1rem;
+    padding: 1.5rem 0;
+    border-top: 1px solid common.$theme-divider;
+    & > span {
+      float: right;
+    }
   }
 }

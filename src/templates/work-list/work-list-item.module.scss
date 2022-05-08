@@ -1,18 +1,21 @@
 @use "../../styles/common";
 
 .entry {
-  & .entry_image {
+  a {
+    text-decoration: none;
+  }
+
+  & .thumbnail {
     @include common.box-shadow;
     margin: 0 auto 1rem auto;
   }
-  & a {
-    text-decoration: none;
-  }
-  & .entry_title {
+
+  & > h3 {
     @include common.text-h6;
     margin-bottom: 0.25rem;
   }
-  & .entry_description {
+
+  & > p {
     @include common.text-body2;
     @include common.foreground-secondary;
     @include common.sm-and-down {

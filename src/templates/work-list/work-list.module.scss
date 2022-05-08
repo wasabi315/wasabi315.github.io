@@ -1,0 +1,26 @@
+@use "../../styles/common";
+
+.work_list {
+  & > h1 {
+    @include common.text-h1;
+    margin-bottom: 2.5rem;
+    @include common.md-and-down {
+      margin-bottom: 1.25rem;
+    }
+  }
+
+  & > ul {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4rem 2rem;
+    @include common.sm-and-down {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
+
+    list-style: none;
+    margin: 0 0 3rem 0;
+    padding: 0;
+  }
+}

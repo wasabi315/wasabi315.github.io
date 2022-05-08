@@ -5,30 +5,32 @@ import { GatsbyImage, getImage, ImageDataLike } from "gatsby-plugin-image";
 import * as styles from "./work-list-item.module.scss";
 
 type Props = {
-  fields: {
-    slug: string;
-  };
-  frontmatter: {
-    title: string;
-    thumbnail: ImageDataLike;
-    description: string;
+  work: {
+    fields: {
+      slug: string;
+    };
+    frontmatter: {
+      title: string;
+      thumbnail: ImageDataLike;
+      description: string;
+    };
   };
 };
 
-const WorkListItem: React.FCX<Props> = ({ fields: { slug }, frontmatter }) => {
-  const thumbnail = getImage(frontmatter.thumbnail);
+const WorkListItem: React.FCX<Props> = ({ work }) => {
+  const thumbnail = getImage(work.frontmatter.thumbnail);
   return (
     <article className={styles.entry}>
-      <Link to={slug}>
+      <Link to={work.fields.slug}>
         {thumbnail && (
           <GatsbyImage
-            className={styles.entry_image}
+            className={styles.thumbnail}
             image={thumbnail}
             alt="thumbnail"
           />
         )}
-        <h3 className={styles.entry_title}>{frontmatter.title}</h3>
-        <p className={styles.entry_description}>{frontmatter.description}</p>
+        <h3>{work.frontmatter.title}</h3>
+        <p>{work.frontmatter.description}</p>
       </Link>
     </article>
   );
