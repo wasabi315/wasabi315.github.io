@@ -37,7 +37,7 @@ const Header: React.FCX<Prop> = ({ siteTitle = ``, onClickMenu }) => {
         <ul>
           {config.socialLinks.map(({ icon, url }) => (
             <li key={url}>
-              <a href={url} target="_blank" rel="external noopener noreferrer">
+              <a href={url}>
                 <FontAwesomeIcon icon={icon} />
               </a>
             </li>

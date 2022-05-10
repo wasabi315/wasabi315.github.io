@@ -19,7 +19,7 @@ const Pagination: React.FCX<Prop> = ({
   nextText = `Next`,
 }) => {
   return (
-    <div className={styles.pagination}>
+    <nav className={styles.pagination}>
       <Link
         to={previousPagePath}
         className={clsx(!previousPagePath && styles.disabled)}
@@ -35,7 +35,7 @@ const Pagination: React.FCX<Prop> = ({
       >
         {nextText}
       </Link>
-    </div>
+    </nav>
   );
 };
 

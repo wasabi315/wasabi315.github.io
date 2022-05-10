@@ -38,7 +38,7 @@ const SideBar: React.FCX<Prop> = ({ showSideBar, close }) => {
         <ul className={styles.social}>
           {config.socialLinks.map(({ icon, url }) => (
             <li key={url}>
-              <a href={url} target="_blank" rel="external noopener noreferrer">
+              <a href={url}>
                 <FontAwesomeIcon icon={icon} />
               </a>
             </li>
@@ -48,9 +48,7 @@ const SideBar: React.FCX<Prop> = ({ showSideBar, close }) => {
           © {new Date().getFullYear()} Satoshi Takimoto.
           <br />
           Built with {` `}
-          <a rel="external" href="https://www.gatsbyjs.org">
-            Gatsby
-          </a>
+          <a>Gatsby</a>
         </p>
       </aside>
       <div className={clsx(styles.mask, showSideBarClass)} onClick={close} />

@@ -1,17 +1,16 @@
 @use "../../styles/common.scss";
 
 .pagination {
-  & a,
-  & span {
-    @include common.text-body2;
-    margin-right: 1.5rem;
+  @include common.text-body2;
+
+  & > span {
+    margin: 0 1.5rem;
   }
 
-  & .disabled {
-    @include common.text-body2;
+  & > a.disabled {
     @include common.foreground-tertiary;
     cursor: not-allowed;
     pointer-events: none;
-    text-decoration: none;
+    text-decoration: line-through;
   }
 }

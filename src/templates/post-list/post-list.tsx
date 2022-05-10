@@ -26,8 +26,8 @@ const PostList: React.FCX<Prop> = ({ title, posts, pageContext }) => {
       <h1>{title}</h1>
       <ul>
         {posts.map((post) => (
-          <li>
-            <PostListItem key={post.fields.slug} post={post} />
+          <li key={post.fields.slug}>
+            <PostListItem post={post} />
           </li>
         ))}
       </ul>

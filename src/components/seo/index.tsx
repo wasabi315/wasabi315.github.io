@@ -14,7 +14,7 @@ import { useSiteMetadata } from "../../hooks/use-site-metadata";
 type Prop = {
   description?: string;
   lang?: string;
-  meta?: JSX.IntrinsicElements["meta"][];
+  meta?: React.ComponentProps<`meta`>[];
   title: string;
 };
 

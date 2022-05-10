@@ -5,20 +5,20 @@
     margin-top: 0;
   }
 
-  & p {
+  p {
     @include common.text-body;
     margin: 0 0 1rem 0;
   }
 
-  & h1,
-  & h2,
-  & h3,
-  & h4,
-  & h5,
-  & h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     margin: 1.5rem 0 0.5rem 0;
-
     position: relative;
+
     & :global(.icon-link)::before {
       content: "";
       position: absolute;
@@ -32,99 +32,102 @@
         no-repeat left content-box;
       opacity: 0;
     }
+
     &:hover :global(.icon-link)::before {
       opacity: 1;
     }
   }
-  & h1 {
+  h1 {
     @include common.text-h3;
   }
-  & h2 {
+  h2 {
     @include common.text-h4;
   }
-  & h3 {
+  h3 {
     @include common.text-h5;
   }
-  & h4 {
+  h4 {
     @include common.text-h6;
   }
-  & h5 {
+  h5 {
     @include common.text-subtitle1;
   }
-  & h6 {
+  h6 {
     @include common.text-subtitle2;
   }
 
-  & blockquote {
+  blockquote {
     padding-left: 1rem;
     border-left: 0.25rem solid common.$theme-foreground-tertiary;
     @include common.foreground-secondary;
   }
 
-  & hr {
+  hr {
     height: 1px;
     background-color: common.$theme-divider;
     border: none;
     margin: 2rem 0;
   }
 
-  & ul {
+  ul {
     list-style-type: disc;
   }
 
-  & ol {
+  ol {
     list-style-type: decimal;
   }
 
-  & ul,
-  & ol {
+  ul,
+  ol {
     margin-bottom: 1rem;
     padding-left: 2rem;
-    & ul,
-    & ol {
+
+    ul,
+    ol {
       margin-bottom: 0;
     }
   }
 
-  & li {
+  li {
     @include common.text-body;
     line-height: 1.5;
+
     &[class="task-list-item"] {
       list-style-type: none;
-      & input {
+      input {
         margin-left: -1.5rem;
       }
     }
   }
 
-  & table {
+  table {
     margin-bottom: 1rem;
     border-collapse: collapse;
     border-spacing: 0;
-    & th,
-    & td {
+
+    th,
+    td {
       @include common.text-body;
       padding: 0.5rem;
       border: 1px solid common.$theme-foreground-tertiary;
     }
   }
 
-  & pre {
+  pre {
     @include common.text-code;
     margin-bottom: 1rem;
   }
 
-  & :not(pre) > code {
+  :not(pre) > code {
     @include common.text-code;
   }
 
-  // For gatsby-remark-images
-  & span:global(.gatsby-resp-image-wrapper) {
+  span:global(.gatsby-resp-image-wrapper) {
     margin-top: 1rem;
     margin-bottom: 1rem;
   }
 
-  & :global(.footnotes) {
+  :global(.footnotes) {
     margin-top: 3rem;
   }
 }
