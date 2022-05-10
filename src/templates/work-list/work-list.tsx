@@ -26,8 +26,8 @@ const WorkList: React.FCX<Prop> = ({ works, pageContext }) => {
       <h1>Works</h1>
       <ul>
         {works.map((work) => (
-          <li>
-            <WorkListItem key={work.fields.slug} work={work} />
+          <li key={work.fields.slug}>
+            <WorkListItem work={work} />
           </li>
         ))}
       </ul>
