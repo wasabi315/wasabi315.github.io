@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithubAlt } from "@fortawesome/free-brands-svg-icons";
 
 import MDXRenderer from "../../components/mdx-renderer";
-import ContentGitHubLink from "../../components/content-github-link";
+import ContentSourceLink from "../../components/content-source-link";
 import * as styles from "./article.module.scss";
 
 type Prop = {
@@ -52,9 +52,9 @@ const Article: React.FCX<Prop> = ({ work }) => {
       <footer>
         <FontAwesomeIcon icon={faGithubAlt} />
         {` `}
-        <ContentGitHubLink filePath={work.fields.filePath}>
+        <ContentSourceLink filePath={work.fields.filePath}>
           View this article on GitHub
-        </ContentGitHubLink>
+        </ContentSourceLink>
       </footer>
     </article>
   );
