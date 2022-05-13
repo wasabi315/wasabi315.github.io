@@ -13,5 +13,9 @@
     margin: 0 0 3rem 0;
     list-style: none;
     padding: 0;
+
+    & > li:not(:last-child) {
+      margin-bottom: 1.5rem;
+    }
   }
 }
