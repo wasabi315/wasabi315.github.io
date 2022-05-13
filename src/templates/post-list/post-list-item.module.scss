@@ -1,10 +1,6 @@
 @use "../../styles/common";
 
 .entry {
-  &:not(:last-child) {
-    margin-bottom: 1.5rem;
-  }
-
   a {
     text-decoration: none;
   }
