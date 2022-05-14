@@ -1,24 +1,9 @@
 import { GatsbyConfig } from "gatsby";
 import path from "path";
-import { execSync } from "child_process";
 import remarkEmoji from "remark-emoji";
 import rehypeSlug from "rehype-slug";
 import rehypeAutoLinkHeadings from "rehype-autolink-headings";
 import rehypeSourceLine from "rehype-source-line";
-
-const readHeadCommitHash = (): string => {
-  let sha: string;
-  try {
-    sha = execSync("git rev-parse HEAD").toString().trim();
-  } catch (_) {
-    throw new Error(`Failed to read git commit hash`);
-  }
-  const reSHA1 = /^[0-9a-f]{40}$/;
-  if (!reSHA1.test(sha)) {
-    throw new Error(`Invalid git commit hash`);
-  }
-  return sha;
-};
 
 const config: GatsbyConfig = {
   siteMetadata: {
@@ -27,7 +12,6 @@ const config: GatsbyConfig = {
     author: `wasabi315`,
     siteUrl: `https://wasabi315.github.io/`,
     repositoryUrl: `https://github.com/wasabi315/wasabi315.github.io/`,
-    headCommitHash: readHeadCommitHash(),
   },
   plugins: [
     {
@@ -113,6 +97,7 @@ const config: GatsbyConfig = {
         path: path.resolve(`src/contents/works`),
       },
     },
+    `gatsby-source-local-git`,
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,

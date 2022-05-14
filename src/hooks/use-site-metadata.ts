@@ -10,7 +10,7 @@ type SiteMetadata = {
 };
 
 export const useSiteMetadata = (): SiteMetadata => {
-  const { site } = useStaticQuery(
+  const { site, gitCommit } = useStaticQuery(
     graphql`
       query SiteMetadata {
         site {
@@ -20,11 +20,13 @@ export const useSiteMetadata = (): SiteMetadata => {
             description
             siteUrl
             repositoryUrl
-            headCommitHash
           }
+        }
+        gitCommit(latest: { eq: true }) {
+          hash
         }
       }
     `,
   );
-  return site.siteMetadata;
+  return { ...site.siteMetadata, headCommitHash: gitCommit.hash };
 };
