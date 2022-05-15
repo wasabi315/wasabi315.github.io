@@ -51,7 +51,7 @@
     float: right;
   }
 
-  & > nav a {
+  & > nav a:not(:hover) {
     @include common.foreground-secondary;
   }
 
