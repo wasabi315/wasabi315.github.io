@@ -27,7 +27,7 @@ const Layout: React.FCX = ({ children }) => {
         © {new Date().getFullYear()} Satoshi Takimoto.
         <span>
           Built with {` `}
-          <a>Gatsby</a>
+          <a href="https://www.gatsbyjs.com/">Gatsby</a>
         </span>
       </footer>
     </div>

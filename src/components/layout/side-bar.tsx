@@ -48,7 +48,7 @@ const SideBar: React.FCX<Prop> = ({ showSideBar, close }) => {
           © {new Date().getFullYear()} Satoshi Takimoto.
           <br />
           Built with {` `}
-          <a>Gatsby</a>
+          <a href="https://www.gatsbyjs.com/">Gatsby</a>
         </p>
       </aside>
       <div className={clsx(styles.mask, showSideBarClass)} onClick={close} />
