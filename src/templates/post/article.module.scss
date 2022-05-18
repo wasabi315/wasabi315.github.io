@@ -17,10 +17,10 @@
   }
 
   & > footer {
-    margin-top: 2.5rem;
+    margin-top: 3.5rem;
 
-    & a {
-      @include common.text-body2;
+    :global(.utterances) {
+      max-width: 100%;
     }
   }
 }
