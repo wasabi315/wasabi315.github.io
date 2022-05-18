@@ -1,11 +1,9 @@
 import * as React from "react";
 import { Link } from "gatsby";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGithubAlt } from "@fortawesome/free-brands-svg-icons";
 
 import MDXRenderer from "../../components/mdx-renderer";
-import ContentSourceLink from "../../components/content-source-link";
 import Tag from "../../components/tag";
+import Comment from "../../components/comment";
 import * as styles from "./article.module.scss";
 
 type Props = {
@@ -39,11 +37,7 @@ const Article: React.FCX<Props> = ({ post }) => {
       </header>
       <MDXRenderer frontmatter={post.frontmatter}>{post.body}</MDXRenderer>
       <footer>
-        <FontAwesomeIcon icon={faGithubAlt} />
-        {` `}
-        <ContentSourceLink filePath={post.fields.filePath}>
-          View this article on GitHub
-        </ContentSourceLink>
+        <Comment />
       </footer>
     </article>
   );
