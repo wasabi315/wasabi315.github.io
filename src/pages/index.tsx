@@ -14,7 +14,8 @@ const IndexPage = () => (
     </section>
     <section className={style.about}>
       <p>
-        Hello! I'm a master's student at Tokyo Tech and a member of {""}
+        Hello! I'm a master's student at Tokyo Institute of Technology and a
+        member of {``}
         <a href="https://www.psg.c.titech.ac.jp/">Programming Systems Group</a>.
         <br />
         My interest is in programming languages, especially functional
