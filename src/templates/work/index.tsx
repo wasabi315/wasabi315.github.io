@@ -9,10 +9,6 @@ import Article from "./article";
 type Prop = {
   data: {
     mdx: {
-      body: string;
-      fields: {
-        filePath: string;
-      };
       frontmatter: {
         title: string;
         description: string;
@@ -23,11 +19,11 @@ type Prop = {
   };
 };
 
-const Work: React.FCX<Prop> = ({ data: { mdx } }) => {
+const Work: React.FCX<Prop> = ({ data: { mdx }, children }) => {
   return (
     <Layout>
       <Seo title={mdx.frontmatter.title} />
-      <Article work={mdx} />
+      <Article work={{ ...mdx, body: children }} />
     </Layout>
   );
 };
@@ -37,10 +33,6 @@ export default Work;
 export const pageQuery = graphql`
   query ($id: String!) {
     mdx(id: { eq: $id }) {
-      body
-      fields {
-        filePath
-      }
       frontmatter {
         title
         description

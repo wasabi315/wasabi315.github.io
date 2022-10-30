@@ -98,7 +98,13 @@ export const createPages: GatsbyNode[`createPages`] = async ({
 
   async function createPostPages() {
     const result = await graphql<{
-      allMdx: { nodes: { id: string; fields: { slug: string } }[] };
+      allMdx: {
+        nodes: {
+          id: string;
+          fields: { slug: string };
+          internal: { contentFilePath: string };
+        }[];
+      };
     }>(`
       {
         allMdx(
@@ -109,6 +115,9 @@ export const createPages: GatsbyNode[`createPages`] = async ({
             id
             fields {
               slug
+            }
+            internal {
+              contentFilePath
             }
           }
         }
@@ -127,13 +136,16 @@ export const createPages: GatsbyNode[`createPages`] = async ({
     });
 
     // Create post pages
-    result.data.allMdx.nodes.forEach(({ id, fields: { slug } }) => {
-      createPage({
-        path: slug,
-        component: path.resolve(`src/templates/post/index.tsx`),
-        context: { id },
-      });
-    });
+    const postTemplate = path.resolve(`src/templates/post/index.tsx`);
+    result.data.allMdx.nodes.forEach(
+      ({ id, fields: { slug }, internal: { contentFilePath } }) => {
+        createPage({
+          path: slug,
+          component: `${postTemplate}?__contentFilePath=${contentFilePath}`,
+          context: { id },
+        });
+      },
+    );
   }
 
   async function createWorkPages() {
@@ -142,6 +154,7 @@ export const createPages: GatsbyNode[`createPages`] = async ({
         nodes: {
           id: string;
           fields: { slug: string };
+          internal: { contentFilePath: string };
         }[];
       };
     }>(`
@@ -154,6 +167,9 @@ export const createPages: GatsbyNode[`createPages`] = async ({
             id
             fields {
               slug
+            }
+            internal {
+              contentFilePath
             }
           }
         }
@@ -172,13 +188,16 @@ export const createPages: GatsbyNode[`createPages`] = async ({
     });
 
     // Create work pages
-    result.data.allMdx.nodes.forEach(({ id, fields: { slug } }) => {
-      createPage({
-        path: slug,
-        component: path.resolve(`src/templates/work/index.tsx`),
-        context: { id },
-      });
-    });
+    const workTemplate = path.resolve(`src/templates/work/index.tsx`);
+    result.data.allMdx.nodes.forEach(
+      ({ id, fields: { slug }, internal: { contentFilePath } }) => {
+        createPage({
+          path: slug,
+          component: `${workTemplate}?__contentFilePath=${contentFilePath}`,
+          context: { id },
+        });
+      },
+    );
   }
 
   async function createTagPages() {

@@ -3,6 +3,7 @@ import path from "path";
 import remarkEmoji from "remark-emoji";
 import rehypeSlug from "rehype-slug";
 import rehypeAutoLinkHeadings from "rehype-autolink-headings";
+import remarkGfm from "remark-gfm";
 import rehypeSourceLine from "rehype-source-line";
 
 const config: GatsbyConfig = {
@@ -59,12 +60,14 @@ const config: GatsbyConfig = {
     {
       resolve: `gatsby-plugin-mdx`,
       options: {
-        remarkPlugins: [remarkEmoji],
-        rehypePlugins: [
-          rehypeSlug,
-          [rehypeAutoLinkHeadings, { test: [`h1`, `h2`, `h3`, `h4`] }],
-          // rehypeSourceLine,
-        ],
+        mdxOptions: {
+          remarkPlugins: [remarkGfm, remarkEmoji],
+          rehypePlugins: [
+            rehypeSlug,
+            [rehypeAutoLinkHeadings, { test: [`h1`, `h2`, `h3`, `h4`] }],
+            // rehypeSourceLine,
+          ],
+        },
         gatsbyRemarkPlugins: [
           {
             resolve: `gatsby-remark-prismjs`,

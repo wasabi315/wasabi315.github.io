@@ -8,15 +8,12 @@ import * as styles from "./article.module.scss";
 
 type Props = {
   post: {
-    body: string;
-    fields: {
-      filePath: string;
-    };
     frontmatter: {
       title: string;
       date: string;
       tags: string[];
     };
+    body: React.ReactNode;
   };
 };
 
@@ -35,7 +32,7 @@ const Article: React.FCX<Props> = ({ post }) => {
           ))}
         </p>
       </header>
-      <MDXRenderer frontmatter={post.frontmatter}>{post.body}</MDXRenderer>
+      <MDXRenderer>{post.body}</MDXRenderer>
       <footer>
         <Comment />
       </footer>

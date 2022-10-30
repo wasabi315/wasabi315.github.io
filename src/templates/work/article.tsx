@@ -9,16 +9,13 @@ import * as styles from "./article.module.scss";
 
 type Prop = {
   work: {
-    body: string;
-    fields: {
-      filePath: string;
-    };
     frontmatter: {
       title: string;
       description: string;
       githubRepository?: string;
       featuredImage: ImageDataLike;
     };
+    body: React.ReactNode;
   };
 };
 
@@ -48,7 +45,7 @@ const Article: React.FCX<Prop> = ({ work }) => {
           />
         )}
       </figure>
-      <MDXRenderer frontmatter={work.frontmatter}>{work.body}</MDXRenderer>
+      <MDXRenderer>{work.body}</MDXRenderer>
       <footer>
         <Comment />
       </footer>
