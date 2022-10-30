@@ -1,5 +1,4 @@
 import * as React from "react";
-import { PaginationContext } from "gatsby-awesome-pagination";
 
 import PostListItem from "./post-list-item";
 import Pagination from "../../components/pagination";

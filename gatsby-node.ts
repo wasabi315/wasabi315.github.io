@@ -1,7 +1,6 @@
 import type { GatsbyNode } from "gatsby";
 import { createFilePath } from "gatsby-source-filesystem";
 import path from "path";
-import { paginate } from "gatsby-awesome-pagination";
 
 export const onCreateNode: GatsbyNode[`onCreateNode`] = async ({
   node,
@@ -66,6 +65,37 @@ export const createPages: GatsbyNode[`createPages`] = async ({
 }) => {
   await Promise.all([createPostPages(), createWorkPages(), createTagPages()]);
 
+  type PaginateArgs = {
+    items: unknown[];
+    itemsPerPage: number;
+    pathPrefix: string;
+    component: string;
+    context?: unknown;
+  };
+
+  function paginate(args: PaginateArgs) {
+    const numPages = Math.ceil(args.items.length / args.itemsPerPage);
+    const paths = Array.from({ length: numPages }, (_, i) =>
+      i === 0 ? args.pathPrefix : `${args.pathPrefix}/${i + 1}`,
+    );
+    for (let i = 0; i < numPages; i++) {
+      createPage({
+        path: paths[i],
+        component: args.component,
+        context: {
+          ...(args.context ?? {}),
+          pageNumber: i,
+          humanPageNumber: i + 1,
+          skip: i * args.itemsPerPage,
+          limit: args.itemsPerPage,
+          numberOfPages: numPages,
+          previousPagePath: paths[i - 1] ?? ``,
+          nextPagePath: paths[i + 1] ?? ``,
+        },
+      });
+    }
+  }
+
   async function createPostPages() {
     const result = await graphql<{
       allMdx: { nodes: { id: string; fields: { slug: string } }[] };
@@ -90,7 +120,6 @@ export const createPages: GatsbyNode[`createPages`] = async ({
 
     // Create post-list pages
     paginate({
-      createPage,
       items: result.data.allMdx.nodes,
       itemsPerPage: 10,
       pathPrefix: `/posts`,
@@ -136,7 +165,6 @@ export const createPages: GatsbyNode[`createPages`] = async ({
 
     // Create work-list pages
     paginate({
-      createPage,
       items: result.data.allMdx.nodes,
       itemsPerPage: 10,
       pathPrefix: `/works`,
@@ -175,7 +203,6 @@ export const createPages: GatsbyNode[`createPages`] = async ({
     // Create tag pages
     result.data.allMdx.group.forEach(({ tag, nodes }) => {
       paginate({
-        createPage,
         items: nodes,
         itemsPerPage: 10,
         pathPrefix: `/tags/${tag}`,

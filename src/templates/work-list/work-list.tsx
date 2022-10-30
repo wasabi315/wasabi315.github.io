@@ -1,6 +1,5 @@
 import * as React from "react";
 import { ImageDataLike } from "gatsby-plugin-image";
-import { PaginationContext } from "gatsby-awesome-pagination";
 
 import Pagination from "../../components/pagination";
 import WorkListItem from "./work-list-item";

@@ -1,7 +1,6 @@
 import * as React from "react";
 import { Link } from "gatsby";
 import clsx from "clsx";
-import type { PaginationContext } from "gatsby-awesome-pagination";
 
 import * as styles from "./index.module.scss";
 
