@@ -15,6 +15,7 @@ type Prop = {
       };
     };
   };
+  children: React.ReactNode;
 };
 
 const Post: React.FCX<Prop> = ({ data: { mdx }, children }) => {

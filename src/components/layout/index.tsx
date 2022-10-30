@@ -14,7 +14,11 @@ import SideBar from "./side-bar";
 import { useSiteMetadata } from "../../hooks/use-site-metadata";
 import { useFlag } from "../../hooks/use-flag";
 
-const Layout: React.FCX = ({ children }) => {
+type Props = {
+  children: React.ReactNode;
+};
+
+const Layout: React.FCX<Props> = ({ children }) => {
   const { title } = useSiteMetadata();
   const { flag: showSideBar, set: open, clear: close } = useFlag(false);
 
