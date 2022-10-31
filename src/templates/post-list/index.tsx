@@ -28,7 +28,7 @@ export const Head = () => <Seo title="Posts" />;
 export const pageQuery = graphql`
   query PostListPage($skip: Int!, $limit: Int!) {
     allMdx(
-      filter: { fields: { sourceFileType: { eq: "posts" } } }
+      filter: { fields: { entryType: { eq: "posts" } } }
       sort: { fields: frontmatter___date, order: DESC }
       limit: $limit
       skip: $skip

@@ -24,8 +24,8 @@ export const Head = () => <Seo title="Works" />;
 export const pageQuery = graphql`
   query WorkListPage($skip: Int!, $limit: Int!) {
     allMdx(
-      filter: { fields: { sourceFileType: { eq: "works" } } }
-      sort: { fields: fields___order }
+      filter: { fields: { entryType: { eq: "works" } } }
+      sort: { fields: frontmatter___order, order: ASC }
       limit: $limit
       skip: $skip
     ) {

@@ -12,50 +12,18 @@ export const onCreateNode: GatsbyNode[`onCreateNode`] = async ({
     if (!parent) {
       throw new Error(`Error: parent not found for node ${node.id}`);
     }
-    const sourceInstanceName = parent.sourceInstanceName as string;
+    const slug = parent.relativePath as string;
+    const [entryType] = slug.split(`/`);
     createNodeField({
-      name: `sourceFileType`,
+      name: `entryType`,
       node,
-      value: sourceInstanceName,
+      value: entryType,
     });
-
-    const filePath = parent.relativePath as string;
-    switch (sourceInstanceName) {
-      case `posts`:
-        createNodeField({
-          name: `filePath`,
-          node,
-          value: `/posts/${filePath}`,
-        });
-        createNodeField({
-          name: `slug`,
-          node,
-          value: `/posts${createFilePath({ node, getNode })}`,
-        });
-        break;
-
-      case `works`:
-        createNodeField({
-          name: `filePath`,
-          node,
-          value: `/works/${filePath}`,
-        });
-        const [, order, ...fp] = createFilePath({ node, getNode }).split(`/`);
-        createNodeField({
-          name: `order`,
-          node,
-          value: parseInt(order, 10),
-        });
-        createNodeField({
-          name: `slug`,
-          node,
-          value: `/works/${fp.join(`/`)}`,
-        });
-        break;
-
-      default:
-        throw new Error(`Unknown sourceInstanceName: ${sourceInstanceName}`);
-    }
+    createNodeField({
+      name: `slug`,
+      node,
+      value: createFilePath({ node, getNode }),
+    });
   }
 };
 
@@ -108,7 +76,7 @@ export const createPages: GatsbyNode[`createPages`] = async ({
     }>(`
       {
         allMdx(
-          filter: { fields: { sourceFileType: { eq: "posts" } } }
+          filter: { fields: { entryType: { eq: "posts" } } }
           sort: { fields: frontmatter___date, order: DESC }
         ) {
           nodes {
@@ -160,8 +128,8 @@ export const createPages: GatsbyNode[`createPages`] = async ({
     }>(`
       {
         allMdx(
-          filter: { fields: { sourceFileType: { eq: "works" } } }
-          sort: { fields: fields___order }
+          filter: { fields: { entryType: { eq: "works" } } }
+          sort: { fields: frontmatter___order, order: ASC }
         ) {
           nodes {
             id

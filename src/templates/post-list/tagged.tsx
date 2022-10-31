@@ -34,7 +34,7 @@ export const pageQuery = graphql`
   query TaggedPostListPage($tag: String!, $limit: Int!, $skip: Int!) {
     allMdx(
       filter: {
-        fields: { sourceFileType: { eq: "posts" } }
+        fields: { entryType: { eq: "posts" } }
         frontmatter: { tags: { in: [$tag] } }
       }
       sort: { fields: frontmatter___date, order: DESC }
