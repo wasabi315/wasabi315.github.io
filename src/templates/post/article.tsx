@@ -7,32 +7,29 @@ import Comment from "../../components/comment";
 import * as styles from "./article.module.scss";
 
 type Props = {
-  post: {
-    frontmatter: {
-      title: string;
-      date: string;
-      tags: string[];
-    };
-    body: React.ReactNode;
-  };
+  post: Queries.PostPageQuery["mdx"];
+  children: undefined;
 };
 
-const Article: React.FCX<Props> = ({ post }) => {
+const Article: React.FCX<Props> = ({ post, children }) => {
   return (
     <article className={styles.article}>
       <header>
-        <h1>{post.frontmatter.title}</h1>
+        <h1>{post?.frontmatter?.title}</h1>
         <p>
-          <time>{post.frontmatter.date}</time>
+          <time>{post?.frontmatter?.date}</time>
           {` - `}
-          {post.frontmatter.tags.map((tag) => (
-            <Link key={tag} to={`/tags/${tag}`}>
-              <Tag tag={tag} />
-            </Link>
-          ))}
+          {post?.frontmatter?.tags?.map(
+            (tag) =>
+              tag && (
+                <Link key={tag} to={`/tags/${tag}`}>
+                  <Tag tag={tag} />
+                </Link>
+              ),
+          )}
         </p>
       </header>
-      <MDXRenderer>{post.body}</MDXRenderer>
+      <MDXRenderer>{children}</MDXRenderer>
       <footer>
         <Comment />
       </footer>

@@ -1,41 +1,28 @@
 import * as React from "react";
-import { graphql } from "gatsby";
-import { ImageDataLike } from "gatsby-plugin-image";
+import { graphql, PageProps } from "gatsby";
 
 import Layout from "../../components/layout";
 import Seo from "../../components/seo";
 import Article from "./article";
 
-type Prop = {
-  data: {
-    mdx: {
-      frontmatter: {
-        title: string;
-        description: string;
-        githubRepository?: string;
-        featuredImage: ImageDataLike;
-      };
-    };
-  };
-  children: React.ReactNode;
-};
+type Prop = PageProps<Queries.WorkPageQuery>;
 
-const Work: React.FCX<Prop> = ({ data: { mdx }, children }) => {
+const WorkPage: React.FCX<Prop> = ({ data: { mdx }, children }) => {
   return (
     <Layout>
-      <Article work={{ ...mdx, body: children }} />
+      <Article work={mdx}>{children}</Article>
     </Layout>
   );
 };
 
-export default Work;
+export default WorkPage;
 
 export const Head: React.FCX<Prop> = ({ data: { mdx } }) => (
-  <Seo title={mdx.frontmatter.title} />
+  <Seo title={mdx?.frontmatter?.title ?? `wasabi315's work`} />
 );
 
 export const pageQuery = graphql`
-  query ($id: String!) {
+  query WorkPage($id: String!) {
     mdx(id: { eq: $id }) {
       frontmatter {
         title

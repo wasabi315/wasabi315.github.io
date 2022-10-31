@@ -1,26 +1,11 @@
 import * as React from "react";
-import { graphql } from "gatsby";
-import { PaginationContext } from "gatsby-awesome-pagination";
+import { graphql, PageProps } from "gatsby";
 
 import Layout from "../../components/layout";
 import Seo from "../../components/seo";
 import PostList from "./post-list";
 
-type Prop = {
-  data: {
-    allMdx: {
-      nodes: {
-        fields: {
-          slug: string;
-        };
-        frontmatter: {
-          title: string;
-          date: string;
-          tags: string[];
-        };
-      }[];
-    };
-  };
+type Prop = PageProps<Queries.PostListPageQuery> & {
   pageContext: PaginationContext;
 };
 
@@ -41,7 +26,7 @@ export default PostListPage;
 export const Head = () => <Seo title="Posts" />;
 
 export const pageQuery = graphql`
-  query ($skip: Int!, $limit: Int!) {
+  query PostListPage($skip: Int!, $limit: Int!) {
     allMdx(
       filter: { fields: { sourceFileType: { eq: "posts" } } }
       sort: { fields: frontmatter___date, order: DESC }
@@ -49,14 +34,7 @@ export const pageQuery = graphql`
       skip: $skip
     ) {
       nodes {
-        fields {
-          slug
-        }
-        frontmatter {
-          title
-          date(formatString: "YYYY/MM/DD")
-          tags
-        }
+        ...Post
       }
     }
   }

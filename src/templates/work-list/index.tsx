@@ -1,27 +1,11 @@
 import * as React from "react";
-import { graphql } from "gatsby";
-import { ImageDataLike } from "gatsby-plugin-image";
-import { PaginationContext } from "gatsby-awesome-pagination";
+import { graphql, PageProps } from "gatsby";
 
 import Layout from "../../components/layout";
 import Seo from "../../components/seo";
 import WorkList from "./work-list";
 
-type Prop = {
-  data: {
-    allMdx: {
-      nodes: {
-        fields: {
-          slug: string;
-        };
-        frontmatter: {
-          title: string;
-          thumbnail: ImageDataLike;
-          description: string;
-        };
-      }[];
-    };
-  };
+type Prop = PageProps<Queries.WorkListPageQuery> & {
   pageContext: PaginationContext;
 };
 
@@ -38,7 +22,7 @@ export default WorkListPage;
 export const Head = () => <Seo title="Works" />;
 
 export const pageQuery = graphql`
-  query ($skip: Int!, $limit: Int!) {
+  query WorkListPage($skip: Int!, $limit: Int!) {
     allMdx(
       filter: { fields: { sourceFileType: { eq: "works" } } }
       sort: { fields: fields___order }
@@ -46,18 +30,7 @@ export const pageQuery = graphql`
       skip: $skip
     ) {
       nodes {
-        fields {
-          slug
-        }
-        frontmatter {
-          title
-          description
-          thumbnail {
-            childImageSharp {
-              gatsbyImageData(width: 256, height: 320)
-            }
-          }
-        }
+        ...Work
       }
     }
   }

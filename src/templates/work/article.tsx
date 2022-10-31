@@ -1,5 +1,5 @@
 import * as React from "react";
-import { GatsbyImage, getImage, ImageDataLike } from "gatsby-plugin-image";
+import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithubAlt } from "@fortawesome/free-brands-svg-icons";
 
@@ -8,25 +8,20 @@ import Comment from "../../components/comment";
 import * as styles from "./article.module.scss";
 
 type Prop = {
-  work: {
-    frontmatter: {
-      title: string;
-      description: string;
-      githubRepository?: string;
-      featuredImage: ImageDataLike;
-    };
-    body: React.ReactNode;
-  };
+  work: Queries.WorkPageQuery["mdx"];
+  children: undefined;
 };
 
-const Article: React.FCX<Prop> = ({ work }) => {
-  const featuredImage = getImage(work.frontmatter.featuredImage);
+const Article: React.FCX<Prop> = ({ work, children }) => {
+  const featuredImage = getImage(
+    (work?.frontmatter?.featuredImage as unknown) ?? null,
+  );
   return (
     <article className={styles.article}>
       <header>
         <div>
-          <h1>{work.frontmatter.title}</h1>
-          {work.frontmatter.githubRepository && (
+          <h1>{work?.frontmatter?.title}</h1>
+          {work?.frontmatter?.githubRepository && (
             <a href={`https://github.com/${work.frontmatter.githubRepository}`}>
               <FontAwesomeIcon icon={faGithubAlt} />
               {` `}
@@ -34,7 +29,7 @@ const Article: React.FCX<Prop> = ({ work }) => {
             </a>
           )}
         </div>
-        <p>{work.frontmatter.description}</p>
+        <p>{work?.frontmatter?.description}</p>
       </header>
       <figure>
         {featuredImage && (
@@ -45,7 +40,7 @@ const Article: React.FCX<Prop> = ({ work }) => {
           />
         )}
       </figure>
-      <MDXRenderer>{work.body}</MDXRenderer>
+      <MDXRenderer>{children}</MDXRenderer>
       <footer>
         <Comment />
       </footer>

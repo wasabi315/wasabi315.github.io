@@ -1,39 +1,28 @@
 import * as React from "react";
-import { graphql } from "gatsby";
+import { graphql, PageProps } from "gatsby";
 
 import Layout from "../../components/layout";
 import Seo from "../../components/seo";
 import Article from "./article";
 
-type Prop = {
-  data: {
-    mdx: {
-      frontmatter: {
-        title: string;
-        date: string;
-        tags: string[];
-      };
-    };
-  };
-  children: React.ReactNode;
-};
+type Prop = PageProps<Queries.PostPageQuery>;
 
-const Post: React.FCX<Prop> = ({ data: { mdx }, children }) => {
+const PostPage: React.FCX<Prop> = ({ data: { mdx }, children }) => {
   return (
     <Layout>
-      <Article post={{ ...mdx, body: children }} />
+      <Article post={mdx}>{children}</Article>
     </Layout>
   );
 };
 
-export default Post;
+export default PostPage;
 
 export const Head: React.FCX<Prop> = ({ data: { mdx } }) => (
-  <Seo title={mdx.frontmatter.title} />
+  <Seo title={mdx?.frontmatter?.title ?? `wasabi315's post`} />
 );
 
 export const pageQuery = graphql`
-  query ($id: String!) {
+  query PostPage($id: String!) {
     mdx(id: { eq: $id }) {
       frontmatter {
         title

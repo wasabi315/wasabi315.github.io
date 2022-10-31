@@ -1,32 +1,18 @@
 import * as React from "react";
-import { graphql } from "gatsby";
+import { graphql, PageProps } from "gatsby";
 
 import Layout from "../../components/layout";
 import Seo from "../../components/seo";
 import Tag from "../../components/tag";
 import PostList from "./post-list";
 
-type Prop = {
-  data: {
-    allMdx: {
-      nodes: {
-        fields: {
-          slug: string;
-        };
-        frontmatter: {
-          title: string;
-          date: string;
-          tags: string[];
-        };
-      }[];
-    };
-  };
+type Prop = PageProps<Queries.PostListPageQuery> & {
   pageContext: PaginationContext & {
     tag: string;
   };
 };
 
-const TaggedPostList: React.FCX<Prop> = ({ data, pageContext }) => {
+const TaggedPostListPage: React.FCX<Prop> = ({ data, pageContext }) => {
   return (
     <Layout>
       <PostList
@@ -38,14 +24,14 @@ const TaggedPostList: React.FCX<Prop> = ({ data, pageContext }) => {
   );
 };
 
-export default TaggedPostList;
+export default TaggedPostListPage;
 
 export const Head: React.FCX<Prop> = ({ pageContext }) => (
   <Seo title={`Tag: ${pageContext.tag}`} />
 );
 
 export const pageQuery = graphql`
-  query ($tag: String!, $limit: Int!, $skip: Int!) {
+  query TaggedPostListPage($tag: String!, $limit: Int!, $skip: Int!) {
     allMdx(
       filter: {
         fields: { sourceFileType: { eq: "posts" } }
@@ -56,14 +42,7 @@ export const pageQuery = graphql`
       skip: $skip
     ) {
       nodes {
-        fields {
-          slug
-        }
-        frontmatter {
-          title
-          date(formatString: "YYYY/MM/DD")
-          tags
-        }
+        ...Post
       }
     }
   }

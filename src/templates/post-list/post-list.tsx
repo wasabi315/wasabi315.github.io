@@ -1,4 +1,5 @@
 import * as React from "react";
+import { graphql } from "gatsby";
 
 import PostListItem from "./post-list-item";
 import Pagination from "../../components/pagination";
@@ -6,16 +7,7 @@ import * as styles from "./post-list.module.scss";
 
 type Prop = {
   title: React.ReactNode;
-  posts: {
-    fields: {
-      slug: string;
-    };
-    frontmatter: {
-      title: string;
-      date: string;
-      tags: string[];
-    };
-  }[];
+  posts: readonly Queries.PostFragment[];
   pageContext: PaginationContext;
 };
 
@@ -25,7 +17,7 @@ const PostList: React.FCX<Prop> = ({ title, posts, pageContext }) => {
       <h1>{title}</h1>
       <ul>
         {posts.map((post) => (
-          <li key={post.fields.slug}>
+          <li key={post?.fields?.slug}>
             <PostListItem post={post} />
           </li>
         ))}
@@ -36,3 +28,16 @@ const PostList: React.FCX<Prop> = ({ title, posts, pageContext }) => {
 };
 
 export default PostList;
+
+export const query = graphql`
+  fragment Post on Mdx {
+    fields {
+      slug
+    }
+    frontmatter {
+      title
+      date(formatString: "YYYY/MM/DD")
+      tags
+    }
+  }
+`;

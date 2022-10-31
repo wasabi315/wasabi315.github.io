@@ -7,6 +7,7 @@ import remarkGfm from "remark-gfm";
 import rehypeSourceLine from "rehype-source-line";
 
 const config: GatsbyConfig = {
+  graphqlTypegen: true,
   siteMetadata: {
     title: `wasabi315`,
     description: `wasabi315's personal website`,
