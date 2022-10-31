@@ -1,19 +1,40 @@
 import type { GatsbyNode } from "gatsby";
 import { createFilePath } from "gatsby-source-filesystem";
 import path from "path";
+import { z } from "zod";
+
+const zPostFrontmatter = z.object({
+  title: z.string(),
+  date: z.string().regex(/\d{4}-\d{2}-\d{2}/),
+  tags: z.array(z.string()).optional(),
+});
+
+const zWorkFrontmatter = z.object({
+  order: z.number(),
+  title: z.string(),
+  description: z.string(),
+  featuredImage: z.string(),
+  thumbnail: z.string(),
+  githubRepository: z.string().optional(),
+});
+
+const workOrders = new Set();
 
 export const onCreateNode: GatsbyNode[`onCreateNode`] = async ({
   node,
   actions: { createNodeField },
   getNode,
+  reporter,
 }) => {
   if (node.internal.type === `Mdx`) {
     const parent = node.parent && getNode(node.parent);
     if (!parent) {
-      throw new Error(`Error: parent not found for node ${node.id}`);
+      reporter.panic(`parent not found for node ${node.id}`);
+      return;
     }
-    const slug = parent.relativePath as string;
-    const [entryType] = slug.split(`/`);
+
+    const relativePath = parent.relativePath as string;
+    const [entryType] = relativePath.split(`/`);
     createNodeField({
       name: `entryType`,
       node,
@@ -24,6 +45,25 @@ export const onCreateNode: GatsbyNode[`onCreateNode`] = async ({
       node,
       value: createFilePath({ node, getNode }),
     });
+
+    try {
+      switch (entryType) {
+        case `posts`:
+          zPostFrontmatter.parse(node.frontmatter);
+          break;
+        case `works`:
+          const { order } = zWorkFrontmatter.parse(node.frontmatter);
+          if (workOrders.has(order)) {
+            reporter.panicOnBuild(`Non-distinct work order`);
+            return;
+          }
+          workOrders.add(order);
+          break;
+      }
+    } catch (err: any) {
+      reporter.panicOnBuild(`Malformed frontmatter for ${relativePath}`, err);
+      return;
+    }
   }
 };
 
