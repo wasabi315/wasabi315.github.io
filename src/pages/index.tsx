@@ -7,7 +7,6 @@ import * as style from "./index.module.scss";
 
 const IndexPage = () => (
   <Layout>
-    <Seo title="Home" />
     <section className={style.hero}>
       <StaticImage src="../images/gatsby-icon.png" width={256} alt="wasabi" />
       <h1 className={style.hero_text}>I'm Satoshi Takimoto.</h1>
@@ -44,3 +43,5 @@ const IndexPage = () => (
 );
 
 export default IndexPage;
+
+export const Head = () => <Seo title="Home" />;

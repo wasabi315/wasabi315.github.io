@@ -29,7 +29,6 @@ type Prop = {
 const TaggedPostList: React.FCX<Prop> = ({ data, pageContext }) => {
   return (
     <Layout>
-      <Seo title={`Tag: ${pageContext.tag}`} />
       <PostList
         title={<Tag tag={pageContext.tag} />}
         posts={data.allMdx.nodes}
@@ -40,6 +39,10 @@ const TaggedPostList: React.FCX<Prop> = ({ data, pageContext }) => {
 };
 
 export default TaggedPostList;
+
+export const Head: React.FCX<Prop> = ({ pageContext }) => (
+  <Seo title={`Tag: ${pageContext.tag}`} />
+);
 
 export const pageQuery = graphql`
   query ($tag: String!, $limit: Int!, $skip: Int!) {

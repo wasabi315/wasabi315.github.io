@@ -28,13 +28,14 @@ type Prop = {
 const WorkListPage: React.FCX<Prop> = ({ data, pageContext }) => {
   return (
     <Layout>
-      <Seo title="Works" />
       <WorkList works={data.allMdx.nodes} pageContext={pageContext} />
     </Layout>
   );
 };
 
 export default WorkListPage;
+
+export const Head = () => <Seo title="Works" />;
 
 export const pageQuery = graphql`
   query ($skip: Int!, $limit: Int!) {

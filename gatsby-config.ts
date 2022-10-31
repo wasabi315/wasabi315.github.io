@@ -24,7 +24,6 @@ const config: GatsbyConfig = {
         },
       },
     },
-    `gatsby-plugin-react-helmet`,
     `gatsby-plugin-image`,
     {
       resolve: `gatsby-source-filesystem`,

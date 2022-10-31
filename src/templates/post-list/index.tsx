@@ -27,7 +27,6 @@ type Prop = {
 const PostListPage: React.FCX<Prop> = ({ data, pageContext }) => {
   return (
     <Layout>
-      <Seo title="Posts" />
       <PostList
         title="Posts"
         posts={data.allMdx.nodes}
@@ -38,6 +37,8 @@ const PostListPage: React.FCX<Prop> = ({ data, pageContext }) => {
 };
 
 export default PostListPage;
+
+export const Head = () => <Seo title="Posts" />;
 
 export const pageQuery = graphql`
   query ($skip: Int!, $limit: Int!) {

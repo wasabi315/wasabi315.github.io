@@ -21,13 +21,16 @@ type Prop = {
 const Post: React.FCX<Prop> = ({ data: { mdx }, children }) => {
   return (
     <Layout>
-      <Seo title={mdx.frontmatter.title} />
       <Article post={{ ...mdx, body: children }} />
     </Layout>
   );
 };
 
 export default Post;
+
+export const Head: React.FCX<Prop> = ({ data: { mdx } }) => (
+  <Seo title={mdx.frontmatter.title} />
+);
 
 export const pageQuery = graphql`
   query ($id: String!) {
