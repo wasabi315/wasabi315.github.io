@@ -1,4 +1,6 @@
-@use "../../styles/common";
+@use "../../styles/breakpoints" as bp;
+@use "../../styles/typography" as typ;
+@use "../../styles/colors";
 
 .side_bar {
   position: fixed;
@@ -8,7 +10,7 @@
   width: 80%;
   z-index: 4;
   padding: 1.5rem;
-  @include common.background-primary;
+  background-color: colors.$bg1;
   display: flex;
   flex-direction: column;
 
@@ -23,8 +25,8 @@
     all: unset;
     align-self: flex-end;
     margin-bottom: 1rem;
-    @include common.text-h6;
-    @include common.foreground-secondary;
+    @include typ.h5;
+    color: colors.$ui2;
   }
 
   & ul {
@@ -36,7 +38,7 @@
     margin: 0;
 
     & > li {
-      @include common.text-h6;
+      @include typ.h5;
       margin-bottom: 0.75rem;
     }
 
@@ -50,16 +52,16 @@
 
     & > li {
       display: inline-block;
-      @include common.text-h6;
-      @include common.foreground-secondary;
+      @include typ.h6;
+      color: colors.$ui2;
       margin-right: 0.75rem;
     }
   }
 
   & > p {
-    @include common.text-caption;
-    @include common.foreground-secondary;
-    border-top: 1px solid common.$theme-divider;
+    @include typ.caption;
+    color: colors.$ui2;
+    border-top: 1px solid colors.$ui3;
     padding-top: 1rem;
   }
 }

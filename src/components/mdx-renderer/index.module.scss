@@ -1,4 +1,5 @@
-@use "../../styles/common";
+@use "../../styles/typography" as typ;
+@use "../../styles/colors";
 
 .markdown {
   *:first-child {
@@ -6,7 +7,7 @@
   }
 
   p {
-    @include common.text-body;
+    @include typ.body1;
     margin: 0 0 1rem 0;
   }
 
@@ -38,33 +39,33 @@
     }
   }
   h1 {
-    @include common.text-h3;
+    @include typ.h3;
   }
   h2 {
-    @include common.text-h4;
+    @include typ.h4;
   }
   h3 {
-    @include common.text-h5;
+    @include typ.h5;
   }
   h4 {
-    @include common.text-h6;
+    @include typ.h6;
   }
   h5 {
-    @include common.text-subtitle1;
+    @include typ.subtitle1;
   }
   h6 {
-    @include common.text-subtitle2;
+    @include typ.subtitle2;
   }
 
   blockquote {
     padding-left: 1rem;
-    border-left: 0.25rem solid common.$theme-foreground-tertiary;
-    @include common.foreground-secondary;
+    border-left: 0.25rem solid colors.$ui3;
+    color: colors.$ui2;
   }
 
   hr {
     height: 1px;
-    background-color: common.$theme-divider;
+    background-color: colors.$ui3;
     border: none;
     margin: 2rem 0;
   }
@@ -89,7 +90,7 @@
   }
 
   li {
-    @include common.text-body;
+    @include typ.body1;
     line-height: 1.5;
 
     &[class="task-list-item"] {
@@ -107,19 +108,19 @@
 
     th,
     td {
-      @include common.text-body;
+      @include typ.body1;
       padding: 0.5rem;
-      border: 1px solid common.$theme-foreground-tertiary;
+      border: 1px solid colors.$ui2;
     }
   }
 
   pre {
-    @include common.text-code;
+    @include typ.code;
     margin-bottom: 1rem;
   }
 
   :not(pre) > code {
-    @include common.text-code;
+    @include typ.code;
   }
 
   div:has(code) {

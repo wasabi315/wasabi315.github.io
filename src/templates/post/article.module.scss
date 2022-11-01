@@ -1,13 +1,14 @@
-@use "../../styles/common";
+@use "../../styles/typography" as typ;
+@use "../../styles/colors";
 
 .article {
   & > header > h1 {
-    @include common.text-h1;
+    @include typ.h2;
   }
 
   & > header > p {
-    @include common.text-body;
-    @include common.foreground-secondary;
+    @include typ.body1;
+    color: colors.$ui2;
     margin-bottom: 2.5rem;
 
     & a {

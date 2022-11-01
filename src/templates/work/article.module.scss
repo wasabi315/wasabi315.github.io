@@ -1,4 +1,5 @@
-@use "../../styles/common";
+@use "../../styles/typography" as typ;
+@use "../../styles/colors";
 
 .article {
   & > header {
@@ -12,24 +13,24 @@
     & > h1 {
       margin-right: auto;
       width: fit-content;
-      @include common.text-h1;
+      @include typ.h2;
     }
 
     & > a {
       text-decoration: none;
       padding: 0.25rem 0.5rem;
-      @include common.text-subtitle3;
+      @include typ.subtitle2;
 
-      border: 2px solid common.$theme-foreground-primary;
+      border: 2px solid colors.$ui1;
       &:hover {
-        border-color: common.$theme-accent-primary;
+        border-color: colors.$accent1;
       }
     }
   }
 
   & > header > p {
-    @include common.text-body;
-    @include common.foreground-secondary;
+    @include typ.body1;
+    color: colors.$ui2;
   }
 
   & > figure {
@@ -37,7 +38,7 @@
     margin-bottom: 2.5rem;
 
     .featured_image {
-      @include common.box-shadow;
+      box-shadow: 0 4px 10px fade-out(colors.$ui1, 0.8);
     }
   }
 

@@ -1,8 +1,10 @@
-@use "../../styles/common";
+@use "../../styles/breakpoints" as bp;
+@use "../../styles/typography" as typ;
+@use "../../styles/colors";
 
 .layout {
   margin: 0 auto;
-  max-width: common.$lg;
+  max-width: bp.$lg;
 
   & > main {
     margin: 3rem 0;
@@ -10,15 +12,15 @@
   }
 
   & > footer {
-    @include common.md-and-down {
+    @include bp.md-and-down {
       display: none;
     }
 
-    @include common.text-caption;
-    @include common.foreground-secondary;
+    @include typ.caption;
+    color: colors.$ui2;
     margin: 8rem 1rem 0 1rem;
     padding: 1.5rem 0;
-    border-top: 1px solid common.$theme-divider;
+    border-top: 1px solid colors.$ui3;
     & > span {
       float: right;
     }

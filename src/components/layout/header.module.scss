@@ -1,13 +1,15 @@
-@use "../../styles/common";
+@use "../../styles/breakpoints" as bp;
+@use "../../styles/typography" as typ;
+@use "../../styles/colors";
 
 .header {
   display: flex;
   align-items: flex-end;
-  @include common.background-primary;
+  background-color: colors.$bg1;
   padding: 1.5rem 1rem;
   z-index: 2;
 
-  @include common.md-and-down {
+  @include bp.md-and-down {
     position: sticky;
     top: 0;
     padding: 1rem;
@@ -22,7 +24,7 @@
   }
 
   & > h1 {
-    @include common.text-h4;
+    @include typ.h4;
     margin-right: 3.75rem;
   }
 
@@ -31,7 +33,7 @@
   }
 
   & > nav ul {
-    @include common.md-and-down {
+    @include bp.md-and-down {
       display: none;
     }
 
@@ -42,7 +44,7 @@
 
     & > li {
       display: inline-block;
-      @include common.text-h6;
+      @include typ.h5;
       margin-left: 1rem;
     }
   }
@@ -52,15 +54,15 @@
   }
 
   & > nav a:not(:hover) {
-    @include common.foreground-secondary;
+    color: colors.$ui2;
   }
 
   & > button {
-    @include common.md-and-up {
+    @include bp.md-and-up {
       display: none;
     }
 
     all: unset;
-    @include common.text-h6;
+    @include typ.h5;
   }
 }

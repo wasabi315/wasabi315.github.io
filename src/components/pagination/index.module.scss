@@ -1,14 +1,15 @@
-@use "../../styles/common.scss";
+@use "../../styles/typography" as typ;
+@use "../../styles/colors";
 
 .pagination {
-  @include common.text-body2;
+  @include typ.body2;
 
   & > span {
     margin: 0 1.5rem;
   }
 
   & > a.disabled {
-    @include common.foreground-tertiary;
+    color: colors.$ui3;
     cursor: not-allowed;
     pointer-events: none;
     text-decoration: line-through;

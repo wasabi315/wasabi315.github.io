@@ -1,4 +1,6 @@
-@use "../../styles/common";
+@use "../../styles/breakpoints" as bp;
+@use "../../styles/typography" as typ;
+@use "../../styles/colors";
 
 .entry {
   a {
@@ -6,19 +8,19 @@
   }
 
   & .thumbnail {
-    @include common.box-shadow;
+    box-shadow: 0 4px 10px fade-out(colors.$ui1, 0.8);
     margin: 0 auto 1rem auto;
   }
 
-  & > h3 {
-    @include common.text-h6;
+  & h3 {
+    @include typ.h5;
     margin-bottom: 0.25rem;
   }
 
-  & > p {
-    @include common.text-body2;
-    @include common.foreground-secondary;
-    @include common.sm-and-down {
+  & p {
+    @include typ.body2;
+    color: colors.$ui2;
+    @include bp.sm-and-down {
       display: none;
     }
   }

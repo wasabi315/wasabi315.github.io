@@ -1,0 +1,73 @@
+// Typography
+
+@use "../../node_modules/rfs/scss" as rfs;
+
+@import url("https://fonts.googleapis.com/css2?family=Fira+Code&family=Inter:wght@400;800&family=Source+Sans+Pro&display=swap");
+$header-font: "Inter", sans-serif;
+$body-font: "Inter", sans-serif;
+$code-font: "Fira Code", monospace;
+
+@mixin h1 {
+  font-family: $header-font;
+  font-weight: 800;
+  @include rfs.font-size(6rem);
+  line-height: 1.25;
+}
+@mixin h2 {
+  font-family: $header-font;
+  font-weight: 800;
+  @include rfs.font-size(3.75rem);
+  line-height: 1.25;
+}
+@mixin h3 {
+  font-family: $header-font;
+  font-weight: 800;
+  @include rfs.font-size(3rem);
+  line-height: 1.25;
+}
+@mixin h4 {
+  font-family: $header-font;
+  font-weight: 800;
+  @include rfs.font-size(2.125rem);
+  line-height: 1.25;
+}
+@mixin h5 {
+  font-family: $header-font;
+  font-weight: 800;
+  @include rfs.font-size(1.5rem);
+  line-height: 1.25;
+}
+@mixin h6 {
+  font-family: $header-font;
+  font-weight: 800;
+  @include rfs.font-size(1.25rem);
+  line-height: 1.25;
+}
+@mixin subtitle1 {
+  font-family: $header-font;
+  font-weight: 800;
+  @include rfs.font-size(1rem);
+  line-height: 1.25;
+}
+@mixin subtitle2 {
+  font-family: $header-font;
+  font-weight: 800;
+  @include rfs.font-size(0.875rem);
+  line-height: 1.25;
+}
+@mixin body1 {
+  font-family: $body-font;
+  @include rfs.font-size(1rem);
+}
+@mixin body2 {
+  font-family: $body-font;
+  @include rfs.font-size(0.875rem);
+}
+@mixin caption {
+  font-family: $body-font;
+  @include rfs.font-size(0.75rem);
+}
+@mixin code {
+  font-family: $code-font;
+  @include rfs.font-size(0.875rem);
+}

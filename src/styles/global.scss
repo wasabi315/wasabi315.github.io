@@ -1,21 +1,21 @@
 @use "./reset";
-@use "./variables" as var;
-@use "./mixins" as mixin;
+@use "./typography" as typ;
+@use "./colors";
 
 // * {
 //   outline: 1px solid pink;
 // }
 
 html {
-  font-size: 16px;
-  font-family: var.$body-font;
+  font-size: 18px;
+  font-family: typ.$body-font;
   box-sizing: border-box;
   overflow-y: scroll;
 }
 
 body {
-  @include mixin.foreground-primary;
-  background-color: var.$theme-background-primary;
+  color: colors.$ui1;
+  background-color: colors.$bg1;
   word-wrap: break-word;
   font-kerning: normal;
   -webkit-font-smoothing: antialiased;
@@ -27,7 +27,7 @@ body {
 }
 
 code {
-  font-family: var.$code-font;
+  font-family: typ.$code-font;
 }
 
 a:visited,
@@ -35,5 +35,5 @@ a:link {
   color: inherit;
 }
 a:hover {
-  color: var.$theme-accent-primary;
+  color: colors.$accent1;
 }
