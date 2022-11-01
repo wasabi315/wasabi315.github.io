@@ -1,20 +1,51 @@
+@use "../styles/breakpoints" as bp;
 @use "../styles/typography" as typ;
 @use "../styles/colors";
 
 .hero {
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   margin-bottom: 4rem;
-}
 
-.hero_text {
-  @include typ.h2;
-  color: colors.$accent1;
-}
+  h1 {
+    @include typ.h1;
+    color: colors.$accent1;
+    margin-bottom: 0.5rem;
+  }
 
-.about {
-  color: colors.$ui1;
-  @include typ.body1;
-  margin-bottom: 3rem;
+  h2 {
+    @include typ.h4;
+    color: colors.$accent1;
+    margin-left: 0.2rem;
+    margin-bottom: -0.5rem;
+  }
+
+  p {
+    color: colors.$ui2;
+    @include typ.body1;
+  }
+
+  img {
+    width: 100vw;
+    pointer-events: none;
+  }
+
+  @include bp.md-and-down {
+    h2 {
+      @include typ.h5;
+    }
+  }
+
+  @include bp.sm-and-down {
+    h2 {
+      @include typ.h6;
+    }
+
+    img {
+      display: none;
+    }
+  }
 }
 
 .detail {

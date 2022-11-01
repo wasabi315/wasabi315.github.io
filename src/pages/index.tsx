@@ -1,25 +1,22 @@
 import * as React from "react";
-import { StaticImage } from "gatsby-plugin-image";
 
 import Layout from "../components/layout";
 import Seo from "../components/seo";
 import * as style from "./index.module.scss";
+import logo from "../images/wasabi-icon.svg";
 
 const IndexPage = () => (
   <Layout>
     <section className={style.hero}>
-      <StaticImage src="../images/gatsby-icon.png" width={256} alt="wasabi" />
-      <h1 className={style.hero_text}>I'm Satoshi Takimoto.</h1>
-    </section>
-    <section className={style.about}>
-      <p>
-        Hello! I'm a master's student at Tokyo Institute of Technology and a
-        member of {``}
-        <a href="https://www.psg.c.titech.ac.jp/">Programming Systems Group</a>.
-        <br />
-        My interest is in programming languages, especially functional
-        programming languages.
-      </p>
+      <div>
+        <h2>こんにちは世界, I'm</h2>
+        <h1>Satoshi.</h1>
+        <p>
+          A master's student at Tokyo Tech. Interested in (functional)
+          programming languages.
+        </p>
+      </div>
+      <img src={logo} alt="wasabi" />
     </section>
     <section className={style.detail}>
       <h2>Programming Language Proficiency</h2>
