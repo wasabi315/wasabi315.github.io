@@ -4,6 +4,21 @@ import Layout from "../components/layout";
 import Seo from "../components/seo";
 import * as style from "./index.module.scss";
 import logo from "../images/wasabi-icon.svg";
+import haskellLogo from "../images/haskell.svg";
+import ocamlLogo from "../images/ocaml.svg";
+import rustLogo from "../images/rust.svg";
+import jsLogo from "../images/javascript.svg";
+import tsLogo from "../images/typescript.svg";
+import agdaLogo from "../images/agda.svg";
+
+const devLogos: Record<string, string> = {
+  haskell: haskellLogo,
+  ocaml: ocamlLogo,
+  javascript: jsLogo,
+  typescript: tsLogo,
+  rust: rustLogo,
+  agda: agdaLogo,
+};
 
 const IndexPage = () => (
   <Layout>
@@ -18,18 +33,18 @@ const IndexPage = () => (
       </div>
       <img src={logo} alt="wasabi" />
     </section>
-    <section className={style.detail}>
-      <h2>Programming Language Proficiency</h2>
+    <section className={style.skills}>
+      <h2 className={style.section_title}>Programming Language Skills</h2>
       <ul>
-        <li>Haskell: Intermediate</li>
-        <li>Typescript, Javascript: Intermediate</li>
-        <li>React, Vue: Intermediate</li>
-        <li>Rust: Beginner</li>
-        <li>OCaml: Beginner</li>
+        {Object.entries(devLogos).map(([lang, logo]) => (
+          <li key={lang} title={lang}>
+            <img src={logo} alt={lang} />
+          </li>
+        ))}
       </ul>
     </section>
-    <section className={style.detail}>
-      <h2>Certificates</h2>
+    <section className={style.certificates}>
+      <h2 className={style.section_title}>Certificates</h2>
       <ul>
         <li>Applied Information Technology Enginner</li>
         <li>TOEIC® L&R Test: 855</li>

@@ -48,17 +48,38 @@
   }
 }
 
-.detail {
-  color: colors.$ui1;
+.section_title {
+  @include typ.h5;
+  margin-bottom: 0.5rem;
+}
+
+.skills {
   @include typ.body1;
   margin-bottom: 3rem;
 
-  & > h2 {
-    @include typ.h5;
-    margin-bottom: 0.5rem;
+  ul {
+    list-style: none;
+    margin: 0;
+    padding-left: 0.5rem;
   }
 
-  & ul {
+  li {
+    display: inline-block;
+    margin-right: 1.25rem;
+  }
+
+  img {
+    pointer-events: none;
+    width: 64px;
+    height: 64px;
+  }
+}
+
+.certificates {
+  @include typ.body1;
+  margin-bottom: 3rem;
+
+  ul {
     list-style-position: inside;
     margin: 0;
     padding-left: 0.5rem;
