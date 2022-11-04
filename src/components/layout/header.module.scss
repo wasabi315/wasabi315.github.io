@@ -5,69 +5,66 @@
 .header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   background-color: colors.$bg1;
   padding: 1.5rem 1rem;
   z-index: 2;
-
-  @include bp.md-and-down {
-    position: sticky;
-    top: 0;
-    padding: 1rem;
-
-    &.show_shadow {
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    }
-  }
 
   a {
     text-decoration: none;
   }
 
   & > a {
-    width: 36px;
-    height: 36px;
-    margin-left: 0.2rem;
-    margin-right: 2.5rem;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-image: url("../../images/wasabi.svg");
+    margin-right: 2rem;
+    img {
+      width: 36px;
+    }
   }
 
   & > nav {
     flex-grow: 1;
-  }
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
-  & > nav ul {
-    @include bp.md-and-down {
-      display: none;
+    ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
     }
 
-    display: inline-block;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-
-    & > li {
+    li {
       display: inline-block;
       @include typ.h5;
       margin-left: 1rem;
     }
-  }
 
-  & > nav ul:nth-of-type(2) {
-    float: right;
-  }
-
-  & > nav a:not(:hover) {
-    color: colors.$ui2;
+    a:not(:hover) {
+      color: colors.$ui2;
+    }
   }
 
   & > button {
-    @include bp.md-and-up {
+    all: unset;
+    float: right;
+    @include typ.h5;
+    display: none;
+  }
+
+  @include bp.md-and-down {
+    position: sticky;
+    top: 0;
+    padding: 1rem;
+    &.show_shadow {
+      box-shadow: 0 4px 10px fade-out(colors.$ui1, 0.9);
+    }
+
+    & > nav {
       display: none;
     }
 
-    all: unset;
-    @include typ.h5;
+    & > button {
+      display: initial;
+    }
   }
 }

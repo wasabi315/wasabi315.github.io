@@ -20,24 +20,26 @@ const SideBar: React.FCX<Prop> = ({ showSideBar, close }) => {
         <button>
           <FontAwesomeIcon icon={faXmark} onClick={close} />
         </button>
-        <ul className={styles.nav}>
-          {config.navigationLinks.map(({ to, label }) => (
-            <li key={to}>
-              <Link to={to} onClick={close}>
-                {label}
-              </Link>
-            </li>
-          ))}
-        </ul>
-        <ul className={styles.social}>
-          {config.socialLinks.map(({ icon, url }) => (
-            <li key={url}>
-              <a href={url}>
-                <FontAwesomeIcon icon={icon} />
-              </a>
-            </li>
-          ))}
-        </ul>
+        <nav>
+          <ul className={styles.nav}>
+            {config.navigationLinks.map(({ to, label }) => (
+              <li key={to}>
+                <Link to={to} onClick={close}>
+                  {label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <ul className={styles.social}>
+            {config.socialLinks.map(({ icon, url }) => (
+              <li key={url}>
+                <a href={url}>
+                  <FontAwesomeIcon icon={icon} />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
         <p>
           © {new Date().getFullYear()} Satoshi Takimoto.
           <br />

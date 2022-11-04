@@ -19,16 +19,7 @@ const Article: React.FCX<Prop> = ({ work, children }) => {
   return (
     <article className={styles.article}>
       <header>
-        <div>
-          <h1>{work?.frontmatter?.title}</h1>
-          {work?.frontmatter?.githubRepository && (
-            <a href={`https://github.com/${work.frontmatter.githubRepository}`}>
-              <FontAwesomeIcon icon={faGithubAlt} />
-              {` `}
-              View on GitHub
-            </a>
-          )}
-        </div>
+        <h1>{work?.frontmatter?.title}</h1>
         <p>{work?.frontmatter?.description}</p>
       </header>
       <figure>
@@ -41,6 +32,13 @@ const Article: React.FCX<Prop> = ({ work, children }) => {
         )}
       </figure>
       <MDXRenderer>{children}</MDXRenderer>
+      {work?.frontmatter?.githubRepository && (
+        <a href={`https://github.com/${work.frontmatter.githubRepository}`}>
+          <FontAwesomeIcon icon={faGithubAlt} size="lg" />
+          {` `}
+          View this work on GitHub
+        </a>
+      )}
       <footer>
         <Comment />
       </footer>

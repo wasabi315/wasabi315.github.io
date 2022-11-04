@@ -7,6 +7,7 @@ import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { useScrollY } from "../../hooks/use-scroll";
 import * as styles from "./header.module.scss";
 import * as config from "./config";
+import wasabi from "../../images/wasabi.svg";
 
 type Prop = {
   onClickMenu?: () => void;
@@ -17,7 +18,9 @@ const Header: React.FCX<Prop> = ({ onClickMenu }) => {
 
   return (
     <header className={clsx(styles.header, scrollY > 0 && styles.show_shadow)}>
-      <Link to="/" />
+      <Link to="/">
+        <img src={wasabi} />
+      </Link>
       <nav>
         <ul>
           {config.navigationLinks.map(({ to, label }) => (
