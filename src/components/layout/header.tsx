@@ -9,26 +9,18 @@ import * as styles from "./header.module.scss";
 import * as config from "./config";
 
 type Prop = {
-  siteTitle: string;
   onClickMenu?: () => void;
 };
 
-const navigationLinks = [
-  { to: `/works`, label: `Works` },
-  { to: `/posts`, label: `Posts` },
-];
-
-const Header: React.FCX<Prop> = ({ siteTitle = ``, onClickMenu }) => {
+const Header: React.FCX<Prop> = ({ onClickMenu }) => {
   const scrollY = useScrollY();
 
   return (
     <header className={clsx(styles.header, scrollY > 0 && styles.show_shadow)}>
-      <h1>
-        <Link to="/">{siteTitle}</Link>
-      </h1>
+      <Link to="/" />
       <nav>
         <ul>
-          {navigationLinks.map(({ to, label }) => (
+          {config.navigationLinks.map(({ to, label }) => (
             <li key={to}>
               <Link to={to}>{label}</Link>
             </li>

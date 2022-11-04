@@ -12,12 +12,6 @@ type Prop = {
   close: () => void;
 };
 
-const navigationLinks = [
-  { to: `/`, label: `Home` },
-  { to: `/works`, label: `Works` },
-  { to: `/posts`, label: `Posts` },
-];
-
 const SideBar: React.FCX<Prop> = ({ showSideBar, close }) => {
   const showSideBarClass = showSideBar && styles.show;
   return (
@@ -27,7 +21,7 @@ const SideBar: React.FCX<Prop> = ({ showSideBar, close }) => {
           <FontAwesomeIcon icon={faXmark} onClick={close} />
         </button>
         <ul className={styles.nav}>
-          {navigationLinks.map(({ to, label }) => (
+          {config.navigationLinks.map(({ to, label }) => (
             <li key={to}>
               <Link to={to} onClick={close}>
                 {label}

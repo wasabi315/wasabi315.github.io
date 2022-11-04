@@ -23,9 +23,14 @@
     text-decoration: none;
   }
 
-  & > h1 {
-    @include typ.h4;
-    margin-right: 3.75rem;
+  & > a {
+    width: 36px;
+    height: 36px;
+    margin-left: 0.2rem;
+    margin-right: 2.5rem;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url("../../images/wasabi.svg");
   }
 
   & > nav {
