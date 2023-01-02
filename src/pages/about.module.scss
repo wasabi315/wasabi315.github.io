@@ -1,0 +1,77 @@
+@use "../styles/breakpoints" as bp;
+@use "../styles/typography" as typ;
+@use "../styles/colors";
+
+.intro {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: 4rem;
+  margin-bottom: 3.5rem;
+
+  figure {
+    flex-grow: 0;
+    figcaption {
+      @include typ.caption;
+      color: colors.$ui2;
+      text-align: center;
+      padding-top: 0.25rem;
+    }
+    img {
+      box-shadow: 0 4px 10px fade-out(colors.$ui1, 0.8);
+    }
+  }
+
+  div {
+    h1 {
+      @include typ.h3;
+      margin-bottom: 1rem;
+    }
+
+    ul {
+      margin-bottom: 1.5rem;
+      list-style: none;
+      padding: 0;
+      li {
+        color: colors.$ui2;
+      }
+      li:not(:last-child) {
+        margin-bottom: 0.25rem;
+      }
+      li a {
+        margin-left: 0.75rem;
+      }
+    }
+
+    p:not(:last-child) {
+      margin-bottom: 1rem;
+    }
+  }
+}
+
+.section_title {
+  @include typ.h5;
+  margin-bottom: 0.5rem;
+}
+
+.skills {
+  @include typ.body1;
+  margin-bottom: 3rem;
+
+  ul {
+    list-style-position: inside;
+    margin: 0;
+    padding-left: 0.5rem;
+  }
+}
+
+.certificates {
+  @include typ.body1;
+  margin-bottom: 3rem;
+
+  ul {
+    list-style-position: inside;
+    margin: 0;
+    padding-left: 0.5rem;
+  }
+}
