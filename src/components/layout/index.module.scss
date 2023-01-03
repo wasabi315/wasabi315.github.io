@@ -3,26 +3,62 @@
 @use "../../styles/colors";
 
 .layout {
-  margin: 0 auto;
-  max-width: bp.$lg;
+  & > header {
+    background-color: colors.$bg1;
+    z-index: 2;
+    position: sticky;
+    top: 0;
+    padding: 1rem 0;
+
+    &.show_shadow {
+      box-shadow: 0 4px 10px fade-out(colors.$ui1, 0.9);
+    }
+
+    div {
+      margin: 0 auto;
+      padding: 0 1rem;
+      max-width: bp.$lg;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    img {
+      width: 36px;
+      @include bp.sm-and-down {
+        width: 28px;
+      }
+    }
+
+    nav {
+      @include typ.h5;
+      ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: flex;
+        column-gap: 1.5rem;
+      }
+
+      @include bp.sm-and-down {
+        @include typ.h6;
+        ul {
+          column-gap: 1rem;
+        }
+      }
+    }
+  }
 
   & > main {
-    margin: 3rem 0;
+    margin: 3rem auto 5rem;
+    max-width: bp.$lg;
     padding: 0 1rem;
   }
 
   & > footer {
-    @include bp.md-and-down {
-      display: none;
-    }
-
     @include typ.caption;
     color: colors.$ui2;
-    margin: 8rem 1rem 0 1rem;
-    padding: 1.5rem 0;
-    border-top: 1px solid colors.$ui3;
-    & > span {
-      float: right;
-    }
+    text-align: right;
+    padding: 1rem;
   }
 }
