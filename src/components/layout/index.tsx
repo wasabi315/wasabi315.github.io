@@ -22,7 +22,7 @@ const Layout = ({ children }: Props) => {
   const scrollY = useScrollY();
 
   return (
-    <div className={styles.layout}>
+    <div className={styles.modul}>
       <header className={clsx(scrollY > 0 && styles.show_shadow)}>
         <div>
           <Link to="/">

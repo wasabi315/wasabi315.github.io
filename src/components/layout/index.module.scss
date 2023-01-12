@@ -2,7 +2,7 @@
 @use "../../styles/typography" as typ;
 @use "../../styles/colors";
 
-.layout {
+.modul {
   & > header {
     background-color: colors.$bg1;
     z-index: 2;
@@ -53,6 +53,9 @@
     margin: 3rem auto 5rem;
     max-width: bp.$lg;
     padding: 0 1rem;
+    @include bp.sm-and-down {
+      margin-top: 1rem;
+    }
   }
 
   & > footer {
