@@ -2,9 +2,11 @@
 @use "../../styles/colors";
 
 .link {
-  text-decoration: underline 0.15em rgba(0, 0, 0, 0);
+  text-decoration: underline;
   text-underline-offset: 0.2em;
-  transition: text-decoration-color 0.3s ease-in-out;
+  text-decoration-color: rgba(0, 0, 0, 0);
+  text-decoration-thickness: 0.15em;
+  transition: text-decoration-color 0.3s;
 
   &:hover {
     color: colors.$ui1;
