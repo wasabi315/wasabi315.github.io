@@ -8,6 +8,7 @@ import agda from "./src/data/agda.tmLanguage.json";
 
 // https://astro.build/config
 export default defineConfig({
+  site: "https://wasabi315.github.io",
   integrations: [mdx(), icon()],
   markdown: {
     shikiConfig: {
