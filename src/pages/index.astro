@@ -1,35 +1,188 @@
 ---
+import "../styles/variables.css";
+import "../styles/reset.css";
+import "../styles/global.css";
+import { Icon } from "astro-icon/components";
 import { Image } from "astro:assets";
-import Layout from "../layouts/BaseLayout.astro";
 import postcard from "../images/wasabi-postcard.png";
+
+const navLinks = [
+  { title: "About", url: "/about" },
+  { title: "Works", url: "/works" },
+  { title: "Posts", url: "/posts" },
+];
+
+const socialLinks = [
+  { icon: "mdi:github", url: "https://github.com/wasabi315" },
+  { icon: "mdi:gitlab", url: "https://gitlab.com/wasabi315" },
+  { icon: "mdi:twitter", url: "https://twitter.com/wasabi__315" },
+  { icon: "mdi:instagram", url: "https://www.instagram.com/wasabi__315/" },
+];
 ---
 
-<Layout title="Home">
-  <main>
-    <a href="/about">
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="wasabi315's personal page" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Home :: wasabi315</title>
+  </head>
+  <body>
+    <header>
+      <div class="home">
+        <a href="/"> wasabi315 </a>
+      </div>
+      <nav class="nav-links">
+        {navLinks.map(({ title, url }) => <a href={url}>{title}</a>)}
+      </nav>
+    </header>
+    <main>
       <Image class="postcard" src={postcard} alt="postcard" />
-    </a>
-  </main>
-</Layout>
+      <nav class="nav-links2">
+        {navLinks.map(({ title, url }) => <a href={url}>{title}</a>)}
+      </nav>
+    </main>
+    <footer>
+      <div class="copyright-notice">
+        © {new Date().getFullYear()} Satoshi Takimoto. All rights reserved.
+      </div>
+      <div class="social-links">
+        {
+          socialLinks.map(({ icon, url }) => (
+            <a href={url}>
+              <Icon name={icon} size={20} />
+            </a>
+          ))
+        }
+      </div>
+    </footer>
+  </body>
+</html>
+
+<script>
+  document.querySelector(".hamburger")?.addEventListener("click", () => {
+    document.querySelector(".nav-links")?.classList.toggle("expanded");
+  });
+</script>
 
 <style lang="scss">
+  body {
+    display: flex;
+    flex-flow: column;
+    max-width: 100%;
+    min-height: 100dvh;
+    margin: 0;
+    padding: 1rem;
+  }
+
+  header {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 3rem;
+    width: 100%;
+  }
+  .home {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  .nav-links {
+    display: none;
+    gap: 1rem;
+    width: auto;
+    a {
+      display: block;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+  }
+
   main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 2rem;
     margin: auto;
     width: 720px;
     max-width: 100%;
     color: rgb(var(--ui1));
     font-size: 20px;
   }
-
   .postcard {
     object-fit: contain;
     width: fit-content;
     height: fit-content;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-    transition: box-shadow 0.5s ease-in-out;
+    transition: box-shadow 0.3s ease-in-out;
 
     &:hover {
       box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+    }
+  }
+  .nav-links2 {
+    display: flex;
+    gap: 1rem;
+    width: auto;
+    a {
+      font-weight: bold;
+      font-size: 1.5rem;
+    }
+  }
+
+  footer {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 3rem;
+  }
+  .copyright-notice {
+    display: flex;
+    text-align: justify;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.75rem;
+  }
+  .social-links {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+  }
+
+  .home a,
+  .nav-links a,
+  .nav-links2 a,
+  .social-links a {
+    text-decoration: none;
+
+    &:hover,
+    &:focus {
+      text-decoration: underline;
+    }
+  }
+
+  @media screen and (min-width: 768px) {
+    body {
+      padding: 2rem 4rem;
+    }
+    .home {
+      font-size: 1.75rem;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .nav-links2 {
+      display: none;
+    }
+    footer {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
     }
   }
 </style>
