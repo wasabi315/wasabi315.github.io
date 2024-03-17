@@ -1,0 +1,56 @@
+---
+import type { CollectionEntry } from "astro:content";
+import Layout from "./BaseLayout.astro";
+import MarkdownRenderer from "../components/MarkdownRenderer.astro";
+import Tag from "../components/Tag.astro";
+import Utterances from "../components/Utterances.astro";
+
+type Props = {
+  frontmatter: CollectionEntry<"posts">["data"];
+};
+
+const { frontmatter } = Astro.props;
+---
+
+<Layout title={frontmatter.title}>
+  <main>
+    <article>
+      <header>
+        <h1>{frontmatter.title}</h1>
+        <p>
+          <time>{frontmatter.date}</time>
+          -
+          {frontmatter.tags.map((tag) => <Tag tag={tag} />)}
+        </p>
+      </header>
+      <MarkdownRenderer>
+        <slot />
+      </MarkdownRenderer>
+      <footer>
+        <Utterances />
+      </footer>
+    </article>
+  </main>
+</Layout>
+
+<style lang="scss">
+  main {
+    margin: 0 auto auto;
+    width: 960px;
+    max-width: 100%;
+  }
+
+  header {
+    margin-bottom: 2rem;
+    h1 {
+      font-size: 2.25rem;
+    }
+    p {
+      color: rgb(var(--ui2));
+    }
+  }
+
+  footer {
+    margin-top: 3.5rem;
+  }
+</style>

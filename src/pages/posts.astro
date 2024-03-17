@@ -1,0 +1,10 @@
+---
+import { getCollection } from "astro:content";
+import PostListLayout from "../layouts/PostListLayout.astro";
+
+const allPosts = (await getCollection("posts")).sort((a, b) =>
+  a.data.date > b.data.date ? -1 : 1
+);
+---
+
+<PostListLayout title="Posts" posts={allPosts} />

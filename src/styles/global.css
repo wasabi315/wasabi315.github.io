@@ -1,0 +1,31 @@
+html {
+  font-family: system-ui, sans-serif;
+}
+
+body {
+  word-wrap: break-word;
+  letter-spacing: 0.5px;
+  font-kerning: normal;
+  color: rgb(var(--ui1));
+  background: rgb(var(--bg1));
+}
+
+code {
+  font-family: monospace;
+}
+
+a:visited,
+a:link {
+  color: inherit;
+}
+
+a:hover,
+a:focus {
+  color: rgb(var(--accent1));
+}
+
+@media screen and (min-width: 768px) {
+  html {
+    font-size: 18px;
+  }
+}

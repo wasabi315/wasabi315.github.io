@@ -1,0 +1,35 @@
+---
+import { Image } from "astro:assets";
+import Layout from "../layouts/BaseLayout.astro";
+import postcard from "../images/wasabi-postcard.png";
+---
+
+<Layout title="Home">
+  <main>
+    <a href="/about">
+      <Image class="postcard" src={postcard} alt="postcard" />
+    </a>
+  </main>
+</Layout>
+
+<style lang="scss">
+  main {
+    margin: auto;
+    width: 960px;
+    max-width: 100%;
+    color: rgb(var(--ui1));
+    font-size: 20px;
+  }
+
+  .postcard {
+    object-fit: contain;
+    width: fit-content;
+    height: fit-content;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    transition: box-shadow 0.5s ease-in-out;
+
+    &:hover {
+      box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+    }
+  }
+</style>

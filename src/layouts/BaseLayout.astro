@@ -1,0 +1,178 @@
+---
+import "../styles/variables.css";
+import "../styles/reset.css";
+import "../styles/global.css";
+import { Icon } from "astro-icon/components";
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+
+const navLinks = [
+  { title: "About", url: "/about" },
+  { title: "Works", url: "/works" },
+  { title: "Posts", url: "/posts" },
+];
+
+const socialLinks = [
+  { icon: "mdi:github", url: "https://github.com/wasabi315" },
+  { icon: "mdi:gitlab", url: "https://gitlab.com/wasabi315" },
+  { icon: "mdi:twitter", url: "https://twitter.com/wasabi__315" },
+  { icon: "mdi:instagram", url: "https://www.instagram.com/wasabi__315/" },
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Astro description" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title} :: wasabi315</title>
+  </head>
+  <body>
+    <header>
+      <div class="home">
+        <a href="/"> wasabi315 </a>
+      </div>
+      <Icon class="hamburger" name="mdi:hamburger-menu" size={32} />
+      <nav class="nav-links">
+        {navLinks.map(({ title, url }) => <a href={url}>{title}</a>)}
+      </nav>
+    </header>
+    <slot />
+    <footer>
+      <div class="copyright-notice">
+        © {new Date().getFullYear()} Satoshi Takimoto. All rights reserved.
+      </div>
+      <div class="social-links">
+        {
+          socialLinks.map(({ icon, url }) => (
+            <a href={url}>
+              <Icon name={icon} size={20} />
+            </a>
+          ))
+        }
+      </div>
+    </footer>
+  </body>
+</html>
+
+<script>
+  document.querySelector(".hamburger")?.addEventListener("click", () => {
+    document.querySelector(".nav-links")?.classList.toggle("expanded");
+  });
+</script>
+
+<style lang="scss">
+  body {
+    display: flex;
+    flex-flow: column;
+    max-width: 100%;
+    min-height: 100dvh;
+    margin: 0;
+    padding: 1rem;
+  }
+
+  header {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 3rem;
+    width: 100%;
+  }
+  .home {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  .nav-links {
+    display: none;
+    background-color: #ffffff;
+    a {
+      display: block;
+      font-size: 1.25rem;
+      font-weight: bold;
+    }
+
+    &.expanded {
+      display: unset;
+      position: absolute;
+      width: 200px;
+      right: 0;
+      top: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(var(--ui1), 0.25);
+      padding: 12px;
+      a {
+        padding-left: 12px;
+        line-height: 42px;
+      }
+    }
+  }
+
+  .hamburger {
+    cursor: pointer;
+  }
+
+  footer {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 3rem;
+  }
+  .copyright-notice {
+    display: flex;
+    text-align: justify;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.75rem;
+  }
+  .social-links {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+  }
+
+  .home a,
+  .nav-links a,
+  .social-links a {
+    text-decoration: none;
+
+    &:hover,
+    &:focus {
+      text-decoration: underline;
+    }
+  }
+
+  @media screen and (min-width: 768px) {
+    body {
+      padding: 2rem 4rem;
+    }
+    .home {
+      font-size: 1.75rem;
+    }
+    .hamburger {
+      display: none;
+    }
+    .nav-links {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      width: auto;
+      background: none;
+      a {
+        font-size: 1.5rem;
+      }
+    }
+    footer {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+</style>

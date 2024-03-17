@@ -1,0 +1,49 @@
+---
+import type { CollectionEntry } from "astro:content";
+import Layout from "./BaseLayout.astro";
+import Work from "../components/Work.astro";
+
+type Props = {
+  title: string;
+  works: CollectionEntry<"works">[];
+};
+
+const { title, works } = Astro.props;
+---
+
+<Layout title={title}>
+  <main>
+    <h1>{title}</h1>
+    <ul>
+      {
+        works.map((work) => (
+          <li>
+            <Work work={work} />
+          </li>
+        ))
+      }
+    </ul>
+  </main>
+</Layout>
+
+<style lang="scss">
+  main {
+    margin: 0 auto auto;
+    width: 960px;
+    max-width: 100%;
+  }
+
+  h1 {
+    font-size: 2.25rem;
+    margin-bottom: 2rem;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  li:not(:last-child) {
+    margin-bottom: 2rem;
+  }
+</style>

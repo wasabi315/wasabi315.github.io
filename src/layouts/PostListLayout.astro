@@ -1,0 +1,48 @@
+---
+import type { CollectionEntry } from "astro:content";
+import Layout from "./BaseLayout.astro";
+import BlogPost from "../components/BlogPost.astro";
+
+type Props = {
+  title: string;
+  posts: CollectionEntry<"posts">[];
+};
+
+const { title, posts } = Astro.props;
+---
+
+<Layout title={title}>
+  <main>
+    <h1>{title}</h1>
+    <ul>
+      {
+        posts.map((post) => (
+          <li>
+            <BlogPost post={post} />
+          </li>
+        ))
+      }
+    </ul>
+  </main>
+</Layout>
+
+<style lang="scss">
+  main {
+    margin: 0 auto auto;
+    width: 960px;
+    max-width: 100%;
+  }
+
+  h1 {
+    font-size: 2.25rem;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  li:not(:last-child) {
+    margin-bottom: 1.5rem;
+  }
+</style>

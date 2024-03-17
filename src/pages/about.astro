@@ -1,0 +1,138 @@
+---
+import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
+import Layout from "../layouts/BaseLayout.astro";
+import me from "../images/me.jpg";
+
+const skills = [
+  { name: "Haskell", icon: "devicon:haskell" },
+  { name: "Agda", icon: "file-icons:agda" },
+  { name: "OCaml", icon: "devicon:ocaml" },
+  { name: "Rust", icon: "devicon:rust" },
+  { name: "TypeScript", icon: "devicon:typescript" },
+  { name: "JavaScript", icon: "devicon:javascript" },
+];
+---
+
+<Layout title="About">
+  <main>
+    <figure class="me">
+      <Image
+        src={me}
+        alt="Satoshi Takimoto"
+        widths={[240, 540, 720]}
+        width="720"
+        height="480"
+        sizes="(max-width: 360px) 240px, (max-width: 720px) 540px, 720px"
+      />
+      <figcaption>Göteborg, Sweden, 2023</figcaption>
+    </figure>
+    <h1>Satoshi Takimoto</h1>
+    <p>
+      Hello! I am a master's student at Tokyo Institute of Technology in the <a
+        href="https://www.psg.c.titech.ac.jp/">Programming Systems Group</a
+      >. I am interested in (functional) programming languages and theorem
+      provers. Haskell and Agda are my favorites!
+    </p>
+    <p>
+      I like traveling, visiting museums, and collecting postcards. Otherwise, I
+      usually spend my time programming and sleeping.
+    </p>
+    <section>
+      <h2>CV</h2>
+      <p>
+        My CV can be found <a
+          href="https://docs.google.com/document/d/15B665Ejp1r9Dwr8CKWCGg86fAIc3Xdz2848XdxbyLOs?usp=sharing"
+          >here</a
+        >.
+      </p>
+    </section>
+    <section>
+      <h2>Education & Academic Experiences</h2>
+      <ul role="list" class="list">
+        <li>
+          Chalmers University of Technology, Exchange study, Aug. 2022 - Jun.
+          2023
+        </li>
+        <li>
+          Tokyo Institute of Technology, Bachelor of Engineering, Mar. 2022
+        </li>
+      </ul>
+    </section>
+    <section>
+      <h2>Qualifications</h2>
+      <ul role="list" class="list">
+        <li>応用情報技術者試験</li>
+        <li>TOEFL® Test: 96 (Mar. 2024)</li>
+        <li>TOEIC® L&R Test: 855</li>
+      </ul>
+    </section>
+    <section>
+      <h2>Skills</h2>
+      <div class="skill-icons">
+        {skills.map(({ icon }) => <Icon name={icon} size={48} />)}
+      </div>
+      <p>
+        I usually use Haskell for daily programming and Agda for formalizing and
+        proving things. I also have moderate experience with OCaml, Rust,
+        TypeScript, and JavaScript.
+      </p>
+    </section>
+  </main>
+</Layout>
+
+<style lang="scss">
+  main {
+    margin: auto;
+    width: 960px;
+    max-width: 100%;
+  }
+
+  .me {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 48px;
+  }
+  .me img {
+    object-fit: contain;
+    width: fit-content;
+    height: fit-content;
+  }
+  .me figcaption {
+    margin-top: 8px;
+    color: rgb(var(--ui2));
+    font-style: italic;
+    font-size: 0.875rem;
+  }
+
+  h1 {
+    font-size: 3rem;
+    line-height: 1;
+    text-align: center;
+    margin-bottom: 1em;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    line-height: 1;
+    margin-top: 1.5em;
+    margin-bottom: 1em;
+  }
+
+  .list {
+    list-style: inside;
+  }
+
+  .skill-icons {
+    display: flex;
+    gap: 16px;
+  }
+
+  @media screen and (min-width: 768px) {
+    main {
+      padding: 1rem;
+      max-width: calc(100% - 2rem);
+    }
+  }
+</style>

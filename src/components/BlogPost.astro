@@ -1,0 +1,34 @@
+---
+import type { CollectionEntry } from "astro:content";
+import Tag from "./Tag.astro";
+
+type Props = {
+  post: CollectionEntry<"posts">
+};
+
+const { post } = Astro.props;
+---
+
+<article>
+  <h2>
+    <a href={`/posts/${post.slug}`}>{post.data.title}</a>
+  </h2>
+  <p>
+    <time>{post.data.date}</time>
+    -
+    {post.data.tags.map((tag) => <Tag tag={tag} />)}
+  </p>
+</article>
+
+<style lang="scss">
+  p {
+    color: rgb(var(--ui2));
+  }
+
+  h2 a {
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+</style>

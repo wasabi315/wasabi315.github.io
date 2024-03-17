@@ -1,0 +1,15 @@
+<div id="utterances-container"></div>
+
+<script>
+  const script = document.createElement("script");
+  script.src = "https://utteranc.es/client.js";
+  script.async = true;
+  script.setAttribute("repo", "wasabi315/wasabi315.github.io");
+  script.setAttribute("issue-term", "pathname");
+  script.setAttribute("label", "comment");
+  script.setAttribute("theme", "github-light");
+  script.setAttribute("crossorigin", "anonymous");
+
+  const container = document.getElementById("utterances-container");
+  container?.appendChild(script);
+</script>
