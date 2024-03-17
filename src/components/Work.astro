@@ -1,0 +1,78 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { Image } from "astro:assets";
+
+type Props = {
+  work: CollectionEntry<"works">;
+};
+
+const { work } = Astro.props;
+const url = `/works/${work.slug}`;
+---
+
+<article>
+  <div class="thumbnail">
+    <a href={url}>
+      <Image src={work.data.thumbnail} alt={work.data.title} />
+    </a>
+  </div>
+  <div class="description">
+    <h2>
+      <a href={url}>{work.data.title}</a>
+    </h2>
+    <p>{work.data.description}</p>
+  </div>
+</article>
+
+<style lang="scss">
+  article {
+    display: flex;
+    flex-direction: column;
+    column-gap: 3rem;
+  }
+
+  .thumbnail img {
+    object-fit: cover;
+    height: 240px;
+  }
+
+  .description {
+    margin-top: 0.5rem;
+
+    h2 a {
+      text-decoration: none;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    p {
+      color: rgb(var(--ui2));
+    }
+  }
+
+  @media screen and (min-width: 576px) {
+    .thumbnail img {
+      height: 360px;
+    }
+  }
+
+  @media screen and (min-width: 768px) {
+    article {
+      flex-direction: row;
+    }
+
+    .thumbnail {
+      width: 33.3%;
+
+      img {
+        width: fit-content;
+        height: fit-content;
+      }
+    }
+
+    .description {
+      margin-top: 2rem;
+    }
+  }
+</style>

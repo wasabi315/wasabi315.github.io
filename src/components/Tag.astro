@@ -1,0 +1,23 @@
+---
+type Props = {
+  tag: string;
+};
+
+const { tag } = Astro.props;
+---
+
+<a href={`/tags/${tag}`}>
+  {tag}
+</a>
+
+<style lang="scss">
+  a {
+    &::before {
+      content: "#";
+    }
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline 2px;
+    }
+  }
+</style>

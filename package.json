@@ -1,73 +1,26 @@
 {
-  "name": "wasabi315",
-  "private": true,
-  "description": "wasabi315's personal page",
-  "version": "0.1.0",
-  "author": "wasabi315 <wasabi.nvim.st@gmail.com>",
-  "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^6.2.0",
-    "@fortawesome/free-brands-svg-icons": "^6.2.0",
-    "@fortawesome/free-solid-svg-icons": "^6.2.0",
-    "@fortawesome/react-fontawesome": "^0.2.0",
-    "@mdx-js/react": "^2.1.5",
-    "clsx": "^1.2.1",
-    "gatsby": "^4.24.5",
-    "gatsby-plugin-gatsby-cloud": "^4.24.1",
-    "gatsby-plugin-google-gtag": "^4.24.0",
-    "gatsby-plugin-image": "^2.24.0",
-    "gatsby-plugin-manifest": "^4.24.0",
-    "gatsby-plugin-mdx": "^4.3.0",
-    "gatsby-plugin-offline": "^5.24.0",
-    "gatsby-plugin-sass": "^5.24.0",
-    "gatsby-plugin-sharp": "^4.24.0",
-    "gatsby-remark-images": "^6.24.0",
-    "gatsby-remark-prismjs": "^6.24.0",
-    "gatsby-source-filesystem": "^4.24.0",
-    "gatsby-source-local-git": "^1.3.0",
-    "gatsby-transformer-sharp": "^4.24.0",
-    "gh-pages": "^4.0.0",
-    "prettier": "^2.7.1",
-    "prism-react-renderer": "^1.3.5",
-    "prismjs": "^1.29.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-helmet": "^6.1.0",
-    "rehype-autolink-headings": "^5.1.0",
-    "rehype-slug": "^4.0.1",
-    "remark-emoji": "^2.2.0",
-    "remark-gfm": "^1.0.0",
-    "rfs": "^9.0.6",
-    "sass": "^1.57.1",
-    "typescript": "^4.8.4",
-    "zod": "^3.19.1"
-  },
-  "devDependencies": {
-    "@types/mdx-js__react": "^1.5.5",
-    "@types/node": "^18.11.8",
-    "@types/react": "^18.0.24",
-    "@types/react-dom": "^18.0.8",
-    "@types/react-helmet": "^6.1.5",
-    "rehype-source-line": "file:lib/rehype-source-line"
-  },
-  "keywords": [
-    "gatsby"
-  ],
-  "license": "0BSD",
+  "name": "",
+  "type": "module",
+  "version": "0.0.1",
   "scripts": {
-    "build": "gatsby build",
-    "develop": "gatsby develop -H '0.0.0.0' -p 8000",
-    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
-    "start": "gatsby develop",
-    "serve": "gatsby serve",
-    "clean": "gatsby clean",
-    "deploy": "gatsby build && gh-pages -d public -b gh-pages",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "astro": "astro"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/gatsbyjs/gatsby-starter-default"
-  },
-  "bugs": {
-    "url": "https://github.com/gatsbyjs/gatsby/issues"
+  "dependencies": {
+    "@astrojs/check": "^0.5.9",
+    "@astrojs/mdx": "^2.2.0",
+    "@iconify-json/devicon": "^1.1.36",
+    "@iconify-json/file-icons": "^1.1.8",
+    "@iconify-json/mdi": "^1.1.64",
+    "astro": "^4.5.2",
+    "astro-icon": "^1.1.0",
+    "rehype-autolink-headings": "^7.1.0",
+    "rehype-slug": "^6.0.0",
+    "remark-toc": "^9.0.0",
+    "sass": "^1.72.0",
+    "typescript": "^5.4.2"
   }
 }

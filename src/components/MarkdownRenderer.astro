@@ -1,0 +1,114 @@
+<div class="markdown">
+  <slot />
+</div>
+
+<style lang="scss">
+  .markdown :global(*:first-child) {
+    margin-top: 0;
+  }
+
+  .markdown :global(p) {
+    margin: 0 0 1rem 0;
+  }
+
+  .markdown :global(h1),
+  .markdown :global(h2),
+  .markdown :global(h3),
+  .markdown :global(h4),
+  .markdown :global(h5),
+  .markdown :global(h6) {
+    margin: 1.5rem 0 0.5rem 0;
+
+    & :global(.icon-link)::before {
+      content: "";
+      display: inline-block;
+      width: 21px;
+      height: 18px;
+      padding-left: 4px;
+      background: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NDAgNTEyIiBmaWxsPSIjODI4OTk3Ij48IS0tISBGb250IEF3ZXNvbWUgUHJvIDYuMC4wIGJ5IEBmb250YXdlc29tZSAtIGh0dHBzOi8vZm9udGF3ZXNvbWUuY29tIExpY2Vuc2UgLSBodHRwczovL2ZvbnRhd2Vzb21lLmNvbS9saWNlbnNlIChDb21tZXJjaWFsIExpY2Vuc2UpIENvcHlyaWdodCAyMDIyIEZvbnRpY29ucywgSW5jLiAtLT48cGF0aCBkPSJNMTcyLjUgMTMxLjFDMjI4LjEgNzUuNTEgMzIwLjUgNzUuNTEgMzc2LjEgMTMxLjFDNDI2LjEgMTgxLjEgNDMzLjUgMjYwLjggMzkyLjQgMzE4LjNMMzkxLjMgMzE5LjlDMzgxIDMzNC4yIDM2MSAzMzcuNiAzNDYuNyAzMjcuM0MzMzIuMyAzMTcgMzI4LjkgMjk3IDMzOS4yIDI4Mi43TDM0MC4zIDI4MS4xQzM2My4yIDI0OSAzNTkuNiAyMDUuMSAzMzEuNyAxNzcuMkMzMDAuMyAxNDUuOCAyNDkuMiAxNDUuOCAyMTcuNyAxNzcuMkwxMDUuNSAyODkuNUM3My45OSAzMjAuMSA3My45OSAzNzIgMTA1LjUgNDAzLjVDMTMzLjMgNDMxLjQgMTc3LjMgNDM1IDIwOS4zIDQxMi4xTDIxMC45IDQxMC4xQzIyNS4zIDQwMC43IDI0NS4zIDQwNCAyNTUuNSA0MTguNEMyNjUuOCA0MzIuOCAyNjIuNSA0NTIuOCAyNDguMSA0NjMuMUwyNDYuNSA0NjQuMkMxODguMSA1MDUuMyAxMTAuMiA0OTguNyA2MC4yMSA0NDguOEMzLjc0MSAzOTIuMyAzLjc0MSAzMDAuNyA2MC4yMSAyNDQuM0wxNzIuNSAxMzEuMXpNNDY3LjUgMzgwQzQxMSA0MzYuNSAzMTkuNSA0MzYuNSAyNjMgMzgwQzIxMyAzMzAgMjA2LjUgMjUxLjIgMjQ3LjYgMTkzLjdMMjQ4LjcgMTkyLjFDMjU4LjEgMTc3LjggMjc4LjEgMTc0LjQgMjkzLjMgMTg0LjdDMzA3LjcgMTk0LjEgMzExLjEgMjE0LjEgMzAwLjggMjI5LjNMMjk5LjcgMjMwLjlDMjc2LjggMjYyLjEgMjgwLjQgMzA2LjkgMzA4LjMgMzM0LjhDMzM5LjcgMzY2LjIgMzkwLjggMzY2LjIgNDIyLjMgMzM0LjhMNTM0LjUgMjIyLjVDNTY2IDE5MSA1NjYgMTM5LjEgNTM0LjUgMTA4LjVDNTA2LjcgODAuNjMgNDYyLjcgNzYuOTkgNDMwLjcgOTkuOUw0MjkuMSAxMDFDNDE0LjcgMTExLjMgMzk0LjcgMTA3LjEgMzg0LjUgOTMuNThDMzc0LjIgNzkuMiAzNzcuNSA1OS4yMSAzOTEuOSA0OC45NEwzOTMuNSA0Ny44MkM0NTEgNi43MzEgNTI5LjggMTMuMjUgNTc5LjggNjMuMjRDNjM2LjMgMTE5LjcgNjM2LjMgMjExLjMgNTc5LjggMjY3LjdMNDY3LjUgMzgweiIvPjwvc3ZnPg==")
+        no-repeat left content-box;
+      opacity: 0;
+    }
+
+    &:hover :global(.icon-link)::before {
+      opacity: 1;
+    }
+  }
+
+  .markdown :global(blockquote) {
+    padding-left: 1rem;
+    border-left: 5px solid rgb(var(--ui2));
+    color: rgb(var(--ui2));
+  }
+
+  .markdown :global(hr) {
+    height: 2px;
+    background-color: rgb(var(--ui3));
+    border: none;
+    margin: 2rem 0;
+  }
+
+  .markdown :global(ul) {
+    list-style-type: disc;
+  }
+
+  .markdown :global(ol) {
+    list-style-type: decimal;
+  }
+
+  .markdwon :global(ul),
+  .markdwon :global(ol) {
+    margin-bottom: 1rem;
+    padding-left: 2rem;
+    & :global(ul),
+    & :global(ol) {
+      margin-bottom: 0;
+    }
+  }
+
+  .markdown :global(li.task-list-item) {
+    list-style-type: none;
+    & :global(input) {
+      margin-left: -1.25rem;
+    }
+  }
+
+  .markdown :global(table) {
+    margin-bottom: 1rem;
+    border-collapse: collapse;
+    border-spacing: 0;
+    & :global(th),
+    & :global(td) {
+      padding: 0.5rem;
+      border: 1px solid rgb(var(--ui2));
+    }
+  }
+
+  .markdown :global(pre) {
+    margin-bottom: 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+  }
+
+  .markdown :global(code) {
+    font-size: 0.875rem;
+  }
+
+  .markdown :global(:not(pre) > code) {
+    padding: 3px;
+    border-radius: 3px;
+    background-color: rgb(var(--bg2));
+  }
+
+  .markdown :global(img) {
+    object-fit: cover;
+    height: fit-content;
+    width: fit-content;
+    max-width: min(100%, 720px);
+    margin: auto;
+  }
+
+  .markdown :global(.footnotes) {
+    margin-top: 3rem;
+  }
+</style>

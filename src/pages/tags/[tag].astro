@@ -1,0 +1,25 @@
+---
+import PostListLayout from "../../layouts/PostListLayout.astro";
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+
+export async function getStaticPaths(): Promise<{ params: { tag: string }, props: { posts: CollectionEntry<"posts">[] } }[]> {
+  const allPosts = (await getCollection("posts"))
+    .sort((a, b) => (a.data.date > b.data.date ? -1 : 1));
+
+  const tags = [...new Set(allPosts.flatMap((post) => post.data.tags))];
+
+  return tags.map((tag) => {
+    const filteredPosts = allPosts.filter((post) => post.data.tags.includes(tag));
+    return {
+      params: { tag },
+      props: { posts: filteredPosts },
+    };
+  });
+}
+
+const { tag } = Astro.params;
+const { posts } = Astro.props;
+---
+
+<PostListLayout title={`#${tag}`} posts={posts} />

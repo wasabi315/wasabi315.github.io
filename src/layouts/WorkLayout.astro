@@ -1,0 +1,74 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
+import Layout from "./BaseLayout.astro";
+import MarkdownRenderer from "../components/MarkdownRenderer.astro";
+import Utterances from "../components/Utterances.astro";
+
+type Props = {
+  frontmatter: CollectionEntry<"works">["data"];
+};
+
+const { frontmatter } = Astro.props;
+---
+
+<Layout title={frontmatter.title}>
+  <main>
+    <article>
+      <header>
+        <div>
+          <h1>{frontmatter.title}</h1>
+          <p>{frontmatter.description}</p>
+        </div>
+        <a href={`https://github.com/${frontmatter.githubRepository}`}>
+          <Icon name="mdi:github" size={48} />
+        </a>
+      </header>
+      <Image
+        class="featuredImage"
+        src={frontmatter.featuredImage}
+        alt={frontmatter.title}
+      />
+      <MarkdownRenderer>
+        <slot />
+      </MarkdownRenderer>
+      <footer>
+        <Utterances />
+      </footer>
+    </article>
+  </main>
+</Layout>
+
+<style lang="scss">
+  main {
+    margin: 0 auto auto;
+    width: 960px;
+    max-width: 100%;
+  }
+
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    h1 {
+      font-size: 2.25rem;
+    }
+    p {
+      color: rgb(var(--ui2));
+    }
+  }
+
+  .featuredImage {
+    object-fit: contain;
+    width: fit-content;
+    height: fit-content;
+    max-width: min(100%, 720px);
+    margin: 0 auto 2rem;
+  }
+
+  footer {
+    margin-top: 3.5rem;
+  }
+</style>
