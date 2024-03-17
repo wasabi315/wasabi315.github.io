@@ -92,7 +92,7 @@ Use the `match` special form to perform pattern matching.
 ```
 
 Two a bit unusual patterns are available: predicate patterns and rest patterns.
-A predicate pattern is of the form `(? <predicate>)`. It matches if the predicate returns `#t` against the scrutinee. Predicate patterns can be sub-patterns, unlike Haskell's pattern guards or OCaml's when guards.
+A predicate pattern is of the form `(? <predicate>)`. It matches if the predicate returns `#t` for the scrutinee. Predicate patterns can be sub-patterns, unlike Haskell's pattern guards or OCaml's when guards.
 
 ```scheme
 ; displays "m is not 0" as (= 2 0) is #f
