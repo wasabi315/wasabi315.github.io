@@ -2,7 +2,7 @@
   "fileTypes": [
     "agda"
   ],
-  "name": "Agda",
+  "name": "agda",
   "patterns": [
     {
       "begin": "--",
