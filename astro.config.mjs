@@ -15,7 +15,16 @@ export default defineConfig({
   markdown: {
     shikiConfig: {
       theme: "nord",
-      langs: ["javascript", "typescript", "haskell", "ocaml", "rust", agda],
+      langs: [
+        "javascript",
+        "typescript",
+        "haskell",
+        "ocaml",
+        "rust",
+        agda,
+        "scheme",
+        "latex",
+      ],
     },
     remarkPlugins: [remarkToc, remarkMath],
     rehypePlugins: [
