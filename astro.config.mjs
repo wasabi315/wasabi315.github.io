@@ -1,8 +1,10 @@
 import { defineConfig } from "astro/config";
 import mdx from "@astrojs/mdx";
 import remarkToc from "remark-toc";
+import remarkMath from "remark-math";
 import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import rehypeKatex from "rehype-katex";
 import icon from "astro-icon";
 import agda from "./src/data/agda.tmLanguage.json";
 
@@ -15,10 +17,11 @@ export default defineConfig({
       theme: "nord",
       // langs: [agda],
     },
-    remarkPlugins: [remarkToc],
+    remarkPlugins: [remarkToc, remarkMath],
     rehypePlugins: [
       rehypeSlug,
       [rehypeAutolinkHeadings, { behavior: "append" }],
+      rehypeKatex,
     ],
   },
 });
