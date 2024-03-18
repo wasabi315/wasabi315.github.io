@@ -11,11 +11,9 @@ const url = `/works/${work.slug}`;
 ---
 
 <article>
-  <div class="thumbnail">
-    <a href={url}>
-      <Image src={work.data.thumbnail} alt={work.data.title} />
-    </a>
-  </div>
+  <a href={url} class="thumbnail">
+    <Image src={work.data.thumbnail} alt={work.data.title} />
+  </a>
   <div class="description">
     <h2>
       <a href={url}>{work.data.title}</a>
@@ -31,9 +29,12 @@ const url = `/works/${work.slug}`;
     column-gap: 3rem;
   }
 
-  .thumbnail img {
-    object-fit: cover;
-    height: 240px;
+  .thumbnail {
+    display: block;
+    img {
+      object-fit: cover;
+      height: 240px;
+    }
   }
 
   .description {
@@ -63,8 +64,7 @@ const url = `/works/${work.slug}`;
     }
 
     .thumbnail {
-      width: 33.3%;
-
+      flex: 1;
       img {
         width: fit-content;
         height: fit-content;
@@ -72,6 +72,7 @@ const url = `/works/${work.slug}`;
     }
 
     .description {
+      flex: 2;
       margin-top: 2rem;
     }
   }
