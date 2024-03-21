@@ -6,7 +6,7 @@ import { Icon } from "astro-icon/components";
 
 interface Props {
   title: string;
-  description: string
+  description: string;
 }
 
 const { title, description } = Astro.props;
@@ -39,6 +39,18 @@ const socialLinks = [
     <meta name="generator" content={Astro.generator} />
     <slot name="head" />
     <title>{title} :: wasabi315</title>
+    <script
+      type="text/partytown"
+      src="https://www.googletagmanager.com/gtag/js?id=G-BKFJQG08WT"
+    ></script>
+    <script type="text/partytown">
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-BKFJQG08WT");
+    </script>
   </head>
   <body>
     <header>

@@ -1,4 +1,5 @@
 import { defineConfig } from "astro/config";
+import partytown from "@astrojs/partytown";
 import mdx from "@astrojs/mdx";
 import remarkToc from "remark-toc";
 import remarkMath from "remark-math";
@@ -11,7 +12,16 @@ import agda from "./src/data/agda.tmLanguage.json";
 // https://astro.build/config
 export default defineConfig({
   site: "https://wasabi315.github.io",
-  integrations: [mdx(), icon()],
+  integrations: [
+    mdx(),
+    icon(),
+    // Ref: https://www.kevinzunigacuellar.com/blog/google-analytics-in-astro/
+    partytown({
+      config: {
+        forward: ["dataLayer.push"],
+      },
+    }),
+  ],
   markdown: {
     shikiConfig: {
       theme: "nord",
