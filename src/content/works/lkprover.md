@@ -1,5 +1,5 @@
 ---
-order: 2
+order: 3
 title: "LkProver"
 featuredImage: ../../images/lkprover-featured-image.png
 thumbnail: "../../images/lkprover-thumbnail.png"
