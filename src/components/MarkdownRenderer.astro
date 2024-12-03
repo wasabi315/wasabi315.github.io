@@ -90,10 +90,6 @@
     border-radius: 0.5rem;
   }
 
-  .markdown :global(code) {
-    font-size: 0.875em;
-  }
-
   .markdown :global(:not(pre) > code) {
     padding: 3px;
     border-radius: 3px;
@@ -110,5 +106,46 @@
 
   .markdown :global(.footnotes) {
     margin-top: 3rem;
+  }
+
+  .markdown :global(.rlc-container) {
+    display: block;
+    transition: 0.2s;
+    border: 1px solid rgb(var(--ui3));
+    border-radius: 0.5rem;
+    padding: 1.25rem;
+    text-decoration: none;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+
+    &:hover {
+      color: inherit;
+      background-color: rgb(var(--bg2));
+    }
+
+    :global(.rlc-title) {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    :global(.rlc-favicon) {
+      height: 0.875rem;
+      width: 0.875rem;
+      display: inline-block;
+      margin-right: 0.25rem;
+    }
+
+    :global(.rlc-url) {
+      display: inline-block;
+      color: rgb(var(--ui2));
+      font-size: 0.875rem;
+    }
+
+    :global(.rlc-image-container),
+    :global(.rlc-description)
+    {
+      display: none;
+    }
   }
 </style>

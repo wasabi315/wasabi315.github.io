@@ -3,9 +3,12 @@ import partytown from "@astrojs/partytown";
 import mdx from "@astrojs/mdx";
 import remarkToc from "remark-toc";
 import remarkMath from "remark-math";
+import remarkLinkCard from "remark-link-card";
 import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeKatex from "rehype-katex";
+import rehypeRaw from "rehype-raw";
+import rehypeExternalLinks from "rehype-external-links";
 import icon from "astro-icon";
 import agda from "./src/data/agda.tmLanguage.json";
 
@@ -36,11 +39,16 @@ export default defineConfig({
         "latex",
       ],
     },
-    remarkPlugins: [remarkToc, remarkMath],
+    remarkPlugins: [remarkToc, remarkMath, remarkLinkCard],
     rehypePlugins: [
+      rehypeRaw,
       rehypeSlug,
       [rehypeAutolinkHeadings, { behavior: "append" }],
       rehypeKatex,
+      [
+        rehypeExternalLinks,
+        { target: "_blank", rel: ["noopener", "noreferrer"] },
+      ],
     ],
   },
 });
