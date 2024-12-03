@@ -2,10 +2,10 @@
 import PostListLayout from "../../layouts/PostListLayout.astro";
 import { getCollection } from "astro:content";
 import type { CollectionEntry } from "astro:content";
+import { sortPosts } from "../../utils";
 
 export async function getStaticPaths(): Promise<{ params: { tag: string }, props: { posts: CollectionEntry<"posts">[] } }[]> {
-  const allPosts = (await getCollection("posts"))
-    .sort((a, b) => (a.data.date > b.data.date ? -1 : 1));
+  const allPosts = sortPosts(await getCollection("posts"));
 
   const tags = [...new Set(allPosts.flatMap((post) => post.data.tags))];
 
