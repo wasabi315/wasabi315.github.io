@@ -23,9 +23,3 @@ a:hover,
 a:focus {
   color: rgb(var(--accent1));
 }
-
-@media screen and (min-width: 768px) {
-  html {
-    font-size: 18px;
-  }
-}
