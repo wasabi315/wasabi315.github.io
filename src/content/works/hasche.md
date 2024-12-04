@@ -11,6 +11,8 @@ githubRepository: "wasabi315/Hasche"
 
 Hasche is a toy Scheme-ish language written in Haskell with REPL, `call/cc`, pattern-matching, and non-hygienic macros.
 
+<https://github.com/wasabi315/Hasche>
+
 ## Contents
 
 ## Try It out!

@@ -3,7 +3,7 @@ import type { CollectionEntry } from "astro:content";
 import Tag from "./Tag.astro";
 
 type Props = {
-  post: CollectionEntry<"posts">
+  post: CollectionEntry<"posts">;
 };
 
 const { post } = Astro.props;
@@ -22,7 +22,7 @@ const { post } = Astro.props;
 
 <style lang="scss">
   p {
-    color: rgb(var(--ui2));
+    color: var(--ui2);
   }
 
   h2 a {

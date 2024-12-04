@@ -4,7 +4,7 @@ body {
   font-kerning: normal;
   font-family: var(--font-base);
   color: rgb(var(--ui1));
-  background: rgb(var(--bg1));
+  background: var(--bg1);
 }
 
 code {
@@ -18,5 +18,5 @@ a:link {
 
 a:hover,
 a:focus {
-  color: rgb(var(--accent1));
+  color: var(--accent1);
 }

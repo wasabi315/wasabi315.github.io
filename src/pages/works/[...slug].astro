@@ -7,7 +7,7 @@ export async function getStaticPaths(): Promise<{ params: { slug: string }, prop
   const entries = await getCollection("works");
   return entries.map((entry) => ({
     params: { slug: entry.slug },
-    props: { entry }
+    props: { entry },
   }));
 }
 
@@ -17,4 +17,4 @@ const { Content } = await entry.render();
 
 <WorkLayout frontmatter={entry.data}>
   <Content />
-</WoLayout>
+</WorkLayout>

@@ -10,7 +10,9 @@ export async function getStaticPaths(): Promise<{ params: { tag: string }, props
   const tags = [...new Set(allPosts.flatMap((post) => post.data.tags))];
 
   return tags.map((tag) => {
-    const filteredPosts = allPosts.filter((post) => post.data.tags.includes(tag));
+    const filteredPosts = allPosts.filter((post) =>
+      post.data.tags.includes(tag)
+    );
     return {
       params: { tag },
       props: { posts: filteredPosts },

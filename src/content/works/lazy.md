@@ -9,6 +9,8 @@ githubRepository: "wasabi315/lazy"
 
 lazy.js provides a lazy evaluation mechanism inspired by the eval/apply version of STG used in Haskell before (I believe). You can define and evaluate lazy computations in JavaScript using this library.
 
+<https://github.com/wasabi315/lazy>
+
 ## Contents
 
 ## Examples

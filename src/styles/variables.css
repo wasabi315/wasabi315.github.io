@@ -1,14 +1,26 @@
 :root {
-  --accent1: 157, 178, 164;
-  --accent2: 106, 135, 125;
+  /* Colors */
+  --accent1: #9db2a4;
+  --accent2: #6a877d;
   --ui1: 76, 86, 106;
-  --ui2: 130, 137, 151;
-  --ui3: 183, 187, 195;
-  --bg1: 255, 255, 255;
-  --bg2: 236, 239, 244;
+  --ui2: #828997;
+  --ui3: #b7bbc3;
+  --bg1: #fff;
+  --bg2: #eceff4;
 
+  /* Fonts */
   --font-base: -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN",
     "Hiragino Sans", Meiryo, sans-serif, "Segoe UI Emoji";
   --font-code: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace,
     "Segoe UI Emoji";
+
+  /* Spacing */
+  --spacing-3xs: 0.25rem;
+  --spacing-xxs: 0.5rem;
+  --spacing-xs: 1rem;
+  --spacing-sm: 1.5rem;
+  --spacing-md: 2rem;
+  --spacing-lg: 2.5rem;
+  --spacing-xl: 3rem;
+  --spacing-xxl: 4rem;
 }

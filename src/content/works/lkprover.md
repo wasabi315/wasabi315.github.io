@@ -9,6 +9,8 @@ githubRepository: "wasabi315/LkProver"
 
 LkProver converts LK sequents into `bussproofs` commands.
 
+<https://github.com/wasabi315/LkProver>
+
 ## Contents
 
 ## Usage
