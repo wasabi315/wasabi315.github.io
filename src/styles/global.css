@@ -1,17 +1,14 @@
-html {
-  font-family: system-ui, sans-serif;
-}
-
 body {
   word-wrap: break-word;
   letter-spacing: 0.5px;
   font-kerning: normal;
+  font-family: var(--font-base);
   color: rgb(var(--ui1));
   background: rgb(var(--bg1));
 }
 
 code {
-  font-family: monospace;
+  font-family: var(--font-code);
 }
 
 a:visited,

@@ -88,6 +88,8 @@
     margin-bottom: 1rem;
     padding: 0.5rem 1rem;
     border-radius: 0.5rem;
+    font-size: 0.9em;
+    line-height: 1.75;
   }
 
   .markdown :global(:not(pre) > code) {
@@ -96,7 +98,7 @@
     background-color: rgb(var(--bg2));
   }
 
-  .markdown :global(img) {
+  .markdown > :global(img) {
     object-fit: cover;
     height: fit-content;
     width: fit-content;
@@ -110,42 +112,51 @@
 
   .markdown :global(.rlc-container) {
     display: block;
-    transition: 0.2s;
+    padding: 1.25rem;
     border: 1px solid rgb(var(--ui3));
     border-radius: 0.5rem;
-    padding: 1.25rem;
+
+    color: inherit;
     text-decoration: none;
-    margin-left: 0.5rem;
-    margin-right: 0.5rem;
+    transition: 0.2s;
 
     &:hover {
-      color: inherit;
       background-color: rgb(var(--bg2));
     }
+  }
 
-    :global(.rlc-title) {
-      font-size: 1rem;
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-    }
+  :global(.rlc-title) {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
 
-    :global(.rlc-favicon) {
-      height: 0.875rem;
-      width: 0.875rem;
-      display: inline-block;
-      margin-right: 0.25rem;
-    }
+  :global(.rlc-description) {
+    font-size: 0.875rem;
+    color: rgb(var(--ui2));
+    margin-bottom: 0.5rem;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 
-    :global(.rlc-url) {
-      display: inline-block;
-      color: rgb(var(--ui2));
-      font-size: 0.875rem;
-    }
+  :global(.rlc-url-container) {
+    display: flex;
+    align-items: center;
+  }
 
-    :global(.rlc-image-container),
-    :global(.rlc-description)
-    {
-      display: none;
-    }
+  :global(.rlc-favicon) {
+    margin-right: 0.5rem;
+    width: 14px;
+    height: 14px;
+  }
+
+  :global(.rlc-url) {
+    color: rgb(var(--ui2));
+    font-size: 0.875rem;
+  }
+
+  :global(.rlc-image-container)
+  {
+    display: none;
   }
 </style>

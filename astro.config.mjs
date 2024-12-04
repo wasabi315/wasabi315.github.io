@@ -39,7 +39,11 @@ export default defineConfig({
         "latex",
       ],
     },
-    remarkPlugins: [remarkToc, remarkMath, remarkLinkCard],
+    remarkPlugins: [
+      remarkToc,
+      remarkMath,
+      [remarkLinkCard, { shortenUrl: true }],
+    ],
     rehypePlugins: [
       rehypeRaw,
       rehypeSlug,
