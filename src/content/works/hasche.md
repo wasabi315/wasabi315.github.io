@@ -9,7 +9,7 @@ githubRepository: "wasabi315/Hasche"
 
 > Hasche (/hæʃ/): **Ha**skell + **Sche**me
 
-Hasche is a toy Scheme-ish language written in Haskell with REPL, `call/cc`, pattern-matching, and non-hygienic macros.
+Hasche is a toy Scheme-ish language interpreter written in Haskell with REPL, `call/cc`, pattern-matching, and non-hygienic macros.
 
 <https://github.com/wasabi315/Hasche>
 

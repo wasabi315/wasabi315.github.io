@@ -3,7 +3,7 @@ body {
   letter-spacing: 0.5px;
   font-kerning: normal;
   font-family: var(--font-base);
-  color: rgb(var(--ui1));
+  color: var(--ui1);
   background: var(--bg1);
 }
 

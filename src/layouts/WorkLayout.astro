@@ -29,7 +29,11 @@ const { frontmatter } = Astro.props;
           <h1>{frontmatter.title}</h1>
           <p>{frontmatter.description}</p>
         </div>
-        <a href={`https://github.com/${frontmatter.githubRepository}`}>
+        <a
+          href={`https://github.com/${frontmatter.githubRepository}`}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <Icon name="mdi:github" size={48} />
         </a>
       </header>

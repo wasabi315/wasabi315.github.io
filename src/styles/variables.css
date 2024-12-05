@@ -2,11 +2,14 @@
   /* Colors */
   --accent1: #9db2a4;
   --accent2: #6a877d;
-  --ui1: 76, 86, 106;
+  --ui1: #4c566a;
   --ui2: #828997;
   --ui3: #b7bbc3;
   --bg1: #fff;
-  --bg2: #eceff4;
+  --bg2: #f2f4f8;
+  --bg3: #eceff4;
+  --box-shadow: #b8c2d780 0 3px 6px 0;
+  --nord-green: #a3be8c;
 
   /* Fonts */
   --font-base: -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN",
