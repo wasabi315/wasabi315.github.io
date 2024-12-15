@@ -4,6 +4,7 @@ import mdx from "@astrojs/mdx";
 import remarkToc from "remark-toc";
 import remarkMath from "remark-math";
 import remarkLinkCard from "remark-link-card";
+import { remarkAlert } from "remark-github-blockquote-alert";
 import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeKatex from "rehype-katex";
@@ -40,9 +41,10 @@ export default defineConfig({
       ],
     },
     remarkPlugins: [
-      remarkToc,
+      [remarkToc, { heading: "(table[ -]of[ -])?contents?|toc|目次" }],
       remarkMath,
       [remarkLinkCard, { shortenUrl: true }],
+      remarkAlert,
     ],
     rehypePlugins: [
       rehypeRaw,

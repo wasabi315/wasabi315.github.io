@@ -16,9 +16,10 @@ const { tag } = Astro.props;
       content: "#";
       margin-right: -0.25rem;
     }
-    text-decoration: none;
-    &:hover {
-      text-decoration: underline 2px;
+    color: inherit;
+    &:hover,
+    &:focus {
+      color: var(--accent);
     }
   }
 </style>

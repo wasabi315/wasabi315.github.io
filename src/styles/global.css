@@ -3,7 +3,7 @@ body {
   letter-spacing: 0.5px;
   font-kerning: normal;
   font-family: var(--font-base);
-  color: var(--ui1);
+  color: var(--fg1);
   background: var(--bg1);
 }
 
@@ -13,10 +13,11 @@ code {
 
 a:visited,
 a:link {
-  color: inherit;
+  color: var(--accent);
+  text-decoration: none;
 }
 
 a:hover,
 a:focus {
-  color: var(--accent1);
+  text-decoration: underline;
 }

@@ -41,14 +41,15 @@ const url = `/works/${work.slug}`;
     margin-top: 0.5rem;
 
     h2 a {
-      text-decoration: none;
-      &:hover {
-        text-decoration: underline;
+      color: inherit;
+      &:hover,
+      &:focus {
+        color: var(--accent);
       }
     }
 
     p {
-      color: var(--ui2);
+      color: var(--fg2);
     }
   }
 

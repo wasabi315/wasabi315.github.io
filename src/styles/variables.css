@@ -1,15 +1,33 @@
 :root {
+  /* Colors based on Nord */
+  --nord0: #2e3440;
+  --nord1: #3b4252;
+  --nord2: #434c5e;
+  --nord3: #4c566a;
+  --nord4: #d8dee9;
+  --nord5: #e5e9f0;
+  --nord6: #eceff4;
+  --nord7: #8fbcbb;
+  --nord8: #88c0d0;
+  --nord9: #81a1c1;
+  --nord10: #5e81ac;
+  --nord11: #bf616a;
+  --nord12: #d08770;
+  --nord13: #ebcb8b;
+  /* Tweak nord14; I like a bit more bluish */
+  --nord14: color-mix(in srgb, #a3be8c 73%, var(--nord10));
+  --nord15: #b48ead;
+
   /* Colors */
-  --accent1: #9db2a4;
-  --accent2: #6a877d;
-  --ui1: #4c566a;
-  --ui2: #828997;
-  --ui3: #b7bbc3;
+  --accent: var(--nord14);
+  --accent2: var(--nord14-darker);
+  --fg1: var(--nord3);
+  --fg2: #7b88a1;
+  --fg3: #aeb4bf;
   --bg1: #fff;
   --bg2: #f2f4f8;
-  --bg3: #eceff4;
-  --box-shadow: #b8c2d780 0 3px 6px 0;
-  --nord-green: #a3be8c;
+  --bg3: var(--nord6);
+  --box-shadow: color-mix(in srgb, var(--nord3) 15%, transparent) 0 3px 6px 0;
 
   /* Fonts */
   --font-base: -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN",

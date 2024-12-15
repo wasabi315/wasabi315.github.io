@@ -124,7 +124,7 @@ const socialLinks = [
     margin: auto;
     width: 720px;
     max-width: 100%;
-    color: var(--ui1);
+    color: var(--fg1);
     font-size: 20px;
   }
   .postcard {
@@ -171,11 +171,10 @@ const socialLinks = [
   .nav-links a,
   .nav-links2 a,
   .social-links a {
-    text-decoration: none;
-
+    color: inherit;
     &:hover,
     &:focus {
-      text-decoration: underline;
+      color: var(--accent);
     }
   }
 

@@ -37,14 +37,18 @@
     }
 
     blockquote {
-      padding-left: 1.5rem;
-      border-left: 0.2em solid var(--ui3);
-      color: var(--ui2);
+      padding: 0.5rem 1em;
+      margin-bottom: 1rem;
+      border-left: 0.25em solid var(--fg3);
+      color: var(--fg2);
+    }
+    blockquote > :last-child {
+      margin-bottom: 0 !important;
     }
 
     hr {
       height: 2px;
-      background-color: var(--ui3);
+      background-color: var(--fg3);
       border: none;
       margin: 2rem 0;
     }
@@ -81,7 +85,7 @@
       & th,
       & td {
         padding: 0.5rem;
-        border: 1px solid var(--ui2);
+        border: 1px solid var(--fg2);
       }
     }
 
@@ -127,11 +131,10 @@
 
     .rlc-container {
       display: block;
-      margin-left: 0.5rem;
-      margin-right: 0.5rem;
+      margin: 0 0.5rem 1rem;
       padding: 1rem 1.25rem;
 
-      border: 1px solid var(--ui3);
+      border: 1px solid var(--fg3);
       border-radius: 0.5rem;
       color: inherit;
       text-decoration: none;
@@ -151,7 +154,7 @@
 
     .rlc-description {
       font-size: 0.875rem;
-      color: var(--ui2);
+      color: var(--fg2);
       margin-bottom: 0.5rem;
 
       @include text-clamp(1);
@@ -176,6 +179,69 @@
 
     .rlc-image-container {
       display: none;
+    }
+
+    // remark-github-blockquote-alert styles
+
+    .markdown-alert {
+      --color-alert-note: var(--nord9);
+      --color-alert-tip: var(--nord14);
+      --color-alert-important: var(--nord15);
+      --color-alert-warning: var(--nord12);
+      --color-alert-caution: var(--nord11);
+    }
+
+    .markdown-alert {
+      border-left-width: 0.25em;
+      border-left-style: solid;
+      color: inherit;
+      margin-bottom: 1rem;
+      padding: 0.5rem 1em;
+    }
+    .markdown-alert > :last-child {
+      margin-bottom: 0 !important;
+    }
+    .markdown-alert .markdown-alert-title {
+      align-items: center;
+      display: flex;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1;
+    }
+    .markdown-alert .markdown-alert-title svg.octicon {
+      margin-right: 8px !important;
+      margin-right: var(--base-size-8, 8px) !important;
+      fill: currentColor;
+    }
+    .markdown-alert.markdown-alert-note {
+      border-left-color: var(--color-alert-note);
+    }
+    .markdown-alert.markdown-alert-note .markdown-alert-title {
+      color: var(--color-alert-note);
+    }
+    .markdown-alert.markdown-alert-tip {
+      border-left-color: var(--color-alert-tip);
+    }
+    .markdown-alert.markdown-alert-tip .markdown-alert-title {
+      color: var(--color-alert-tip);
+    }
+    .markdown-alert.markdown-alert-important {
+      border-left-color: var(--color-alert-important);
+    }
+    .markdown-alert.markdown-alert-important .markdown-alert-title {
+      color: var(--color-alert-important);
+    }
+    .markdown-alert.markdown-alert-warning {
+      border-left-color: var(--color-alert-warning);
+    }
+    .markdown-alert.markdown-alert-warning .markdown-alert-title {
+      color: var(--color-alert-warning);
+    }
+    .markdown-alert.markdown-alert-caution {
+      border-left-color: var(--color-alert-caution);
+    }
+    .markdown-alert.markdown-alert-caution .markdown-alert-title {
+      color: var(--color-alert-caution);
     }
   }
 </style>

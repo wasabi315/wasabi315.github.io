@@ -22,13 +22,14 @@ const { post } = Astro.props;
 
 <style lang="scss">
   p {
-    color: var(--ui2);
+    color: var(--fg2);
   }
 
   h2 a {
-    text-decoration: none;
-    &:hover {
-      text-decoration: underline;
+    color: inherit;
+    &:hover,
+    &:focus {
+      color: var(--accent);
     }
   }
 </style>
