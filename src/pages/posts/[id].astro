@@ -1,18 +1,18 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
 import PostLayout from "../../layouts/PostLayout.astro";
 import type { CollectionEntry } from "astro:content";
 
-export async function getStaticPaths(): Promise<{ params: { slug: string }, props: { entry: CollectionEntry<"posts"> } }[]> {
+export async function getStaticPaths(): Promise<{ params: { id: string }, props: { entry: CollectionEntry<"posts"> } }[]> {
   const entries = await getCollection("posts");
   return entries.map((entry) => ({
-    params: { slug: entry.slug },
+    params: { id: entry.id },
     props: { entry },
   }));
 }
 
 const { entry } = Astro.props;
-const { Content } = await entry.render();
+const { Content } = await render(entry);
 ---
 
 <PostLayout frontmatter={entry.data}>
