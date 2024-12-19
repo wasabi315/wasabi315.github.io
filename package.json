@@ -16,7 +16,7 @@
     "@iconify-json/devicon": "^1.1.36",
     "@iconify-json/file-icons": "^1.1.8",
     "@iconify-json/mdi": "^1.1.64",
-    "astro": "^5.0.4",
+    "astro": "^5.1.0",
     "astro-icon": "^1.1.0",
     "rehype-autolink-headings": "^7.1.0",
     "rehype-external-links": "^3.0.0",
