@@ -19,6 +19,9 @@ export default defineConfig({
   i18n: {
     locales: ["en", "ja"],
     defaultLocale: "en",
+    fallback: {
+      ja: "en",
+    },
   },
   integrations: [
     mdx(),

@@ -1,8 +1,8 @@
 ---
 import { Image } from "astro:assets";
 import { Icon } from "astro-icon/components";
-import Layout from "../layouts/BaseLayout.astro";
-import me from "../images/me.jpg";
+import Layout from "../../layouts/BaseLayout.astro";
+import me from "../../images/me.jpg";
 
 const skills = [
   { name: "Haskell", icon: "devicon:haskell" },
@@ -25,49 +25,47 @@ const skills = [
         height="320"
         sizes="(max-width: 360px) 240px, 480px"
       />
-      <figcaption>Göteborg, Sweden, 2023</figcaption>
+      <figcaption>スウェーデン・ヨーテボリにて (2023)</figcaption>
     </figure>
     <h1>Satoshi Takimoto</h1>
     <p>
-      Hello! I am a doctoral student in the <a
-        href="https://www.psg.c.titech.ac.jp/">Programming Systems Group</a
-      > at Institute of Science Tokyo (formerly
-      Tokyo Institute of Technology). I am interested in programming languages and theorem provers, with a focus on building tools that make software more reliable.
+      こんにちは！東京科学大学の<a
+      href="https://www.psg.c.titech.ac.jp/">Programming Systems Group（渡部研究室）</a>で博士学生をしています．プログラミング言語と定理証明支援系が好きで，ソフトウェアをより信頼できるものにすることを目指しています．
     </p>
     <p>
-      I like traveling, visiting museums, and collecting postcards. Otherwise, I'm usually programming and researching.
+      普段はプログラムを書いたりお気に入りのポストカードを集めたりして過ごしています．
     </p>
     <section class="skills">
       <h2>Skills & Interests</h2>
       <section>
-        <h3>Programming languages</h3>
+        <h3>研究分野</h3>
+        <p>関数型プログラミング, 定理証明, 型理論</p>
+      </section>
+      <section>
+        <h3>プログラミング言語</h3>
         <div class="skill-icons">
           {skills.map(({ icon }) => <Icon name={icon} size={48} />)}
         </div>
         <p>
-          Haskell (daily programming, research prototypes), Agda, OCaml, Rust, TypeScript, JavaScript
+          Haskell (普段使い), Agda, OCaml, Rust, TypeScript, JavaScript
         </p>
       </section>
       <section>
-        <h3>Research</h3>
-        <p>Functional programming, theorem proving, type theory</p>
-      </section>
-      <section>
-        <h3>Engineering</h3>
-        <p>Compiler/tooling development, web application development</p>
+        <h3>ソフトウェア開発</h3>
+        <p>コンパイラ・ツール開発, Webアプリケーション開発</p>
       </section>
     </section>
     <section>
       <h2>Education & Academic Experiences</h2>
       <dl class="education-list">
-        <dt>Institute of Science Tokyo</dt>
-        <dd>Doctoral Student, Oct. 2024 - Present</dd>
-        <dt>Tokyo Institute of Technology</dt>
-        <dd>Master of Engineering (Computer Science), Sep. 2024</dd>
+        <dt>東京科学大学</dt>
+        <dd>Doctoral Student, 2024/10 - Present</dd>
+        <dt>東京工業大学</dt>
+        <dd>工学修士 (情報工学), 2024/09</dd>
         <dt>Chalmers University of Technology</dt>
-        <dd>Academic Exchange, Aug. 2022 - Jun. 2023</dd>
-        <dt>Tokyo Institute of Technology</dt>
-        <dd>Bachelor of Engineering (Computer Science), Mar. 2022</dd>
+        <dd>派遣交換留学, 2022/08 - 2023/06</dd>
+        <dt>東京工業大学</dt>
+        <dd>工学学士 (情報工学), 2022/03</dd>
       </dl>
     </section>
     <section>
@@ -82,15 +80,18 @@ const skills = [
         <dd>
           <a href="https://doi.org/10.2991/978-94-6463-684-0_2">https://doi.org/10.2991/978-94-6463-684-0_2</a>
         </dd>
+        <dt>組込みシステム向けFRP言語における状態遷移モデルに基づいた周辺装置の状態制御</dt>
+        <dd><span class="author">瀧本 哲史</span>・森口 草介・渡部 卓雄</dd>
+        <dd>コンピュータソフトウェア, 日本ソフトウェア科学会, Vol 42 (No. 1), pp. 40-53, Jan., 2025. </dd>
+        <dd>
+          <a href="https://doi.org/10.11309/jssst.42.1_40">https://doi.org/10.11309/jssst.42.1_40</a>
+        </dd>
       </dl>
     </section>
     <section>
       <h2>CV</h2>
       <p>
-        My CV can be found <a
-          href="https://docs.google.com/document/d/15B665Ejp1r9Dwr8CKWCGg86fAIc3Xdz2848XdxbyLOs?usp=sharing"
-          >here</a
-        >.
+        CVは<a href="https://docs.google.com/document/d/15B665Ejp1r9Dwr8CKWCGg86fAIc3Xdz2848XdxbyLOs?usp=sharing">こちら</a>.
       </p>
     </section>
   </main>
@@ -121,7 +122,7 @@ const skills = [
     margin-top: 8px;
     color: var(--fg2);
     font-style: italic;
-    font-size: 0.875rem;
+    font-size: 0.75rem;
   }
 
   h1 {
@@ -144,7 +145,7 @@ const skills = [
     font-size: 1rem;
   }
   .skills section + section {
-    margin-top: var(--spacing-xxs);
+    margin-top: var(--spacing-xs);
   }
   .skills .skill-icons {
     display: flex;
