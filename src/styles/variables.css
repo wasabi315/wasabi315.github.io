@@ -27,6 +27,7 @@
   --bg2: #f2f4f8;
   --bg3: var(--nord6);
   --box-shadow: color-mix(in srgb, var(--nord3) 15%, transparent) 0 3px 6px 0;
+  --border: var(--nord4);
 
   /* Fonts */
   --font-base: -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN",

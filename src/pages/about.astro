@@ -29,16 +29,61 @@ const skills = [
     </figure>
     <h1>Satoshi Takimoto</h1>
     <p>
-      Hello! I am a doctoral student at Institute of Science Tokyo (formerly
-      Tokyo Institute of Technology) in the <a
+      Hello! I am a doctoral student in the <a
         href="https://www.psg.c.titech.ac.jp/">Programming Systems Group</a
-      >. I am interested in (functional) programming languages and theorem
-      provers. Haskell and Agda are my favorites!
+      > at Institute of Science Tokyo (formerly
+      Tokyo Institute of Technology). I am interested in programming languages and theorem provers, with a focus on building tools that make software more reliable.
     </p>
     <p>
-      I like traveling, visiting museums, and collecting postcards. Otherwise, I
-      usually spend my time researching, programming, and sleeping.
+      I like traveling, visiting museums, and collecting postcards. Otherwise, I'm usually programming and researching.
     </p>
+    <section class="skills">
+      <h2>Skills & Interests</h2>
+      <section>
+        <h3>Programming languages</h3>
+        <div class="skill-icons">
+          {skills.map(({ icon }) => <Icon name={icon} size={48} />)}
+        </div>
+        <p>
+          Haskell (daily programming, research prototypes), Agda, OCaml, Rust, TypeScript, JavaScript
+        </p>
+      </section>
+      <section>
+        <h3>Research</h3>
+        <p>Functional programming, theorem proving, type theory</p>
+      </section>
+      <section>
+        <h3>Engineering</h3>
+        <p>Web application backend development</p>
+      </section>
+    </section>
+    <section>
+      <h2>Education & Academic Experiences</h2>
+      <dl class="education-list">
+        <dt>Institute of Science Tokyo</dt>
+        <dd>Doctoral Student, Oct. 2024 - Present</dd>
+        <dt>Tokyo Institute of Technology</dt>
+        <dd>Master of Engineering (Computer Science), Sep. 2024</dd>
+        <dt>Chalmers University</dt>
+        <dd>Academic Exchange, Aug. 2022 - Jun. 2023</dd>
+        <dt>Tokyo Institute of Technology</dt>
+        <dd>Bachelor of Engineering (Computer Science), Mar. 2022</dd>
+      </dl>
+    </section>
+    <section>
+      <h2>Publications</h2>
+      <dl class="publication-list">
+        <dt>Unification Modulo Isomorphisms between Dependent Types for Type-based Library Search</dt>
+        <dd><span class="author">Satoshi Takimoto</span>, Sosuke Moriguchi and Takuo Watanabe</dd>
+        <dd>To appear in Proceedings of the 10th ACM SIGPLAN international workshop on type-driven development (TyDe2025)</dd>
+        <dt>Formalizing Reversible Computations for Synchronous Dataflow Languages with Infinite Lists</dt>
+        <dd>Sosuke Moriguchi, <span class="author">Satoshi Takimoto</span>, Mizuki Shirai and Takuo Watanabe</dd>
+        <dd>13th Workshop on Computation: Theory and Practice, Atlantic Press, pp. 7–19, Nov., 2024. </dd>
+        <dd>
+          <a href="https://doi.org/10.2991/978-94-6463-684-0_2">https://doi.org/10.2991/978-94-6463-684-0_2</a>
+        </dd>
+      </dl>
+    </section>
     <section>
       <h2>CV</h2>
       <p>
@@ -46,42 +91,6 @@ const skills = [
           href="https://docs.google.com/document/d/15B665Ejp1r9Dwr8CKWCGg86fAIc3Xdz2848XdxbyLOs?usp=sharing"
           >here</a
         >.
-      </p>
-    </section>
-    <section>
-      <h2>Education & Academic Experiences</h2>
-      <ul role="list" class="list">
-        <li>
-          Tokyo Institute of Technology, Master of Engineering (Computer
-          Science), Sep. 2024
-        </li>
-        <li>
-          Chalmers University of Technology, Academic Exchange, Aug. 2022 - Jun.
-          2023
-        </li>
-        <li>
-          Tokyo Institute of Technology, Bachelor of Engineering (Computer
-          Science), Mar. 2022
-        </li>
-      </ul>
-    </section>
-    <section>
-      <h2>Qualifications</h2>
-      <ul role="list" class="list">
-        <li>応用情報技術者試験</li>
-        <li>TOEFL® Test: 96 (Mar. 2024)</li>
-        <li>TOEIC® L&R Test: 855</li>
-      </ul>
-    </section>
-    <section>
-      <h2>Skills</h2>
-      <div class="skill-icons">
-        {skills.map(({ icon }) => <Icon name={icon} size={48} />)}
-      </div>
-      <p>
-        I usually use Haskell for daily programming and Agda for formalizing and
-        proving things. I am also proficient in OCaml, Rust, TypeScript, and
-        JavaScript.
       </p>
     </section>
   </main>
@@ -92,6 +101,10 @@ const skills = [
     margin: auto;
     width: 960px;
     max-width: 100%;
+  }
+
+  main p + p {
+    margin-top: var(--spacing-xs);
   }
 
   .me {
@@ -122,17 +135,48 @@ const skills = [
   h2 {
     font-size: 1.5rem;
     line-height: 1;
-    margin-top: 1.5em;
-    margin-bottom: 1em;
+    margin-top: var(--spacing-lg);
+    margin-bottom: var(--spacing-xs);
+    padding-bottom: 0.5em;
+    border-bottom: 1px solid var(--border);
   }
 
-  .list {
-    list-style: inside;
+  .skills h3 {
+    font-size: 1rem;
   }
-
-  .skill-icons {
+  .skills section + section {
+    margin-top: var(--spacing-xxs);
+  }
+  .skills .skill-icons {
     display: flex;
     gap: 16px;
+  }
+
+  .education-list dt {
+    font-weight: bold;
+  }
+  .education-list dd + dt {
+    margin-top: var(--spacing-xxs);
+  }
+  .education-list dd {
+    font-size: 0.875rem;
+    line-height: 1.75;
+    color: var(--fg2);
+  }
+
+  .publication-list dt {
+    font-weight: bold;
+  }
+  .publication-list dd + dt {
+    margin-top: var(--spacing-xs);
+  }
+  .publication-list dd {
+    font-size: 0.875rem;
+    line-height: 1.75;
+    color: var(--fg2);
+  }
+  .publication-list .author {
+    font-weight: bold;
   }
 
   @media screen and (min-width: 768px) {
