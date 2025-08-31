@@ -1,0 +1,172 @@
+---
+import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
+import Layout from "../../layouts/BaseLayout.astro";
+import me from "../../images/me.jpg";
+
+const skills = [
+  { name: "Haskell", icon: "devicon:haskell" },
+  { name: "Agda", icon: "file-icons:agda" },
+  { name: "OCaml", icon: "devicon:ocaml" },
+  { name: "Rust", icon: "devicon:rust" },
+  { name: "TypeScript", icon: "devicon:typescript" },
+  { name: "JavaScript", icon: "devicon:javascript" },
+];
+---
+
+<Layout title="About" description="About wasabi315">
+  <main>
+    <figure class="me">
+      <Image
+        src={me}
+        alt="Satoshi Takimoto"
+        widths={[240, 540, 720]}
+        width="720"
+        height="480"
+        sizes="(max-width: 360px) 240px, (max-width: 720px) 540px, 720px"
+      />
+      <figcaption>Göteborg, Sweden, 2023</figcaption>
+    </figure>
+    <h1>Satoshi Takimoto</h1>
+    <p>
+      こんにちは！東京科学大学の<a
+      href="https://www.psg.c.titech.ac.jp/">Programming Systems Group（渡部研究室）</a>で博士学生をしています．プログラミング言語と定理証明支援系が好きで，ソフトウェアをより信頼できるものにすることを目指しています．
+    </p>
+    <p>
+      普段はプログラムを書いたりお気に入りのポストカードを集めたりして過ごしています．
+    </p>
+    <section>
+      <h2>Skills</h2>
+      <div class="skill-icons">
+        {skills.map(({ icon }) => <Icon name={icon} size={48} />)}
+      </div>
+      <p>
+        Haskellを一番よく書きます．Agdaで定理証明を行うことも多いです．OCaml, Rust, TypeScript, JavaScriptも使います．
+      </p>
+    </section>
+    <section>
+      <h2>Education</h2>
+      <ul role="list" class="list">
+        <li>
+          東京工業大学 情報理工学院, 学士, 2018/04 - 2022/03
+        </li>
+        <li>
+          Chalmers University of Technology, 派遣交換留学, 2022/08 - 2023/06
+        </li>
+        <li>
+          東京工業大学 情報理工学院, 修士, 2022/04 - 2024/09
+        </li>
+        <li>
+          東京科学大学 情報理工学院, 博士学生, 2024/10 - 現在
+        </li>
+      </ul>
+    </section>
+    <section>
+      <h2>Publications</h2>
+      <dl role="list" class="publication-list">
+        <dt>Unification Modulo Isomorphisms between Dependent Types for Type-based Library Search</dt>
+        <dd><span class="author">Satoshi Takimoto</span>, Sosuke Moriguchi and Takuo Watanabe</dd>
+        <dd>to appear in Proceedings of the 10th ACM SIGPLAN international workshop on type-driven development (TyDe2025)</dd>
+        <dt>Formalizing Reversible Computations for Synchronous Dataflow Languages with Infinite Lists</dt>
+        <dd>Sosuke Moriguchi, <span class="author">Satoshi Takimoto</span>, Mizuki Shirai and Takuo Watanabe</dd>
+        <dd>13th Workshop on Computation: Theory and Practice, Atlantic Press, pp. 7–19, Nov., 2024. </dd>
+        <dd>
+          <a href="https://doi.org/10.2991/978-94-6463-684-0_2">https://doi.org/10.2991/978-94-6463-684-0_2</a>
+        </dd>
+        <dt>組込みシステム向けFRP言語における状態遷移モデルに基づいた周辺装置の状態制御</dt>
+        <dd><span class="author">瀧本 哲史</span>・森口 草介・渡部 卓雄</dd>
+        <dd>コンピュータソフトウェア, 日本ソフトウェア科学会, Vol 42 (No. 1), pp. 40-53, Jan., 2025. </dd>
+        <dd>
+          <a href="https://doi.org/10.11309/jssst.42.1_40">https://doi.org/10.11309/jssst.42.1_40</a>
+        </dd>
+      </dl>
+    </section>
+    <section>
+      <h2>CV</h2>
+      <p>
+        CVは<a
+          href="https://docs.google.com/document/d/15B665Ejp1r9Dwr8CKWCGg86fAIc3Xdz2848XdxbyLOs?usp=sharing"
+          >こちら</a
+        >.
+      </p>
+    </section>
+  </main>
+</Layout>
+
+<style lang="scss">
+  main {
+    margin: auto;
+    width: 960px;
+    max-width: 100%;
+  }
+
+  .me {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 48px;
+  }
+  .me img {
+    object-fit: contain;
+    width: fit-content;
+    height: fit-content;
+  }
+  .me figcaption {
+    margin-top: 8px;
+    color: var(--fg2);
+    font-style: italic;
+    font-size: 0.875rem;
+  }
+
+  main p+p {
+    margin-top: 1rem;
+  }
+
+  h1 {
+    font-size: 3rem;
+    line-height: 1;
+    text-align: center;
+    margin-bottom: 1em;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    line-height: 1;
+    margin-top: 1.5em;
+    margin-bottom: 1em;
+    padding-bottom: 0.5em;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .publication-list dt {
+    font-weight: bold;
+  }
+  .publication-list dd + dt {
+    margin-top: 1rem;
+  }
+  .publication-list dd {
+    font-size: 0.875rem;
+    line-height: 1.75em;
+    color: var(--fg2);
+  }
+  .publication-list .author {
+    font-weight: bold;
+  }
+
+  .list {
+    list-style: inside;
+  }
+
+  .skill-icons {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 1rem;
+  }
+
+  @media screen and (min-width: 768px) {
+    main {
+      padding: 1rem;
+      max-width: calc(100% - 2rem);
+    }
+  }
+</style>
