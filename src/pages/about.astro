@@ -20,10 +20,10 @@ const skills = [
       <Image
         src={me}
         alt="Satoshi Takimoto"
-        widths={[240, 540, 720]}
-        width="720"
-        height="480"
-        sizes="(max-width: 360px) 240px, (max-width: 720px) 540px, 720px"
+        widths={[240, 480]}
+        width="480"
+        height="320"
+        sizes="(max-width: 360px) 240px, 480px"
       />
       <figcaption>Göteborg, Sweden, 2023</figcaption>
     </figure>
@@ -111,11 +111,10 @@ const skills = [
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 48px;
+    margin-bottom: 24px;
   }
   .me img {
     object-fit: contain;
-    width: fit-content;
     height: fit-content;
   }
   .me figcaption {
@@ -126,7 +125,7 @@ const skills = [
   }
 
   h1 {
-    font-size: 3rem;
+    font-size: 2rem;
     line-height: 1;
     text-align: center;
     margin-bottom: 1em;
@@ -183,6 +182,10 @@ const skills = [
     main {
       padding: 1rem;
       max-width: calc(100% - 2rem);
+    }
+
+    h1 {
+      font-size: 3rem;
     }
   }
 </style>
