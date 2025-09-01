@@ -1,17 +1,23 @@
 ---
 import type { CollectionEntry } from "astro:content";
+import { getRelativeLocaleUrl } from 'astro:i18n';
 import Tag from "./Tag.astro";
 
 type Props = {
   post: CollectionEntry<"posts">;
 };
 
+function getRelativeCurrentLocaleUrl(path?: string): string {
+  return getRelativeLocaleUrl(Astro.currentLocale!, path)
+}
+
 const { post } = Astro.props;
+const url = getRelativeCurrentLocaleUrl(`posts/${post.id}`);
 ---
 
 <article>
   <h2>
-    <a href={`/posts/${post.id}`}>{post.data.title}</a>
+    <a href={url}>{post.data.title}</a>
   </h2>
   <p>
     <time>{post.data.date}</time>
