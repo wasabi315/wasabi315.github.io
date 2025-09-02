@@ -27,6 +27,8 @@ const socialLinks = [
   { icon: "mdi:twitter", url: "https://twitter.com/wasabi__315" },
   { icon: "mdi:instagram", url: "https://www.instagram.com/wasabi__315/" },
 ];
+
+const pathName = Astro.url.pathname.replace(`/${Astro.currentLocale}/`, ``);
 ---
 
 <!doctype html>
@@ -64,11 +66,21 @@ const socialLinks = [
       <nav class="nav-links">
         {navLinks.map(({ title, url }) => <a href={url}>{title}</a>)}
       </nav>
+      <div class="lang-switcher">
+        <a class:list={Astro.currentLocale === "en" ? ["current-locale"] : []} href={getRelativeLocaleUrl("en", pathName)}>EN</a>
+        /
+        <a class:list={Astro.currentLocale === "ja" ? ["current-locale"] : []} href={getRelativeLocaleUrl("ja", pathName)}>JA</a>
+      </div>
     </header>
-    <div class="sidebar">
+    <div class="sidebar hide">
       <nav class="nav-links">
         {navLinks.map(({ title, url }) => <a href={url}>{title}</a>)}
       </nav>
+      <div class="lang-switcher">
+        <a class:list={Astro.currentLocale === "en" ? ["current-locale"] : []} href={getRelativeLocaleUrl("en", pathName)}>EN</a>
+        /
+        <a class:list={Astro.currentLocale === "ja" ? ["current-locale"] : []} href={getRelativeLocaleUrl("ja", pathName)}>JA</a>
+      </div>
     </div>
     <main>
       <slot />
@@ -112,7 +124,7 @@ const socialLinks = [
 
     display: flex;
     align-items: center;
-    gap: 1.5rem;
+    gap: 3rem;
   }
   header .hamburger {
     cursor: pointer;
@@ -122,6 +134,9 @@ const socialLinks = [
     font-weight: bold;
   }
   header .nav-links {
+    display: none;
+  }
+  header .lang-switcher {
     display: none;
   }
 
@@ -148,6 +163,27 @@ const socialLinks = [
     flex-direction: column;
   }
 
+  .nav-links a,
+  {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  .home a,
+  .nav-links a,
+  .lang-switcher a,
+  .social-links a {
+    color: inherit;
+    &:hover,
+    &:focus {
+      color: var(--accent);
+    }
+  }
+  .lang-switcher a.current-locale {
+    font-weight: bold;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
   main {
     margin-top: 2rem;
   }
@@ -166,20 +202,6 @@ const socialLinks = [
     display: flex;
     justify-content: center;
     gap: 0.75rem;
-  }
-
-  .nav-links a {
-    font-size: 1.5rem;
-    font-weight: bold;
-  }
-  .home a,
-  .nav-links a,
-  .social-links a {
-    color: inherit;
-    &:hover,
-    &:focus {
-      color: var(--accent);
-    }
   }
 
   @media screen and (min-width: 768px) {
@@ -210,6 +232,9 @@ const socialLinks = [
       justify-content: center;
       gap: 1rem;
       width: auto;
+    }
+    header .lang-switcher {
+      display: unset;
     }
 
     main {
