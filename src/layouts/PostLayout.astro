@@ -21,33 +21,25 @@ const { frontmatter } = Astro.props;
       crossorigin="anonymous"
     />
   </Fragment>
-  <main>
-    <article>
-      <header>
-        <h1>{frontmatter.title}</h1>
-        <p>
-          <time>{frontmatter.date}</time>
-          -
-          {frontmatter.tags.map((tag) => <Tag tag={tag} />)}
-        </p>
-      </header>
-      <MarkdownRenderer>
-        <slot />
-      </MarkdownRenderer>
-      <footer>
-        <Utterances />
-      </footer>
-    </article>
-  </main>
+  <article>
+    <header>
+      <h1>{frontmatter.title}</h1>
+      <p>
+        <time>{frontmatter.date}</time>
+        -
+        {frontmatter.tags.map((tag) => <Tag tag={tag} />)}
+      </p>
+    </header>
+    <MarkdownRenderer>
+      <slot />
+    </MarkdownRenderer>
+    <footer>
+      <Utterances />
+    </footer>
+  </article>
 </Layout>
 
 <style lang="scss">
-  main {
-    margin: 0 auto auto;
-    width: 960px;
-    max-width: 100%;
-  }
-
   header {
     margin-bottom: 2rem;
     h1 {

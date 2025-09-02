@@ -12,27 +12,19 @@ const { title, posts } = Astro.props;
 ---
 
 <Layout title={title} description="List of posts by wasabi315">
-  <main>
-    <h1>{title}</h1>
-    <ul>
-      {
-        posts.map((post) => (
-          <li>
-            <BlogPost post={post} />
-          </li>
-        ))
-      }
-    </ul>
-  </main>
+  <h1>{title}</h1>
+  <ul>
+    {
+      posts.map((post) => (
+        <li>
+          <BlogPost post={post} />
+        </li>
+      ))
+    }
+  </ul>
 </Layout>
 
 <style lang="scss">
-  main {
-    margin: 0 auto auto;
-    width: 960px;
-    max-width: 100%;
-  }
-
   h1 {
     font-size: 2.25rem;
   }

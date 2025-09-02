@@ -57,15 +57,22 @@ const socialLinks = [
   </head>
   <body>
     <header>
+      <Icon class="hamburger" name="mdi:hamburger-menu" size={32} />
       <div class="home">
         <a href={getRelativeCurrentLocaleUrl()}> wasabi315 </a>
       </div>
-      <Icon class="hamburger" name="mdi:hamburger-menu" size={32} />
       <nav class="nav-links">
         {navLinks.map(({ title, url }) => <a href={url}>{title}</a>)}
       </nav>
     </header>
-    <slot />
+    <div class="sidebar">
+      <nav class="nav-links">
+        {navLinks.map(({ title, url }) => <a href={url}>{title}</a>)}
+      </nav>
+    </div>
+    <main>
+      <slot />
+    </main>
     <footer>
       <div class="copyright-notice">
         © {new Date().getFullYear()} Satoshi Takimoto. All rights reserved.
@@ -85,59 +92,64 @@ const socialLinks = [
 
 <script>
   document.querySelector(".hamburger")?.addEventListener("click", () => {
-    document.querySelector(".nav-links")?.classList.toggle("expanded");
+    document.querySelector(".sidebar")?.classList.toggle("hide");
   });
 </script>
 
 <style lang="scss">
   body {
-    display: flex;
-    flex-flow: column;
-    max-width: 100%;
-    min-height: 100dvh;
-    margin: 0;
-    padding: 1rem;
+    padding-inline: 1rem;
+    min-height: 100vh;
   }
 
   header {
+    position: sticky;
+    top: 0;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    background-color: #fffffff5;
+    z-index: 100;
+
     display: flex;
-    position: relative;
     align-items: center;
-    justify-content: space-between;
-    margin-bottom: 3rem;
-    width: 100%;
+    gap: 1.5rem;
   }
-  .home {
+  header .hamburger {
+    cursor: pointer;
+  }
+  header .home {
     font-size: 1.5rem;
     font-weight: bold;
   }
-  .nav-links {
+  header .nav-links {
     display: none;
-    background-color: #ffffff;
-    a {
-      display: block;
-      font-size: 1.25rem;
-      font-weight: bold;
-    }
-
-    &.expanded {
-      display: unset;
-      position: absolute;
-      width: 200px;
-      right: 0;
-      top: 30px;
-      border-radius: 8px;
-      box-shadow: var(--box-shadow);
-      padding: 12px;
-      a {
-        padding-left: 12px;
-        line-height: 42px;
-      }
-    }
   }
 
-  .hamburger {
-    cursor: pointer;
+  .sidebar.hide {
+    display: none;
+  }
+  .sidebar {
+    position: fixed;
+    top: 4rem;
+    bottom: 0;
+    left: 0;
+    width: 15rem;
+    padding: 1rem;
+    z-index: 50;
+
+    background-color: #fffffff5;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .sidebar .nav-links {
+    display: flex;
+    flex-direction: column;
+  }
+
+  main {
+    margin-top: 2rem;
   }
 
   footer {
@@ -146,19 +158,20 @@ const socialLinks = [
     gap: 0.5rem;
     margin-top: 3rem;
   }
-  .copyright-notice {
-    display: flex;
-    text-align: justify;
-    justify-content: center;
-    align-items: center;
+  footer .copyright-notice {
+    text-align: center;
     font-size: 0.75rem;
   }
-  .social-links {
+  footer .social-links {
     display: flex;
     justify-content: center;
     gap: 0.75rem;
   }
 
+  .nav-links a {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
   .home a,
   .nav-links a,
   .social-links a {
@@ -171,24 +184,38 @@ const socialLinks = [
 
   @media screen and (min-width: 768px) {
     body {
-      padding: 2rem 4rem;
+      margin: 0 auto;
+      width: 960px;
+      max-width: 100%;
     }
-    .home {
-      font-size: 1.75rem;
-    }
-    .hamburger {
+
+    header .hamburger {
       display: none;
     }
-    .nav-links {
+    .sidebar {
+      display: none;
+    }
+
+    header {
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+    }
+    header .home {
+      font-size: 1.75rem;
+      flex: 1;
+    }
+    header .nav-links {
+      flex: 0;
       display: flex;
       justify-content: center;
       gap: 1rem;
       width: auto;
-      background: none;
-      a {
-        font-size: 1.5rem;
-      }
     }
+
+    main {
+      margin-top: 3rem;
+    }
+
     footer {
       flex-direction: row;
       align-items: center;
