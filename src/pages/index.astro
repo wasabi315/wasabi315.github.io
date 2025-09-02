@@ -27,15 +27,17 @@ const skills = [
     <figcaption>Göteborg, Sweden, 2023</figcaption>
   </figure>
   <h1>Satoshi Takimoto</h1>
-  <p>
-    Hello! I am a doctoral student in the <a
-      href="https://www.psg.c.titech.ac.jp/">Programming Systems Group</a
-    > at Institute of Science Tokyo (formerly
-    Tokyo Institute of Technology). I am interested in programming languages and theorem provers, with a focus on building tools that make software more reliable.
-  </p>
-  <p>
-    I like traveling, visiting museums, and collecting postcards. Otherwise, I'm usually programming and researching.
-  </p>
+  <section class="intro">
+    <p>
+      Hello! I am a doctoral student in the <a
+        href="https://www.psg.c.titech.ac.jp/">Programming Systems Group</a
+      > at Institute of Science Tokyo (formerly
+      Tokyo Institute of Technology). I am interested in programming languages and theorem provers, with a focus on building tools that make software more reliable.
+    </p>
+    <p>
+      I like traveling, visiting museums, and collecting postcards. Otherwise, I'm usually programming and researching.
+    </p>
+  </section>
   <section class="skills">
     <h2>Skills & Interests</h2>
     <section>
@@ -136,7 +138,7 @@ const skills = [
     font-size: 1rem;
   }
   .skills section + section {
-    margin-top: var(--spacing-xxs);
+    margin-top: var(--spacing-xs);
   }
   .skills .skill-icons {
     display: flex;

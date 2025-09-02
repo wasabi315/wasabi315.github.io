@@ -15,19 +15,19 @@ const skills = [
 ---
 
 <Layout title="About" description="About wasabi315">
-  <main>
-    <figure class="me">
-      <Image
-        src={me}
-        alt="Satoshi Takimoto"
-        widths={[240, 480]}
-        width="480"
-        height="320"
-        sizes="(max-width: 360px) 240px, 480px"
-      />
-      <figcaption>スウェーデン・ヨーテボリにて (2023)</figcaption>
-    </figure>
-    <h1>Satoshi Takimoto</h1>
+  <figure class="me">
+    <Image
+      src={me}
+      alt="Satoshi Takimoto"
+      widths={[240, 480]}
+      width="480"
+      height="320"
+      sizes="(max-width: 360px) 240px, 480px"
+    />
+    <figcaption>スウェーデン・ヨーテボリにて (2023)</figcaption>
+  </figure>
+  <h1>Satoshi Takimoto</h1>
+  <section class="intro">
     <p>
       こんにちは！東京科学大学の<a
       href="https://www.psg.c.titech.ac.jp/">Programming Systems Group（渡部研究室）</a>で博士学生をしています．プログラミング言語と定理証明支援系が好きで，ソフトウェアをより信頼できるものにすることを目指しています．
@@ -35,66 +35,66 @@ const skills = [
     <p>
       普段はプログラムを書いたりお気に入りのポストカードを集めたりして過ごしています．
     </p>
-    <section class="skills">
-      <h2>Skills & Interests</h2>
-      <section>
-        <h3>研究分野</h3>
-        <p>関数型プログラミング, 定理証明, 型理論</p>
-      </section>
-      <section>
-        <h3>プログラミング言語</h3>
-        <div class="skill-icons">
-          {skills.map(({ icon }) => <Icon name={icon} size={48} />)}
-        </div>
-        <p>
-          Haskell (普段使い), Agda, OCaml, Rust, TypeScript, JavaScript
-        </p>
-      </section>
-      <section>
-        <h3>ソフトウェア開発</h3>
-        <p>コンパイラ・ツール開発, Webアプリケーション開発</p>
-      </section>
+  </section>
+  <section class="skills">
+    <h2>Skills & Interests</h2>
+    <section>
+      <h3>研究分野</h3>
+      <p>関数型プログラミング, 定理証明, 型理論</p>
     </section>
     <section>
-      <h2>Education & Academic Experiences</h2>
-      <dl class="education-list">
-        <dt>東京科学大学</dt>
-        <dd>Doctoral Student, 2024/10 - Present</dd>
-        <dt>東京工業大学</dt>
-        <dd>工学修士 (情報工学), 2024/09</dd>
-        <dt>Chalmers University of Technology</dt>
-        <dd>派遣交換留学, 2022/08 - 2023/06</dd>
-        <dt>東京工業大学</dt>
-        <dd>工学学士 (情報工学), 2022/03</dd>
-      </dl>
-    </section>
-    <section>
-      <h2>Publications</h2>
-      <dl class="publication-list">
-        <dt>Unification Modulo Isomorphisms between Dependent Types for Type-Based Library Search</dt>
-        <dd><span class="author">Satoshi Takimoto</span>, Sosuke Moriguchi and Takuo Watanabe</dd>
-        <dd>To appear in Proceedings of the 10th ACM SIGPLAN international workshop on type-driven development (TyDe2025)</dd>
-        <dt>Formalizing Reversible Computations for Synchronous Dataflow Languages with Infinite Lists</dt>
-        <dd>Sosuke Moriguchi, <span class="author">Satoshi Takimoto</span>, Mizuki Shirai and Takuo Watanabe</dd>
-        <dd>13th Workshop on Computation: Theory and Practice, Atlantic Press, pp. 7–19, Nov., 2024. </dd>
-        <dd>
-          <a href="https://doi.org/10.2991/978-94-6463-684-0_2">https://doi.org/10.2991/978-94-6463-684-0_2</a>
-        </dd>
-        <dt>組込みシステム向けFRP言語における状態遷移モデルに基づいた周辺装置の状態制御</dt>
-        <dd><span class="author">瀧本 哲史</span>・森口 草介・渡部 卓雄</dd>
-        <dd>コンピュータソフトウェア, 日本ソフトウェア科学会, Vol 42 (No. 1), pp. 40-53, Jan., 2025. </dd>
-        <dd>
-          <a href="https://doi.org/10.11309/jssst.42.1_40">https://doi.org/10.11309/jssst.42.1_40</a>
-        </dd>
-      </dl>
-    </section>
-    <section>
-      <h2>CV</h2>
+      <h3>プログラミング言語</h3>
+      <div class="skill-icons">
+        {skills.map(({ icon }) => <Icon name={icon} size={48} />)}
+      </div>
       <p>
-        CVは<a href="https://docs.google.com/document/d/15B665Ejp1r9Dwr8CKWCGg86fAIc3Xdz2848XdxbyLOs?usp=sharing">こちら</a>.
+        Haskell (普段使い), Agda, OCaml, Rust, TypeScript, JavaScript
       </p>
     </section>
-  </main>
+    <section>
+      <h3>ソフトウェア開発</h3>
+      <p>コンパイラ・ツール開発, Webアプリケーション開発</p>
+    </section>
+  </section>
+  <section>
+    <h2>Education & Academic Experiences</h2>
+    <dl class="education-list">
+      <dt>東京科学大学</dt>
+      <dd>Doctoral Student, 2024/10 - Present</dd>
+      <dt>東京工業大学</dt>
+      <dd>工学修士 (情報工学), 2024/09</dd>
+      <dt>Chalmers University of Technology</dt>
+      <dd>派遣交換留学, 2022/08 - 2023/06</dd>
+      <dt>東京工業大学</dt>
+      <dd>工学学士 (情報工学), 2022/03</dd>
+    </dl>
+  </section>
+  <section>
+    <h2>Publications</h2>
+    <dl class="publication-list">
+      <dt>Unification Modulo Isomorphisms between Dependent Types for Type-Based Library Search</dt>
+      <dd><span class="author">Satoshi Takimoto</span>, Sosuke Moriguchi and Takuo Watanabe</dd>
+      <dd>To appear in Proceedings of the 10th ACM SIGPLAN international workshop on type-driven development (TyDe2025)</dd>
+      <dt>Formalizing Reversible Computations for Synchronous Dataflow Languages with Infinite Lists</dt>
+      <dd>Sosuke Moriguchi, <span class="author">Satoshi Takimoto</span>, Mizuki Shirai and Takuo Watanabe</dd>
+      <dd>13th Workshop on Computation: Theory and Practice, Atlantic Press, pp. 7–19, Nov., 2024. </dd>
+      <dd>
+        <a href="https://doi.org/10.2991/978-94-6463-684-0_2">https://doi.org/10.2991/978-94-6463-684-0_2</a>
+      </dd>
+      <dt>組込みシステム向けFRP言語における状態遷移モデルに基づいた周辺装置の状態制御</dt>
+      <dd><span class="author">瀧本 哲史</span>・森口 草介・渡部 卓雄</dd>
+      <dd>コンピュータソフトウェア, 日本ソフトウェア科学会, Vol 42 (No. 1), pp. 40-53, Jan., 2025. </dd>
+      <dd>
+        <a href="https://doi.org/10.11309/jssst.42.1_40">https://doi.org/10.11309/jssst.42.1_40</a>
+      </dd>
+    </dl>
+  </section>
+  <section>
+    <h2>CV</h2>
+    <p>
+      CVは<a href="https://docs.google.com/document/d/15B665Ejp1r9Dwr8CKWCGg86fAIc3Xdz2848XdxbyLOs?usp=sharing">こちら</a>.
+    </p>
+  </section>
 </Layout>
 
 <style lang="scss">
