@@ -26,7 +26,7 @@ const { title, works } = Astro.props;
 
 <style lang="scss">
   h1 {
-    font-size: 2.25rem;
+    font-size: 2rem;
     margin-bottom: 2rem;
   }
 
@@ -37,5 +37,11 @@ const { title, works } = Astro.props;
 
   li:not(:last-child) {
     margin-bottom: 2rem;
+  }
+
+  @media screen and (min-width: 768px) {
+    h1 {
+      font-size: 2.25rem;
+    }
   }
 </style>
