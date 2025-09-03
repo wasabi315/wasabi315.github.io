@@ -57,10 +57,18 @@ const { frontmatter } = Astro.props;
     justify-content: space-between;
     margin-bottom: 2rem;
     h1 {
-      font-size: 2.25rem;
+      font-size: 2rem;
     }
     p {
       color: var(--fg2);
+      font-size: 0.875rem;
+    }
+    a {
+      color: inherit;
+      &:hover,
+      &:focus {
+        color: var(--accent);
+      }
     }
   }
 
