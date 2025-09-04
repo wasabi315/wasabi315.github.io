@@ -3,9 +3,7 @@ import { getCollection, render } from "astro:content";
 import WorkLayout from "../../layouts/WorkLayout.astro";
 import type { CollectionEntry } from "astro:content";
 
-export async function getStaticPaths(): Promise<
-  { params: { id: string }; props: { entry: CollectionEntry<"works"> } }[]
-> {
+export async function getStaticPaths(): Promise<{ params: { id: string }, props: { entry: CollectionEntry<"works"> } }[]> {
   const entries = await getCollection("works");
   return entries.map((entry) => ({
     params: { id: entry.id },
