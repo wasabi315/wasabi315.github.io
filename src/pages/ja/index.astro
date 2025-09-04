@@ -4,6 +4,16 @@ import { Icon } from "astro-icon/components";
 import Layout from "../../layouts/BaseLayout.astro";
 import me from "../../images/me.jpg";
 
+const socialLinks = [
+  { icon: "mdi:github", url: "https://github.com/wasabi315" },
+  { icon: "mdi:twitter", url: "https://twitter.com/wasabi__315" },
+  {
+    icon: "mdi:linkedin",
+    url: "https://www.linkedin.com/in/satoshi-takimoto-713576157/",
+  },
+  { icon: "mdi:instagram", url: "https://www.instagram.com/wasabi__315/" },
+];
+
 const skills = [
   { name: "Haskell", icon: "devicon:haskell" },
   { name: "Agda", icon: "file-icons:agda" },
@@ -27,6 +37,15 @@ const skills = [
     <figcaption>スウェーデン・ヨーテボリにて (2023)</figcaption>
   </figure>
   <h1>Satoshi Takimoto</h1>
+  <div class="social-links">
+    {
+      socialLinks.map(({ icon, url }) => (
+        <a href={url}>
+          <Icon name={icon} size={28} />
+        </a>
+      ))
+    }
+  </div>
   <section class="intro">
     <p>
       こんにちは！東京科学大学の<a href="https://www.psg.c.titech.ac.jp/"
@@ -46,7 +65,7 @@ const skills = [
     <section>
       <h3>プログラミング言語</h3>
       <div class="skill-icons">
-        {skills.map(({ icon }) => <Icon name={icon} size={48} />)}
+        {skills.map(({ icon }) => <Icon name={icon} size={36} />)}
       </div>
       <p>Haskell (普段使い), Agda, OCaml, Rust, TypeScript, JavaScript</p>
     </section>
@@ -127,12 +146,6 @@ const skills = [
 </Layout>
 
 <style lang="scss">
-  main {
-    margin: auto;
-    width: 960px;
-    max-width: 100%;
-  }
-
   main p + p {
     margin-top: var(--spacing-xs);
   }
@@ -141,7 +154,6 @@ const skills = [
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 24px;
   }
   .me img {
     object-fit: contain;
@@ -158,7 +170,22 @@ const skills = [
     font-size: 2rem;
     line-height: 1;
     text-align: center;
-    margin-bottom: 1em;
+    margin-top: var(--spacing-sm);
+  }
+
+  .social-links {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-xxs);
+    margin-top: var(--spacing-xs);
+
+    a {
+      color: var(--fg2);
+      &:hover,
+      &:focus {
+        color: var(--accent);
+      }
+    }
   }
 
   h2 {
@@ -170,50 +197,55 @@ const skills = [
     border-bottom: 1px solid var(--border);
   }
 
-  .skills h3 {
-    font-size: 1rem;
-  }
-  .skills section + section {
-    margin-top: var(--spacing-xs);
-  }
-  .skills .skill-icons {
-    display: flex;
-    gap: 16px;
+  .intro {
+    margin-top: var(--spacing-lg);
   }
 
-  .education-list dt {
-    font-weight: bold;
-  }
-  .education-list dd + dt {
-    margin-top: var(--spacing-xxs);
-  }
-  .education-list dd {
-    font-size: 0.875rem;
-    line-height: 1.75;
-    color: var(--fg2);
+  .skills {
+    h3 {
+      font-size: 1rem;
+    }
+    section + section {
+      margin-top: var(--spacing-xs);
+    }
+    .skill-icons {
+      display: flex;
+      gap: var(--spacing-xs);
+    }
   }
 
-  .publication-list dt {
-    font-weight: bold;
+  .education-list {
+    dt {
+      font-weight: bold;
+    }
+    dd + dt {
+      margin-top: var(--spacing-xxs);
+    }
+    dd {
+      font-size: 0.875rem;
+      line-height: 1.75;
+      color: var(--fg2);
+    }
   }
-  .publication-list dd + dt {
-    margin-top: var(--spacing-xs);
-  }
-  .publication-list dd {
-    font-size: 0.875rem;
-    line-height: 1.75;
-    color: var(--fg2);
-  }
-  .publication-list .author {
-    font-weight: bold;
+
+  .publication-list {
+    dt {
+      font-weight: bold;
+    }
+    dd + dt {
+      margin-top: var(--spacing-xs);
+    }
+    dd {
+      font-size: 0.875rem;
+      line-height: 1.75;
+      color: var(--fg2);
+    }
+    .author {
+      font-weight: bold;
+    }
   }
 
   @media screen and (min-width: 768px) {
-    main {
-      padding: 1rem;
-      max-width: calc(100% - 2rem);
-    }
-
     h1 {
       font-size: 2.25rem;
     }
