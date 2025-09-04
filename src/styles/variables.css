@@ -24,6 +24,7 @@
   --fg2: #7b88a1;
   --fg3: #aeb4bf;
   --bg1: #fff;
+  --bg1-transparent: #fffffff5;
   --bg2: #f2f4f8;
   --bg3: var(--nord6);
   --box-shadow: color-mix(in srgb, var(--nord3) 15%, transparent) 0 3px 6px 0;

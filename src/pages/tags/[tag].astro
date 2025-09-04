@@ -4,7 +4,9 @@ import { getCollection } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 import { sortPosts } from "../../utils";
 
-export async function getStaticPaths(): Promise<{ params: { tag: string }, props: { posts: CollectionEntry<"posts">[] } }[]> {
+export async function getStaticPaths(): Promise<
+  { params: { tag: string }; props: { posts: CollectionEntry<"posts">[] } }[]
+> {
   const allPosts = sortPosts(await getCollection("posts"));
 
   const tags = [...new Set(allPosts.flatMap((post) => post.data.tags))];
