@@ -2,10 +2,9 @@
 import type { GetStaticPaths } from "astro";
 import { getCollection, render } from "astro:content";
 import PostLayout from "../../../layouts/PostLayout.astro";
-import { arrayFromAsyncIterable } from "../../../utils";
 
 export const getStaticPaths = (() => {
-  return arrayFromAsyncIterable(
+  return Array.fromAsync(
     (async function* () {
       const posts = await getCollection("posts");
       for (const post of posts) {

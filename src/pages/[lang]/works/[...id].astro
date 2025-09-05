@@ -2,10 +2,9 @@
 import type { GetStaticPaths } from "astro";
 import { getCollection, render } from "astro:content";
 import WorkLayout from "../../../layouts/WorkLayout.astro";
-import { arrayFromAsyncIterable } from "../../../utils";
 
 export const getStaticPaths = (() => {
-  return arrayFromAsyncIterable(
+  return Array.fromAsync(
     (async function* () {
       const works = await getCollection("works");
       for (const work of works) {
