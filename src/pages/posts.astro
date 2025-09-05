@@ -1,9 +1,0 @@
----
-import { getCollection } from "astro:content";
-import PostListLayout from "../layouts/PostListLayout.astro";
-import { sortPosts } from "../utils";
-
-const allPosts = sortPosts(await getCollection("posts"));
----
-
-<PostListLayout title="Posts" posts={allPosts} />

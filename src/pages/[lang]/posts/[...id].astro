@@ -1,0 +1,28 @@
+---
+import type { GetStaticPaths } from "astro";
+import { getCollection, render } from "astro:content";
+import PostLayout from "../../../layouts/PostLayout.astro";
+import { arrayFromAsyncIterable } from "../../../utils";
+
+export const getStaticPaths = (() => {
+  return arrayFromAsyncIterable(
+    (async function* () {
+      const posts = await getCollection("posts");
+      for (const post of posts) {
+        const [lang, ...id] = post.id.split("/");
+        yield {
+          params: { lang, id: id.join("/") ?? undefined },
+          props: { post },
+        };
+      }
+    })()
+  );
+}) satisfies GetStaticPaths;
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+
+<PostLayout frontmatter={post.data}>
+  <Content />
+</PostLayout>

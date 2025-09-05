@@ -1,8 +1,8 @@
 ---
 order: 2
 title: "lazy.js"
-featuredImage: "../../images/lazy-featured-image.png"
-thumbnail: "../../images/lazy-thumbnail.png"
+featuredImage: "./featured-image.png"
+thumbnail: "./thumbnail.png"
 description: "A STG-like lazy evaluation mechanism in JavaScript"
 githubRepository: "wasabi315/lazy"
 ---

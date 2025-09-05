@@ -1,8 +1,8 @@
 ---
 order: 3
 title: "LkProver"
-featuredImage: ../../images/lkprover-featured-image.png
-thumbnail: "../../images/lkprover-thumbnail.png"
+featuredImage: "./featured-image.png"
+thumbnail: "./thumbnail.png"
 description: "Automatically generates LaTeX snippets of derivation trees from LK sequents"
 githubRepository: "wasabi315/LkProver"
 ---
@@ -62,7 +62,7 @@ Here is the input syntax of LkProver. The precedence of connectives follows the 
 ## Inference Rules
 
 LkProver adopts the following inference rules (what I learned in a logic lecture):
-![Inference rules](../../images/inference-rules.png)
+![Inference rules](./inference-rules.png)
 
 ## Implementaion
 

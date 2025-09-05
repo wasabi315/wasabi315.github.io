@@ -1,8 +1,8 @@
 ---
 order: 1
 title: "Hasche"
-featuredImage: "../../images/hasche-featured-image.png"
-thumbnail: "../../images/hasche-thumbnail.png"
+featuredImage: "./featured-image.png"
+thumbnail: "./thumbnail.png"
 description: "A Scheme-ish language written in Haskell"
 githubRepository: "wasabi315/Hasche"
 ---

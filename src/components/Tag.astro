@@ -1,16 +1,12 @@
 ---
-import { getRelativeLocaleUrl } from 'astro:i18n';
+import { getRelativeLocaleUrl } from "astro:i18n";
 
 type Props = {
   tag: string;
 };
 
-function getRelativeCurrentLocaleUrl(path?: string): string {
-  return getRelativeLocaleUrl(Astro.currentLocale!, path)
-}
-
 const { tag } = Astro.props;
-const url = getRelativeCurrentLocaleUrl(`tags/${tag}`);
+const url = getRelativeLocaleUrl(Astro.currentLocale!, `tags/${tag}`);
 ---
 
 <a href={url}>

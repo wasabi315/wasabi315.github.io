@@ -1,0 +1,29 @@
+---
+import type { GetStaticPaths } from "astro";
+import { getCollection, render } from "astro:content";
+import WorkLayout from "../../../layouts/WorkLayout.astro";
+import { arrayFromAsyncIterable } from "../../../utils";
+
+export const getStaticPaths = (() => {
+  return arrayFromAsyncIterable(
+    (async function* () {
+      const works = await getCollection("works");
+      for (const work of works) {
+        const [lang, ...id] = work.id.split("/");
+        yield {
+          params: { lang, id: id.join("/") ?? undefined },
+          props: { work },
+        };
+      }
+    })()
+  );
+}) satisfies GetStaticPaths;
+
+
+const { work } = Astro.props;
+const { Content } = await render(work);
+---
+
+<WorkLayout frontmatter={work.data}>
+  <Content />
+</WorkLayout>

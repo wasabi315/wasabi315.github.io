@@ -1,0 +1,17 @@
+---
+import type { GetStaticPaths } from "astro";
+import { getCollection } from "astro:content";
+import WorkListLayout from "../../../layouts/WorkListLayout.astro";
+
+export const getStaticPaths = (() =>
+  ["en", "ja"].map((lang) => ({
+    params: { lang },
+  }))) satisfies GetStaticPaths;
+
+const { lang } = Astro.params;
+const allWorks = (
+  await getCollection("works", (entry) => entry.id.startsWith(lang))
+).sort((a, b) => a.data.order - b.data.order);
+---
+
+<WorkListLayout title="Works" works={allWorks} />

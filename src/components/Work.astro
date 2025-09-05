@@ -1,18 +1,15 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import { Image } from "astro:assets";
-import { getRelativeLocaleUrl } from 'astro:i18n';
+import { getRelativeLocaleUrl } from "astro:i18n";
 
 type Props = {
   work: CollectionEntry<"works">;
 };
 
-function getRelativeCurrentLocaleUrl(path?: string): string {
-  return getRelativeLocaleUrl(Astro.currentLocale!, path)
-}
-
 const { work } = Astro.props;
-const url = getRelativeCurrentLocaleUrl(`works/${work.id}`);
+const [_lang, ...id] = work.id.split("/");
+const url = getRelativeLocaleUrl(Astro.currentLocale!, `works/${id.join("/")}`);
 ---
 
 <article>

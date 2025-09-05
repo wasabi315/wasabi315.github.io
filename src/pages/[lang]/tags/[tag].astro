@@ -1,0 +1,33 @@
+---
+import type { GetStaticPaths } from "astro";
+import PostListLayout from "../../../layouts/PostListLayout.astro";
+import { getCollection } from "astro:content";
+import { arrayFromAsyncIterable, sortPosts } from "../../../utils";
+
+export const getStaticPaths = (() => {
+  return arrayFromAsyncIterable((async function*() {
+      for (const lang of ["en", "ja"]) {
+        const posts = sortPosts(
+          await getCollection("posts", (entry) => entry.id.startsWith(lang))
+        );
+
+        const tags = [...new Set(posts.flatMap((post) => post.data.tags))];
+
+        for (const tag of tags) {
+          const postsOfTag = posts.filter((post) =>
+            post.data.tags.includes(tag)
+          );
+          yield {
+            params: { lang, tag },
+            props: { posts: postsOfTag },
+          };
+        }
+      }
+  })())
+}) satisfies GetStaticPaths;
+
+const { tag } = Astro.params;
+const { posts } = Astro.props;
+---
+
+<PostListLayout title={`#${tag}`} posts={posts} />

@@ -11,17 +11,14 @@ interface Props {
 }
 
 const { title, description } = Astro.props;
-
-function getRelativeCurrentLocaleUrl(path?: string): string {
-  return getRelativeLocaleUrl(Astro.currentLocale!, path);
-}
+const currentLocale = Astro.currentLocale!;
 
 const navLinks = [
-  { title: "Works", url: getRelativeCurrentLocaleUrl("works") },
-  { title: "Posts", url: getRelativeCurrentLocaleUrl("posts") },
+  { title: "Works", url: getRelativeLocaleUrl(currentLocale, "works") },
+  { title: "Posts", url: getRelativeLocaleUrl(currentLocale, "posts") },
 ];
 
-const pathName = Astro.url.pathname.replace(`/${Astro.currentLocale}/`, ``);
+const [,_lang, ...path] = Astro.url.pathname.split("/");
 ---
 
 <!doctype html>
@@ -55,7 +52,7 @@ const pathName = Astro.url.pathname.replace(`/${Astro.currentLocale}/`, ``);
     <header>
       <Icon class="hamburger" name="mdi:hamburger-menu" size={24} />
       <div class="home">
-        <a href={getRelativeCurrentLocaleUrl()}>wasabi315</a>
+        <a href={getRelativeLocaleUrl(currentLocale)}>wasabi315</a>
       </div>
       <nav class="nav-links">
         {navLinks.map(({ title, url }) => <a href={url}>{title}</a>)}
@@ -63,10 +60,10 @@ const pathName = Astro.url.pathname.replace(`/${Astro.currentLocale}/`, ``);
       <div class="lang-switcher">
         <a
           class:list={Astro.currentLocale === "en" ? ["current-locale"] : []}
-          href={getRelativeLocaleUrl("en", pathName)}>EN</a
+          href={getRelativeLocaleUrl("en", path.join("/"))}>EN</a
         ><a
           class:list={Astro.currentLocale === "ja" ? ["current-locale"] : []}
-          href={getRelativeLocaleUrl("ja", pathName)}>JA</a
+          href={getRelativeLocaleUrl("ja", path.join("/"))}>JA</a
         >
       </div>
     </header>
@@ -78,10 +75,10 @@ const pathName = Astro.url.pathname.replace(`/${Astro.currentLocale}/`, ``);
       <div class="lang-switcher">
         <a
           class:list={Astro.currentLocale === "en" ? ["current-locale"] : []}
-          href={getRelativeLocaleUrl("en", pathName)}>EN</a
+          href={getRelativeLocaleUrl("en", path.join("/"))}>EN</a
         ><a
           class:list={Astro.currentLocale === "ja" ? ["current-locale"] : []}
-          href={getRelativeLocaleUrl("ja", pathName)}>JA</a
+          href={getRelativeLocaleUrl("ja", path.join("/"))}>JA</a
         >
       </div>
     </aside>

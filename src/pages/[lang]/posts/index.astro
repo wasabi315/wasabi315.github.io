@@ -1,0 +1,17 @@
+---
+import type { GetStaticPaths } from "astro";
+import { getCollection } from "astro:content";
+import PostListLayout from "../../../layouts/PostListLayout.astro";
+import { sortPosts } from "../../../utils";
+
+export const getStaticPaths = (() =>
+    ["en", "ja"].map((lang) => ({
+        params: { lang }
+    }))
+) satisfies GetStaticPaths;
+
+const { lang } = Astro.params;
+const allPosts = sortPosts(await getCollection("posts", (entry) => entry.id.startsWith(lang)));
+---
+
+<PostListLayout title="Posts" posts={allPosts} />
