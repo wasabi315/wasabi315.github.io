@@ -3,13 +3,13 @@ order: 1
 title: "Hasche"
 featuredImage: "./featured-image.png"
 thumbnail: "./thumbnail.png"
-description: "A Scheme-ish language written in Haskell"
+description: "A Scheme-like language interpreter written in Haskell"
 githubRepository: "wasabi315/Hasche"
 ---
 
 > Hasche (/hæʃ/): **Ha**skell + **Sche**me
 
-Hasche is a toy Scheme-ish language interpreter written in Haskell with REPL, `call/cc`, pattern-matching, and non-hygienic macros.
+Hasche is a toy interpreter for a Scheme-like language, written in Haskell. It features a REPL, pattern-matching, non-hygienic macros, `call/cc` and first-class continuations.
 
 <https://github.com/wasabi315/Hasche>
 
@@ -20,7 +20,8 @@ Hasche is a toy Scheme-ish language interpreter written in Haskell with REPL, `c
 [Cabal](https://www.haskell.org/cabal/) is required to build Hasche.
 
 ```ansi
-$ git clone https://github.com/wasabi315/Hasche.git && cd Hasche
+git clone https://github.com/wasabi315/Hasche.git
+cd Hasche
 cabal build
 ```
 
@@ -46,38 +47,7 @@ Hello, world!
 
 ## Features
 
-### call/cc
-
-The `call/cc` (`call-with-current-continuation`) procedure is available in Hasche.
-What is `call/cc`? It is a procedure that captures the current continuation, the surrounding context of the call/cc, and passes it to the given procedure.
-When the continuation is invoked with an argument, the existing continuation is abandoned and the invoked continuation is resumed.
-In the example below, the surrounding context `(lambda (x) (display x))` is bound to the `k` parameter and is called with `1`, hence the output `1`. We can observe that `(lambda (x) (+ x 2))`, the continuation of `(k 1)`, is eliminated.
-
-```scheme
-hasche> (display (call/cc (lambda (k) (+ (k 1) 2))))
-1
-```
-
-Continuations are first-class, that is, they can be passed to and returned from procedures and even stored in data structures.
-
-```scheme
-hasche> (define save '())
-hasche> (display (call/cc (lambda (k) (set! save k))))  ; (lambda (x) (display x)) is bound to save
-#<undef>
-hasche> save
-#<continuation>
-hasche> (save 1)
-1
-hasche> (save 2)
-2
-hasche> (save 3)
-3
-```
-
-With call/cc we can implement non-local control flow, such as exceptions and generators.
-For more examples check out the [programs directory](https://github.com/wasabi315/Hasche/tree/main/programs) in the repository.
-
-### Pattern Matching
+### Pattern matching
 
 Pattern matching is one of the common features in functional programming languages, so why not in Hasche?
 Use the `match` special form to perform pattern matching.
@@ -93,21 +63,25 @@ Use the `match` special form to perform pattern matching.
     (display "Failed to match\n")])
 ```
 
-Two a bit unusual patterns are available: predicate patterns and rest patterns.
-A predicate pattern is of the form `(? <predicate>)`. It matches if the predicate returns `#t` for the scrutinee. Predicate patterns can be sub-patterns, unlike Haskell's pattern guards or OCaml's when guards.
+Hasche has two a bit unusual patterns: predicate patterns and rest patterns.
+A predicate pattern is of the form `(? <predicate>)`. It matches if the predicate returns `#t` for the scrutinee (the value being matched). Predicate patterns can be sub-patterns, unlike Haskell's pattern guards or OCaml's when guards.
 
 ```scheme
-; displays "m is not 0" as (= 2 0) is #f
+(define nested-data '((1 2 3) (4 5 6)))
+
+; displays "m is not 0" as (zero? 2) is #f
 (match nested-data
-  [((_ (? (lambda (m) (= m 0))) _) . _)
+  [((_ (? zero?) _) . _)
     (display "m is 0\n")]
   [_
     (display "m is not 0\n")])
 ```
 
-A rest pattern is of the form `(<pattern> ...)`. It matches if the given pattern matches all elements of the scrutinee. If the pattern contains variable patterns, they are bound to lists of the corresponding elements. In the example below, pattern matching succeeds since all elements of `nested-data` are lists of three elements. The variables `m`, `n`, and `o` are bound to lists of the first, second, and third elements of `nested-data`, respectively.
+A rest pattern is of the form `(<pattern> ...)`. It matches if the given pattern matches all elements of the scrutinee. If the pattern contains variable patterns, the lists of the corresponding elements are bound to the variable. In the example below, pattern matching succeeds since all elements of `nested-data` are lists of three elements. The lists of the first, second, and third elements of `nested-data` are bound to `m`, `n`, and `o`, respectively.
 
 ```scheme
+(define nested-data '((1 2 3) (4 5 6)))
+
 (match nested-data
   [((m n o) ...)
     (begin
@@ -128,11 +102,10 @@ Of course, rest patterns can also be nested.
       (display n) (newline))])  ; displays ((2 4) (6 8 10))
 ```
 
-### Non-hygienic Macros
+### Non-hygienic macros
 
-Hasche supports macros. A macro takes a list of codes and returns a new code.
-You can use the `define-macro` special form to define a macro.
-For example, the `and` macro defined below expands to a series of `if` expressions.
+Hasche supports macros via the `define-macro` special form, which uses the same syntax as `define`.
+Unlike procedures created with `define` that operate on values, macros defined with `define-macro` receive programs as lists and return a new program (also as a list) to be evaluated. For example, the following `and` macro expands to a sequence of `if` expressions.
 
 ```scheme
 (define-macro (and . l)
@@ -149,7 +122,7 @@ For example, the `and` macro defined below expands to a series of `if` expressio
 ```
 
 Here `` ` `` (quasiquote), `,` (unquote), and `,@` (unquote-splicing) are used. Quasiquote is like quote, but it allows interpolation using unquote and unquote-splicing.
-In fact, special forms such as `begin`, `let`, and `cond` are implemented using macros in [the standard library](https://github.com/wasabi315/Hasche/blob/5f391d708abe2c6209157637695951dd01283089/lib/stdlib.scm#L86), not built-in.
+In fact, special forms such as `begin`, `let`, and `cond` are not built into the interpreter; they are implemented as macros in [the standard library](https://github.com/wasabi315/Hasche/blob/5f391d708abe2c6209157637695951dd01283089/lib/stdlib.scm#L86).
 Thanks to the `match` and quasiquote, they can be implemented concisely.
 
 ```scheme
@@ -171,7 +144,7 @@ Thanks to the `match` and quasiquote, they can be implemented concisely.
 ```
 
 Hasche's macros are non-hygienic, meaning that they do not perform variable capture avoidance.
-Use `gensym` to generate a unique symbol and avoid variable capture.
+We can use `gensym` to generate a unique symbol and avoid variable capture.
 
 ```scheme
 (define-macro (incr v)
@@ -190,14 +163,36 @@ Use `gensym` to generate a unique symbol and avoid variable capture.
 (display x) (newline)  ; displays 1
 ```
 
-## Implementation
+### `call/cc` and first-class continuations
 
-The interpreter is implemented as a simple tree-walking interpreter.
-An interesting point is that syntax trees themselves are values that can be manipulated! Code as data!
+One of Scheme's most distinctive features is the `call/cc` procedure (call-with-current-continuation). It is incredibly powerful for implementing control flow constructs such as exceptions and generators.
+`call/cc` captures the current continuation (the surrounding context of the `call/cc` call) and passes it to the given procedure.
+The continuation can then be resumed by invoking it with an argument.
+In the example below, the surrounding context `(display ...)` is bound to the `k` parameter and then called with `1`, producing the output `1`. We can observe that `(+ ... 2)`, the continuation of `(k 1)`, is abandoned.
 
+```scheme
+hasche> (display (call/cc (lambda (k) (+ (k 1) 2))))
+1
+```
+
+Continuations are first-class in Hasche; they can be passed to and returned from procedures and even stored in data structures.
+
+```scheme
+hasche> (define save '())
+hasche> (display (call/cc (lambda (k) (set! save k))))  ; (display ...) is bound to save
+#<undef>
+hasche> save
+#<continuation>
+hasche> (save 1)
+1
+hasche> (save 2)
+2
+hasche> (save 3)
+3
+```
+
+## Implementation highlights
+
+Hasche uses a simple tree-walking interpretation approach.
 The evaluator is implemented using the monad transformer stack `ReaderT Env (ContT r IO)`.
-The `ReaderT` is for maintaining the environment, `ContT` is to implement `call/cc`, and `IO` is for I/O operations. `IO` is also used to generate `Unique` identifiers for each object, which is needed to emulate physical equality.
-
----
-
-If you are interested, please check out the [repository](https://github.com/wasabi315/Hasche)!
+As the monad stack includes `ContT`, the `call/cc` procedure can be implemented straightforwardly.
