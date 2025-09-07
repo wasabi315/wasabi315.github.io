@@ -7,7 +7,7 @@ description: "A STG-like lazy evaluation mechanism in JavaScript"
 githubRepository: "wasabi315/lazy"
 ---
 
-lazy.js provides a lazy evaluation mechanism inspired by the eval/apply version of STG used in Haskell before (I believe). You can define and evaluate lazy computations in JavaScript using this library.
+lazy.js provides a lazy evaluation mechanism inspired by the eval/apply version of STG used in Haskell before. You can define and evaluate lazy computations in JavaScript using this library.
 
 <https://github.com/wasabi315/lazy>
 
@@ -15,11 +15,11 @@ lazy.js provides a lazy evaluation mechanism inspired by the eval/apply version 
 
 ## Examples
 
-Let's see what you can do with lazy.js first.
+Let's see what you can do with lazy.js.
 
 ### Fixed-point combinator
 
- The definition of the `fix` function in Haskell is one of the most beautiful things in the world. (Don't you think so?)
+The definition of the `fix` function in Haskell is one of the most beautiful things in the world.
 
 ```haskell
 fix :: (a -> a) -> a
@@ -79,15 +79,15 @@ const main = Thunk(() => {
   return rnfList(ns);
 });
 
-// Infinitely prints Fibonacci numbers
+// Prints Fibonacci numbers
 Evaluate(main);
 ```
 
-For more examples, check out the [repository](https://github.com/wasabi315/lazy/tree/main/examples).
+For more examples including the tarai function and Tardis monad, check out the [repository](https://github.com/wasabi315/lazy/tree/main/examples).
 
 ## API
 
-To define a lazy computation, use the `Fun`, `Con`, `Case`, and `Thunk` constructors. Then, evaluate the computation using the `Evaluate` function.
+In lazy.js, lazy computations can be built using the `Fun`, `Con`, `Case`, and `Thunk` constructors. The resulting computation can then be evaluated using the `Evaluate` function.
 A set of functions is provided in `prelude.js` for convenience, including list operations and arithmetic operations.
 
 ### `Fun`
@@ -114,8 +114,8 @@ const Cons = (x, xs) => Con("Cons", x, xs);
 
 `Thunk` is for defining a lazy computation.
 The result of the computation is memoized after the first evaluation.
-As in the papers, you can only apply functions and constructors to *variables* (`Fun`ctions, `Thunk`s, or function arguments) and numbers in lazy.js.
-So you will have to wrap most expressions with `Thunk`.
+This is the most frequently used constructor in lazy.js.
+The reason is that you can only apply functions and constructors to values (functions, thunks, and numbers) so you have to manually wrap every sub-expression with `Thunk`.
 
 ```javascript
 const pred = Thunk(() => flip(sub, 1));
@@ -126,7 +126,7 @@ Evaluate(traceInt(num)); // Prints 42
 ### `Case`
 
 A `Case` expression takes a computation to be analyzed (a scrutinee) and a dictionary of alternatives as functions.
-The scrutinee need not be a variable or a number.
+The scrutinee need not be a value.
 `default` is a special key for the default alternative.
 
 ```javascript
@@ -147,15 +147,6 @@ const filter = Fun((p, xs) =>
 const seq = Fun((x, y) => Case(x, { default: (_) => y }));
 ```
 
-### Numbers
-
-As in the examples above, numbers and bigints can be used directly in the code.
-lazy.js extends the `Number` and `BigInt` prototypes internally to enable this.
-
-## Implementation
-
-lazy.js does not depend on any external libraries, so it works in any JavaScript environment. I tested only in Deno, though.
-
 ## References
 
 - **Making a fast curry: push/enter vs. eval/apply for higher-order languages** <br>
@@ -163,3 +154,4 @@ lazy.js does not depend on any external libraries, so it works in any JavaScript
 - **Implementing lazy functional languages on stock hardware: the Spineless Tagless G-machine** <br>
   1992, Simon Peyton Jones, <https://doi.org/10.1017/S0956796800000319>
 - **STG Version 2.5 の動作** <https://mizunashi-mana.github.io/blog/posts/2019/04/haskell-old-stg-syntax>
+- **Blackhole : 無限再帰停止機構** <https://qiita.com/phi16/items/ef83e610585ac8526d31>
