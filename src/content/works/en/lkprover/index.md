@@ -59,6 +59,11 @@ Here is the input syntax of LkProver. The precedence of connectives follows the 
 <var>     ::= [A-Za-z][A-Za-z0-9_]*
 ```
 
+## Output format
+
+Currently, the output LaTeX snippet assumes that `bussproofs` package is used.
+I will consider supporting other packages including `proof.sty` in the future.
+
 ## Inference Rules
 
 LkProver adopts the following inference rules (what I learned in a logic lecture):
@@ -70,9 +75,6 @@ LkProver is implemented in OCaml. The implementation is very straightforward, ju
 
 I used [Menhir](http://cambium.inria.fr/~fpottier/menhir/) and [sedlex](https://github.com/ocaml-community/sedlex) for parsing and lexing input sequents.
 My experience with sedlex was great because lexer specifications are embedded in regular OCaml source codes, so we can still get the help of OCaml Language Server, unlike Menhir which is written in separate `.mly` files.
-
-The output LaTeX snippet assumes that `bussproofs` package is used.
-I will consider supporting other packages including `proof.sty` in the future.
 
 ---
 
