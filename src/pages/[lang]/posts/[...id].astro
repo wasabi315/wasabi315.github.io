@@ -10,7 +10,7 @@ export const getStaticPaths = (() => {
       for (const post of posts) {
         const [lang, ...id] = post.id.split("/");
         yield {
-          params: { lang, id: id.join("/") ?? undefined },
+          params: { lang, id: id.join("/") },
           props: { post },
         };
       }
