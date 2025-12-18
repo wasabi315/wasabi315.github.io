@@ -7,8 +7,6 @@ tags: ["agda", "agda2hs", "coverage-checking"]
 
 この記事は[証明支援系 Advent Calendar 2025](https://adventar.org/calendars/11438)の18日目の記事です．
 
-https://adventar.org/calendars/11438
-
 去年の春頃から少しずつパターンマッチのカバレッジ検査アルゴリズムの形式化を進めていて，それがある程度完成しました．
 この記事では，そのアルゴリズムや形式化について紹介したいと思います[^1]．
 
@@ -38,7 +36,7 @@ let allowed role action =
 このパターンは網羅的でしょうか？ いいえ，例えば`Staff, Edit`のパターンを考慮し忘れています．
 このままでは，`allowed Staff Edit`を評価した際に実行時例外が発生してしまいます．
 
-では非冗長性はどうでしょうか？これも満たしません．三つ目のケースの一つ目のパターンが`Manager`ではなく`manager`という変数パターンになっています．したがって`Staff, Approve`の場合も三つ目のケースにマッチし，結果として四つ目のケースには辿り着きません．冗長なパターンがある時，それはプログラマが考えていたものとは異なる，予想外の場合分けとなっている可能性があります．
+では非冗長性はどうでしょうか？これも満たしません．三つ目のケースの `role` 側が`Manager`ではなく`manager`という変数パターンになっています．したがって`Staff, Approve`の場合も三つ目のケースにマッチし，結果として四つ目のケースには辿り着きません．冗長なパターンがある時，それはプログラマが考えていたものとは異なる，予想外の場合分けとなっている可能性があります．
 
 この例から分かるように，プログラムの安全性や予測可能性を高める上で，カバレッジ検査は重要な解析となっています．
 
@@ -53,13 +51,9 @@ let allowed role action =
   - 複雑なパターンも扱う（GADTs, View Patterns, Pattern Synonyms, Strictness, ...）
 - ...
 
-これらのアルゴリズムには紙とペンによる正当性の証明もついています．嬉しいですね．
+これらのアルゴリズムには紙とペンによる正当性の証明もついています．ありがたいですね．
 
-しかし，アルゴリズムの**実装**はどうでしょうか？いくら紙とペンによる正当性の証明があったとしても，実装が間違っていては不適切なエラーを出したり，バグを見逃したりする可能性があります．
-実際，例としてRustのGitHubリポジトリをのぞいてみると，カバレッジ検査に関するissueがいくつか見つかります．
-
-https://github.com/rust-lang/rust/issues?q=is%3Aissue%20label%3AA-exhaustiveness-checking%20label%3AC-bug
-
+しかし，アルゴリズムの**実装**はどうでしょうか？いくら紙とペンによる正当性の証明があったとしても，実装に間違いがあった場合，不適切なエラーを出したり，バグを見逃したりしてしまいます．
 カバレッジ検査は重要な検査ですから，**実装まで含めて正しいことが検証されたカバレッジ検査器**が欲しくなるわけです．
 調査してみると，検証付きコンパイラを含めて探してみても，そのようなものはほとんど見つかりません[^4]．
 そこで，自分がよく使っている証明支援系であるAgdaを用いて，カバレッジ検査アルゴリズムを形式化し検証付き実装を得ることにしました．
@@ -73,8 +67,8 @@ https://github.com/rust-lang/rust/issues?q=is%3Aissue%20label%3AA-exhaustiveness
 上述の通り，$\mathcal{U}_\mathrm{rec}$ は比較的単純な体系を扱います．
 具体的には，値として代数的データ型のもののみを考え，パターンとしてはワイルドカードパターン，コンストラクタパターン，Orパターンの三種類だけを考えます．
 カバレッジ検査の際は，変数パターンはワイルドカードパターンとして扱えばいいです．
-$c$ から始まるものをコンストラクタ，$u$ や $v$, $w$ から始まるものを値とします．
-また，$p$ や $q$, $r$ から始まるものをパターンとします．
+$c$ から始まるものをコンストラクタ，$u, v, w$ から始まるものを値とします．
+また，$p, q, r$ から始まるものをパターンとします．
 
 ```math
 \begin{array}{rcl}
@@ -85,7 +79,7 @@ p, q, r & \Coloneqq & \_ \\
 \end{array}
 ```
 
-値ベクタ $(v_1, \cdots, v_n)$ とパターンベクタ $(p_1, \cdots, p_n)$ をそれぞれ $\overrightarrow{v}$ と $\overrightarrow{p}$ と書き，パターン行列（パターンベクタが並んだもの）を $P$ と書くことにします．パターン行列の各行が `match` 式の各ケースを表しています．
+値ベクタ $(v_1, \cdots, v_n)$ とパターンベクタ $(p_1, \cdots, p_n)$ をそれぞれ $\overrightarrow{v}$ や $\overrightarrow{p}$ のように書き，パターン行列（パターンベクタが並んだもの）を $P$ と書くことにします．パターン行列の各行が `match` 式の各ケースを表しています．
 
 マッチすることを表す二項関係 $\preceq$ も導入しておきます[^8]．
 （単一の）値がパターンにマッチする関係は以下のように標準的に定義されます．
@@ -224,7 +218,7 @@ $P$ が空行列である場合，空の値ベクタが有用性の証拠とな�
 
 #### $\overrightarrow{p}$ の先頭がコンストラクタパターンの場合
 
-$\overrightarrow{p}$ の先頭が $c(r_1, \cdots, r_m)$ である場合，証拠となる値ベクタの先頭も $c(v_1, \cdots, v_m)$ のようになっている必要があります．
+$\overrightarrow{p}$ の先頭が $c(r_1, \cdots, r_m)$ である場合，証拠となる値ベクタ $\overrightarrow{v}$ の先頭も $c(v_1, \cdots, v_m)$ のようになっている必要があります．
 したがって，$P$ の行のうち，先頭のパターンが $c'(\ \cdots)$ ($c'$ は $c$ と異なる) である行は除外できます．
 この除外処理（*特殊化*と呼ばれる操作）を行う関数を $\mathcal{S}$ とすれば，$\mathcal{U}_\mathrm{rec}$ は以下のように定義できます．
 コンストラクタパターンの中にネストしているパターンは展開されて $\overrightarrow{p}$ の頭にくっつけられます．
@@ -284,7 +278,7 @@ $\mathcal{S}$ の定義は以下のようになります．
 
 #### $\overrightarrow{p}$ の先頭がワイルドカードパターンの場合
 
-この場合では，先頭がコンストラクタパターンの場合とは違い，証拠となる値ベクタの先頭のコンストラクタが何であるかが $\overrightarrow{p}$ からは決まりません．
+この場合では，先頭がコンストラクタパターンの場合とは違い，証拠となる値ベクタ $\overrightarrow{v}$ の先頭のコンストラクタが何であるかが $\overrightarrow{p}$ からは決まりません．
 そのため，基本的には，あり得るコンストラクタで特殊化した問題を解いてその論理和をとる，総当たりの手法を用いる必要があります．
 
 ```math
@@ -301,40 +295,51 @@ $\mathcal{S}$ の定義は以下のようになります．
 ```
 
 しかし，$P$ の情報を使うことで総当たりを避けてより効率的に解くことができる場合があります．
-具体的には，「$P$ の1列目に欠けているコンストラクタ」があれば，それを単に値ベクタの先頭のコンストラクタとして決めてあげればいいです．
-$P$ の1列目に現れるコンストラクタの集合 $\Sigma(P)$ は以下のようにして求められます．
+例をとって考えて見ましょう．$P$ と $\overrightarrow{p}$ が以下の場合を考えます．
 
 ```math
-\begin{array}{c}
-\Sigma(\begin{pmatrix}
-\end{pmatrix}) = \emptyset \\
-\Sigma\left(\left(\begin{array}{c}
-  \begin{matrix} (p_l \mid p_r) & p_2 & \cdots & p_n \end{matrix} \\
-  P
-\end{array}\right)\right) =
-\Sigma\left(\begin{pmatrix}
-    \begin{matrix} p_l & p_2 & \cdots & p_n \end{matrix} \\
-    \begin{matrix} p_r & p_2 & \cdots & p_n \end{matrix} \\
-    P
-  \end{pmatrix}
-\right) \\
-\Sigma\left(\left(\begin{array}{c}
-  \begin{matrix} c(r_1, \cdots, r_m) & p_2 & \cdots & p_n \end{matrix} \\
-  P
-\end{array}\right)\right) = \Sigma(P) \cup \{c\} \\
-\Sigma\left(\left(\begin{array}{c}
-  \begin{matrix} \_ & p_2 & \cdots & p_n \end{matrix} \\
-  P
-\end{array}\right)\right) = \Sigma(P)
-\end{array}
+\begin{align*}
+P = \begin{pmatrix}
+   \texttt{Nil} & \texttt{\_} \\
+   \texttt{One(\_)} & \texttt{\_} \\
+   \texttt{\_} & \texttt{Nil} \\
+   \texttt{\_} & \texttt{One(\_)}
+\end{pmatrix} &&
+\overrightarrow{p} = \begin{pmatrix} \_ & \texttt{Cons(\_,\_)} \end{pmatrix}
+\end{align*}
 ```
 
-$\Sigma(P)$ に含まれていないコンストラクタ $c_\mathrm{miss}$ があったとします．
-$c_\mathrm{miss}$ を証拠となる値ベクタの先頭のコンストラクタとして選んであげれば，
-$P$ の行のうち先頭がワイルドカードパターンのもののみを考えれば良くなります．
-なぜなら，先頭がコンストラクタパターンの行には，$c_\mathrm{miss}$ から始まる値ベクタがマッチしないはずだからです．
+$P$ の1列目に着目すると，`mylist` 型のコンストラクタのうち `Nil` と `One` はありますが，`Cons` はありません．
+ここで，$\overrightarrow{v}$ の先頭のコンストラクタを `Cons` としてみましょう．
+すると，その値ベクタは `P` の行のうち先頭がワイルドカードパターンのもののみ（3,4行目）にしかマッチしないはずです．それらの行にだけ着目すると以下のようになります．
 
-この除外処理を行う関数 $\mathcal{D}$ とすれば，$\overrightarrow{p}$ の先頭がワイルドカードパターンの場合の $\mathcal{U}_\mathrm{rec}$ は以下のように定義できます．
+```math
+\begin{align*}
+P = \begin{pmatrix}
+   \texttt{\_} & \texttt{Nil} \\
+   \texttt{\_} & \texttt{One(\_)}
+\end{pmatrix} &&
+\overrightarrow{p} = \begin{pmatrix} \_ & \texttt{Cons(\_,\_)} \end{pmatrix}
+\end{align*}
+```
+
+$P$ と $\overrightarrow{p}$ の1列目が全てワイルドカードパターンになりました．
+1列目のパターンが全て同じなので，$\overrightarrow{p}$ の $P$ に対する有用性は，2列目だけから決まりますね．
+あとは，以下の部分問題を解けば良いです．
+
+```math
+\begin{align*}
+P = \begin{pmatrix}
+   \texttt{Nil} \\
+   \texttt{One(\_)}
+\end{pmatrix} &&
+\overrightarrow{p} = \begin{pmatrix} \texttt{Cons(\_,\_)} \end{pmatrix}
+\end{align*}
+```
+
+このように，$P$ の1列目に現れないコンストラクタ $c$ があった場合，$\overrightarrow{v}$ の先頭を $c(\text{\footnotesize{適当な値ベクタ}})$ としてあげれば，総当たりせずに効率的に問題を小さくできるのです[^9]．
+
+以上をまとめると，$\overrightarrow{p}$ の先頭がワイルドカードパターンの場合の $\mathcal{U}_\mathrm{rec}$ は，以下のように定義できます．
 
 ```math
 \begin{align*}
@@ -346,7 +351,7 @@ $P$ の行のうち先頭がワイルドカードパターンのもののみを�
 \mathcal{U}_\mathrm{rec}(
   \mathcal{D}(P),
   \begin{pmatrix} p_2 & \cdots & p_n \end{pmatrix}
-) & \Sigma(P) \text{ is incomplete} \\
+) & \text{if } \Sigma \text{ is incomplete} \\
 \bigvee_{c_k} \mathcal{U}_\mathrm{rec}(
   \mathcal{S}(c_k, P),
   \begin{pmatrix} \_ & \cdots & \_ & p_2 & \cdots & p_n \end{pmatrix}
@@ -355,7 +360,8 @@ $P$ の行のうち先頭がワイルドカードパターンのもののみを�
 \end{align*}
 ```
 
-$\mathcal{D}$ の定義は以下のようになります．
+ここで，$\Sigma$ は $P$ の1列目に現れるコンストラクタの集合です．
+また，$\mathcal{D}$ は先頭がワイルドカードパターンの行の2列目以降のみを取り出すような関数で，以下のように定義されます．
 $\mathcal{S}$ と同様に，先頭がOrパターンの場合はOrパターンを展開して二つの行に分けます．
 
 ```math
@@ -389,10 +395,12 @@ $\mathcal{S}$ と同様に，先頭がOrパターンの場合はOrパターン�
 \end{array}
 ```
 
+以上が $\mathcal{U}_\mathrm{rec}$ の動作原理です．
+
 ## 形式化のハイライト
 
-いよいよ形式化について見ていきます．
-とはいえ，形式化でやることは動作原理のパートで説明したことを地道にAgdaに書き下すだけなので，この記事では重要な部分だけをいくつか紹介したいと思います．
+では，いよいよ形式化について見ていきましょう．
+とはいえ，形式化でやることは動作原理のパートで説明したことを地道にAgdaに書き下すだけなので，この記事では重要な部分だけをいくつか紹介します．
 
 ### 正当性証明
 
@@ -428,7 +436,7 @@ decUseful : (P : PatternMatrix) (ps : Pattern) → Dec (Useful P ps)
 ### 有用性の拡張
 
 たった今，有用性の証拠をエラーメッセージ表示に活用できると言いました．
-しかしよく考えてみると，実用されているプログラミング言語のコンパイラは，「網羅されていない値」ではなく「網羅されていないパターン」を表示してくれます．
+しかしよく考えてみると，実際のコンパイラは，「網羅されていない値」ではなく「網羅されていないパターン」を表示してくれます．
 
 例えば，以下のOCamlプログラムを考えます．
 
@@ -455,13 +463,13 @@ Here is an example of a case that is not matched:
 $P$ と $\overrightarrow{p}$ のカバーする値ベクタの集合がそれぞれあります．
 そして，その差集合 $\overrightarrow{p} \setminus P$ の中の要素が，図中に点で表されている，有用性の証拠 $\overrightarrow{v}$ となります．
 
-![](./original_usefulness.png)
+![The original definition of usefulness](./original_usefulness.png)
 
 拡張した有用性の定義では，有用性の証拠をパターンベクタとしたかったのでした．
-そのためには，図中の $\overrightarrow{q}$ のように，証拠を点ではなく集合に膨らませば良さそうです．
+そのためには，図中の $\overrightarrow{q}$ のように，証拠を点から集合へと膨らませば良さそうです．
 つまり，有用性の証拠を差集合の部分集合へと拡張します．
 
-![](./extended_usefulness.png)
+![Our extended definition of usefulness](./extended_usefulness.png)
 
 この直観を定式化すると以下のようになります．
 
@@ -472,9 +480,12 @@ $P$ と $\overrightarrow{p}$ のカバーする値ベクタの集合がそれぞ
 
 「マッチしない」が「排他的である」に，「マッチする」が「包含される」に変わりました．
 
+この拡張した有用性はきちんとオリジナルの有用性の一般化になっており，拡張した有用性からオリジナルの有用性を導くことができます．
+
 では，この拡張した有用性を検査するためのアルゴリズムはどうなっているべきでしょうか？
-実は，元のアルゴリズムをほとんどそのまま使うことができます．
-変えるべきところと言えば，元のアルゴリズムで論理和をとっていた部分（Orパターンの場合とワイルドカードパターンで総当たりをする場合）です．論理和をとる代わりに和集合をとることで，証拠となるパターンベクタ全てを返すようにします．
+実は，元のアルゴリズムと大きく変える必要はありません．
+変えるべきところと言えば，元のアルゴリズムで論理和をとっていた部分（Orパターンの場合とワイルドカードパターンで総当たりをする場合）だけです．
+論理和をとる代わりに和集合をとることで，証拠となるパターンベクタ全てを返すようにします．
 
 擬似コードは以下のようになります．
 `Useful` 型の定義が拡張されている他，`decUseful` の返り値の型が `Dec (NonEmpty (Useful P ps))` となっており，有用性の証拠となるパターンベクタの非空リストを返すようになっています．
@@ -493,15 +504,15 @@ decUseful : (P : PatternMatrix) (ps : Pattern) → Dec (NonEmpty (Useful P ps))
 
 ### 停止性証明
 
-停止性も重要な性質です．コンパイラがカバレッジ検査で無限ループしてしまうのは嬉しくないからです．
-しかし，元の論文では$\mathcal{U}_\mathrm{rec}$ の停止性の証明が与えられていませんでした．
+停止性も重要な性質です．コンパイラがカバレッジ検査で無限ループしまっては困るからです．
+しかし，元の論文では $\mathcal{U}_\mathrm{rec}$ の停止性の証明が与えられていませんでした．
 
 $\mathcal{U}_\mathrm{rec}$ の停止性証明は結構トリッキーです．というのも，動作原理のパートで見たように，$\mathcal{U}_\mathrm{rec}$ が複雑な再帰構造を持つからです．構造的再帰ではないので整礎帰納法を使うことになりますが，それに用いる尺度を見つける上で以下の部分が困りものです．
 
 1. $\mathcal{S}$ や $\mathcal{D}$ がOrパターンを展開する
 2. $\mathcal{S}$ がワイルドカードパターンを複数のワイルドカードパターンに展開し得る
 
-これらのせいで，単純なパターンの大きさは減らないどころか増えてしまうことまであります．最終的には，大まかに以下のようなアイデアで，停止性を証明することができました！
+これらのせいで，単純なパターンの大きさは減らないどころか増えてしまうことまであります．最終的には，大まかに以下のようなアイデアで適切な尺度を見つけて，停止性を証明することができました！
 
 1. パターンの大きさはOrパターンを全部展開してから数える[^5]
 2. ワイルドカードパターンを数えない
@@ -511,9 +522,9 @@ $\mathcal{U}_\mathrm{rec}$ の停止性証明は結構トリッキーです．�
 
 今回のゴールは検証付きカバレッジ検査器を得ることなので，Agdaのコードを実行可能な形式に持っていけるようにしたいです．
 その方法として，今回は[agda2hs](https://github.com/agda/agda2hs)を使うことにしました．
-agda2hsはAgdaのサブセットをなるべく元のコードに近いHaskellコードに変換するツールです．生成コードを読まれることを前提としているのが，Agdaに付属しているHaskellへのコンパイラとは違う点です．
+agda2hsはAgdaのサブセットをなるべく元のコードに近いHaskellコードに変換するツールです．Agdaに付属しているHaskellへのコンパイラとは違い，人に読みやすいHaskellコードを生成することを目指しています．
 
-agda2hsでは，Agdaのコードのどの部分をHaskellに変換するかを，[erasure](https://agda.readthedocs.io/en/latest/language/runtime-irrelevance.html)という機能を使って指定します．Agdaコード中で`@0`（または`@erased`）で注釈をつけた部分がHaskell側では消えているという具合です．
+agda2hsでは，Agdaのコードのどの部分をHaskellに変換するかを，[erasure](https://agda.readthedocs.io/en/latest/language/runtime-irrelevance.html)という機能を使って指定します．Agdaコード中で `@0`（または `@erased`）で注釈をつけた部分がHaskell側では消えているという具合です．
 例えば，上の擬似コードで示した `Useful` 型に対して以下のように注釈をつけたとします．
 `witness-disjoint-from-P` と `ps-subsumes-witness` は証明のためだけの情報でありHaskell側では不要なので，消そうというわけです．
 
@@ -531,7 +542,7 @@ record Useful (@0 P : PatternMatrix) (@0 ps : Patterns) : Type where
 newtype Useful = Useful { witness :: Patterns }
 ```
 
-このような調子で，形式化全体に頑張って`@0`をつけてまわることで，直接Haskellで実装したものと大差ないコードを得られるようになります！
+このような調子で，形式化全体に頑張って `@0` をつけてまわることで，直接Haskellで実装したものと大差ないコードを得られるようになります！
 
 ## おわりに
 
@@ -542,14 +553,15 @@ newtype Useful = Useful { witness :: Patterns }
 
 形式化したコード全体を[GitHub](https://github.com/wasabi315/coverage-checking)で公開しています．
 [haskellブランチ](https://github.com/wasabi315/coverage-checking/tree/haskell/lib/CoverageCheck)にはagda2hsで生成したHaskellコードも載せています．
-さらに，HTMLに変換したコードもGitHub Pagesでホストしているので，興味があれば見てみてください．
+さらに，HTMLに変換したコードもGitHub Pagesでホストしているので，実際の実装がどのようになっているか興味があれば見てみてください．
 
-https://wasabi315.github.io/coverage-checking
+<https://wasabi315.github.io/coverage-checking>
 
-[^1]: 去年のAdvent Calendarにこの記事を書くつもりだったのですが，完成しなかったため今年になってしまいました. 実はこの形式化について論文も書いていて，今後出版される予定です．Pre-printは[ここ](https://wasabi315.github.io/files/wctp2025a.pdf)で公開しています．
+[^1]: [去年のAdvent Calendar](https://adventar.org/calendars/10209)にこの記事を書くつもりだったのですが，停止性の証明につまってしまい，今年になってしまいました．実はこの形式化について論文も書いていて，今後出版される予定です．Pre-printは[ここ](https://wasabi315.github.io/files/wctp2025a.pdf)で公開しています．
 [^2]: [Luc Maranget, Warnings for Pattern Matching](https://doi.org/10.1017/S0956796807006223). この論文はアルゴリズムをいくつか提案しており，$\mathcal{U}_\mathrm{rec}$ はその中の一番基本的なものです．
 [^3]: [Sebastian Graf, Simon Peyton Jones, and Ryan G. Scott, Lower your guards](https://doi.org/10.1145/3408989)
 [^4]: 自分の調べた限り，concurrent workである[Joshua M. Cohen, A Mechanized First-Order Theory of Algebraic Data Types with Pattern Matching](https://doi.org/10.4230/LIPIcs.ITP.2025.5)以外には見つかりませんでした．そしてこの論文も同様に先行研究が見当たらないことを主張しています．
 [^5]: 実際はOrパターンの数もサイズに含めます．展開して数えたサイズだけではOrパターンのステップでサイズが減らなくなるからです．
 [^6]: 現状では，網羅性検査と各節に対しての非冗長性検査をそれぞれ行わなければならないので，節の数に比例した回数だけ $\mathcal{U}_\mathrm{rec}$ を呼び出すことになります．
-[^8]: 元論文とオペランドを逆にしています．
+[^8]: 元論文とオペランドを逆にしています．こちらの順序の方が，集合の $\in$ と似ていて見やすいと思います．
+[^9]: コンストラクタの引数の型に空の型 (Haskellの `Void`) が含まれていると，「適当な値ベクタ」が存在しなくなってしまいます．そこで，$\mathcal{U}_\mathrm{rec}$ は「全ての型に値が存在する」という仮定を置いています．
