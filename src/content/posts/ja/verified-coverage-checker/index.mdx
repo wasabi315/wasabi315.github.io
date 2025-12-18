@@ -4,6 +4,7 @@ description: "パターンマッチのCoverage CheckingアルゴリズムをAgda
 date: "2025-12-18"
 tags: ["agda", "agda2hs", "coverage-checking"]
 ---
+import Box from "../../../../components/Box.astro";
 
 この記事は[証明支援系 Advent Calendar 2025](https://adventar.org/calendars/11438)の18日目の記事です．
 
@@ -149,19 +150,22 @@ type mylist = Nil | One of unit | Cons of unit * mylist
 
 実は $\mathcal{U}_\mathrm{rec}$ は網羅性でも非冗長性でもなく*有用性*と呼ばれる性質を検査するアルゴリズムです．有用性の定義は以下のようになっています．
 
-- 定義（有用性）：パターンベクタ $\overrightarrow{p}$ がパターン行列 $P$ に対して有用である ( $\mathcal{U}(P, \overrightarrow{p})$ と書く) とは，以下の条件を満たすことである
+<Box headerText="定義（有用性）">
+  パターンベクタ $\overrightarrow{p}$ がパターン行列 $P$ に対して有用である ( $\mathcal{U}(P, \overrightarrow{p})$ と書く) とは，以下の条件を満たすことである
   1. ある値ベクタ $\overrightarrow{v}$ が存在して
   2. $P$ のどの行にも $\overrightarrow{v}$ がマッチせず ($\overrightarrow{v} \npreceq P$)
   3. $\overrightarrow{v}$ が $\overrightarrow{p}$ にマッチする ($\overrightarrow{v} \preceq \overrightarrow{p}$)
+</Box>
 
 先ほどの例を引き続き用いて，有用性の例を見てみましょう．$P$ に対して $\overrightarrow{p} = (\texttt{\_}\ \ \texttt{\_})$ （ワイルドカードパターンのベクタ）は有用です．なぜなら，先ほどの $\overrightarrow{w} = (\texttt{One(Nil)}\ \ \texttt{One(Nil)})$ が証拠となるから（$\overrightarrow{w} \npreceq P$ かつ $\overrightarrow{w} \preceq \overrightarrow{p}$ が成り立つから）です．
 また，$Q$ の 第1~5行目 がなす小行列に対して，$Q$ の第6行目は有用でないことも確かめられます．
 
 では，なぜ有用性を考えるのでしょうか？ 網羅性と非冗長性のどちらもが有用性を使って言い換えられるからです！
 
-- 補題
-  1. $P$ が網羅的 $\iff$ ワイルドカードパターンのベクタが $P$ に対して有用でない ( $\neg\ \mathcal{U}(P, (\_\ \cdots\ \_))$ )
-  2. $P$ の第 $i$ 節が非冗長 $\iff$ 第 $i$ 節がそれより前の節たちに対して有用である ( $\mathcal{U}(P_{[1,i)}, P_i)$ )
+<Box headerText="補題">
+  1. $P$ が網羅的 $\iff$ ワイルドカードパターンのベクタが $P$ に対して有用でない
+  2. $P$ の第 $i$ 節が非冗長 $\iff$ 第 $i$ 節がそれより前の節たちに対して有用である
+</Box>
 
 先ほどの有用性に関する二つの例は，それぞれ $P$ が網羅的でないことと $Q$ の第6行目が冗長であることを示していました．
 
@@ -473,10 +477,12 @@ $P$ と $\overrightarrow{p}$ のカバーする値ベクタの集合がそれぞ
 
 この直観を定式化すると以下のようになります．
 
-- 定義（拡張した有用性）：パターンベクタ $\overrightarrow{p}$ がパターン行列 $P$ に対して（拡張した意味で）有用であるとは，以下の条件を満たすことである
-  1. あるパターンベクタ $\overrightarrow{q}$ が存在して
-  2. $\overrightarrow{q}$ が $P$ と排他的である ($\forall \overrightarrow{v},\ \overrightarrow{v} \preceq \overrightarrow{q} \implies \overrightarrow{v} \npreceq P$)
-  3. $\overrightarrow{q}$ が $\overrightarrow{p}$ に包含される ($\forall \overrightarrow{v},\ \overrightarrow{v} \preceq \overrightarrow{q} \implies \overrightarrow{v} \preceq \overrightarrow{p}$)
+<Box headerText="定義（拡張した有用性）">
+パターンベクタ $\overrightarrow{p}$ がパターン行列 $P$ に対して（拡張した意味で）有用であるとは，以下の条件を満たすことである
+1. あるパターンベクタ $\overrightarrow{q}$ が存在して
+2. $\overrightarrow{q}$ が $P$ と排他的である ($\forall \overrightarrow{v},\ \overrightarrow{v} \preceq \overrightarrow{q} \implies \overrightarrow{v} \npreceq P$)
+3. $\overrightarrow{q}$ が $\overrightarrow{p}$ に包含される ($\forall \overrightarrow{v},\ \overrightarrow{v} \preceq \overrightarrow{q} \implies \overrightarrow{v} \preceq \overrightarrow{p}$)
+</Box>
 
 「マッチしない」が「排他的である」に，「マッチする」が「包含される」に変わりました．
 
@@ -555,7 +561,7 @@ newtype Useful = Useful { witness :: Patterns }
 [haskellブランチ](https://github.com/wasabi315/coverage-checking/tree/haskell/lib/CoverageCheck)にはagda2hsで生成したHaskellコードも載せています．
 さらに，HTMLに変換したコードもGitHub Pagesでホストしているので，実際の実装がどのようになっているか興味があれば見てみてください．
 
-<https://wasabi315.github.io/coverage-checking>
+https://wasabi315.github.io/coverage-checking
 
 [^1]: [去年のAdvent Calendar](https://adventar.org/calendars/10209)にこの記事を書くつもりだったのですが，停止性の証明につまってしまい，今年になってしまいました．実はこの形式化について論文も書いていて，今後出版される予定です．Pre-printは[ここ](https://wasabi315.github.io/files/wctp2025a.pdf)で公開しています．
 [^2]: [Luc Maranget, Warnings for Pattern Matching](https://doi.org/10.1017/S0956796807006223). この論文はアルゴリズムをいくつか提案しており，$\mathcal{U}_\mathrm{rec}$ はその中の一番基本的なものです．
