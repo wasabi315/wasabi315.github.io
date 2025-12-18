@@ -7,9 +7,10 @@ tags: ["agda", "agda2hs", "coverage-checking"]
 
 この記事は[証明支援系 Advent Calendar 2025](https://adventar.org/calendars/11438)の18日目の記事です．
 
-<https://adventar.org/calendars/11438>
+https://adventar.org/calendars/11438
 
-去年の春頃からパターンマッチのカバレッジ検査アルゴリズムの形式化を進めていました．それがある程度完成したので，今回紹介したいと思います[^1]．
+去年の春頃から少しずつパターンマッチのカバレッジ検査アルゴリズムの形式化を進めていて，それがある程度完成しました．
+この記事では，そのアルゴリズムや形式化について紹介したいと思います[^1]．
 
 ## 目次
 
@@ -57,7 +58,7 @@ let allowed role action =
 しかし，アルゴリズムの**実装**はどうでしょうか？いくら紙とペンによる正当性の証明があったとしても，実装が間違っていては不適切なエラーを出したり，バグを見逃したりする可能性があります．
 実際，例としてRustのGitHubリポジトリをのぞいてみると，カバレッジ検査に関するissueがいくつか見つかります．
 
-<https://github.com/rust-lang/rust/issues?q=is%3Aissue%20label%3AA-exhaustiveness-checking%20label%3AC-bug>
+https://github.com/rust-lang/rust/issues?q=is%3Aissue%20label%3AA-exhaustiveness-checking%20label%3AC-bug
 
 カバレッジ検査は重要な検査ですから，**実装まで含めて正しいことが検証されたカバレッジ検査器**が欲しくなるわけです．
 調査してみると，検証付きコンパイラを含めて探してみても，そのようなものはほとんど見つかりません[^4]．
@@ -165,8 +166,8 @@ type mylist = Nil | One of unit | Cons of unit * mylist
 では，なぜ有用性を考えるのでしょうか？ 網羅性と非冗長性のどちらもが有用性を使って言い換えられるからです！
 
 - 補題
-  1. $P$ が網羅的 $\iff$ （適切な長さの）ワイルドカードパターンのベクタが $P$ に対して有用でない
-  2. $P$ の第 $i$ 節が非冗長 $\iff$ 第 $i$ 節がそれより前の節たちに対して有用である
+  1. $P$ が網羅的 $\iff$ ワイルドカードパターンのベクタが $P$ に対して有用でない ( $\neg\ \mathcal{U}(P, (\_\ \cdots\ \_))$ )
+  2. $P$ の第 $i$ 節が非冗長 $\iff$ 第 $i$ 節がそれより前の節たちに対して有用である ( $\mathcal{U}(P_{[1,i)}, P_i)$ )
 
 先ほどの有用性に関する二つの例は，それぞれ $P$ が網羅的でないことと $Q$ の第6行目が冗長であることを示していました．
 
@@ -179,7 +180,7 @@ type mylist = Nil | One of unit | Cons of unit * mylist
 - 入力: パターン行列 $P$ とパターンベクタ $\overrightarrow{p}$
 - 出力: 真偽値
 - 仕様:
-  - $P$ と $\overrightarrow{p}$ の対応する列の型が一致する
+  - $P$ と $\overrightarrow{p}$ の対応する列の型が一致していなければならない
   - $\overrightarrow{p}$ が $P$ に対して有用な時に限り真を返す ( $\mathcal{U}_\mathrm{rec}(P, \overrightarrow{p}) = \mathrm{True} \iff \mathcal{U}(P, \overrightarrow{p})$ )
 
 $\mathcal{U}_\mathrm{rec}$ は有用性の証拠となる値ベクタを探索するような動作をします．
@@ -299,7 +300,7 @@ $\mathcal{S}$ の定義は以下のようになります．
 \end{align*}
 ```
 
-しかし，$P$ の情報を使うことで総当たりを避けられ，より効率的に解くことができる場合があります．
+しかし，$P$ の情報を使うことで総当たりを避けてより効率的に解くことができる場合があります．
 具体的には，「$P$ の1列目に欠けているコンストラクタ」があれば，それを単に値ベクタの先頭のコンストラクタとして決めてあげればいいです．
 $P$ の1列目に現れるコンストラクタの集合 $\Sigma(P)$ は以下のようにして求められます．
 
@@ -390,46 +391,121 @@ $\mathcal{S}$ と同様に，先頭がOrパターンの場合はOrパターン�
 
 ## 形式化のハイライト
 
-形式化の中で重要な部分だけいくつか紹介します．
+いよいよ形式化について見ていきます．
+とはいえ，形式化でやることは動作原理のパートで説明したことを地道にAgdaに書き下すだけなので，この記事では重要な部分だけをいくつか紹介したいと思います．
 
 ### 正当性証明
 
+形式化のメインとなる部分です．
+今回，正当性証明は**evidence-producingな** $\mathcal{U}_\mathrm{rec}$ を実装することで行いました．
+オリジナルの $\mathcal{U}_\mathrm{rec}$ は有用性を表す真偽値だけを返す関数でしたが，
+実際に実装したものは，有用性の証拠を明示的に計算して返すようになっています．
+
+以下がその擬似コードです．
+`Useful` 型は有用性の定義をそのままAgdaに持ってきたようなレコード型です．
+有用性の証拠 `witness` と，それが確かに証拠となっている証明 `witness-does-not-match-P` と `witness-matches-ps` を持っています．
+そして `decUseful` が $\mathcal{U}_\mathrm{rec}$ を実装した関数です．
+返り値の型が `Dec (Useful P ps)` となっており，`ps` が `P` に対して有用ならその証拠を，そうでないなら証拠がないことの証明を返すようになっています．
+
 ```agda
-record OriginalUseful (P : PatternMatrix) (ps : Patterns) : Type where
+record Useful (P : PatternMatrix) (ps : Patterns) : Type where
   field
     witness : Values
     witness-does-not-match-P : witness ⋠ P
     witness-matches-ps : witness ≼ ps
+
+data Dec (A : Type) : Type where
+  Yes : A → Dec A
+  No : ¬ A → Dec A
+
+decUseful : (P : PatternMatrix) (ps : Pattern) → Dec (Useful P ps)
 ```
+
+このようにすることで，実装と正当性証明を同時に行なうことができ，Correct-by-Constructionな実装を得ることができます．
+さらに，`decUseful`から得られる証拠は，カバレッジ検査のエラーメッセージをわかりやすくするのにも役立ちます．
+網羅されていない部分がどれであるかを具体的に表示するのに使えるのです！
+
+### 有用性の拡張
+
+たった今，有用性の証拠をエラーメッセージ表示に活用できると言いました．
+しかしよく考えてみると，実用されているプログラミング言語のコンパイラは，「網羅されていない値」ではなく「網羅されていないパターン」を表示してくれます．
+
+例えば，以下のOCamlプログラムを考えます．
+
+```ocaml
+let foo (xs : mylist) (ys : mylist) : string =
+  match xs, ys with
+  | Nil, _   -> "nil-wildcard"
+  | _  , Nil -> "wildcard-nil"
+```
+
+このプログラムに対し，OCamlコンパイラは以下のようなエラーメッセージを表示してくれます．
+
+```text
+Warning 8: this pattern-matching is not exhaustive.
+Here is an example of a case that is not matched:
+((One _|Cons (_, _)), (One _|Cons (_, _)))
+```
+
+値よりもパターンを表示してくれた方が，情報量が多いので嬉しいですね．
+なので，`decUseful` も証拠となるパターンベクタ（の非空集合）を返すように，有用性の定義とアルゴリズムを拡張したいところです．
+
+どのように有用性の定義を拡張すれば良いでしょうか？
+有用性のオリジナルの定義を思い返してみましょう．図にすると以下のようになります．
+$P$ と $\overrightarrow{p}$ のカバーする値ベクタの集合がそれぞれあります．
+そして，その差集合 $\overrightarrow{p} \setminus P$ の中の要素が，図中に点で表されている，有用性の証拠 $\overrightarrow{v}$ となります．
+
+![](./original_usefulness.png)
+
+拡張した有用性の定義では，有用性の証拠をパターンベクタとしたかったのでした．
+そのためには，図中の $\overrightarrow{q}$ のように，証拠を点ではなく集合に膨らませば良さそうです．
+つまり，有用性の証拠を差集合の部分集合へと拡張します．
+
+![](./extended_usefulness.png)
+
+この直観を定式化すると以下のようになります．
+
+- 定義（拡張した有用性）：パターンベクタ $\overrightarrow{p}$ がパターン行列 $P$ に対して（拡張した意味で）有用であるとは，以下の条件を満たすことである
+  1. あるパターンベクタ $\overrightarrow{q}$ が存在して
+  2. $\overrightarrow{q}$ が $P$ と排他的である ($\forall \overrightarrow{v},\ \overrightarrow{v} \preceq \overrightarrow{q} \implies \overrightarrow{v} \npreceq P$)
+  3. $\overrightarrow{q}$ が $\overrightarrow{p}$ に包含される ($\forall \overrightarrow{v},\ \overrightarrow{v} \preceq \overrightarrow{q} \implies \overrightarrow{v} \preceq \overrightarrow{p}$)
+
+「マッチしない」が「排他的である」に，「マッチする」が「包含される」に変わりました．
+
+では，この拡張した有用性を検査するためのアルゴリズムはどうなっているべきでしょうか？
+実は，元のアルゴリズムをほとんどそのまま使うことができます．
+変えるべきところと言えば，元のアルゴリズムで論理和をとっていた部分（Orパターンの場合とワイルドカードパターンで総当たりをする場合）です．論理和をとる代わりに和集合をとることで，証拠となるパターンベクタ全てを返すようにします．
+
+擬似コードは以下のようになります．
+`Useful` 型の定義が拡張されている他，`decUseful` の返り値の型が `Dec (NonEmpty (Useful P ps))` となっており，有用性の証拠となるパターンベクタの非空リストを返すようになっています．
 
 ```agda
 record Useful (P : PatternMatrix) (ps : Patterns) : Type where
   field
     witness : Patterns
-    P-witness-disjoint : ∀ {vs} → vs ≼ P → vs ≼ witness → ⊥
+    witness-disjoint-from-P : ∀ {vs} → vs ≼ witness → vs ≼ P → ⊥
     ps-subsumes-witness : ∀ {vs} → vs ≼ witness → vs ≼ ps
+
+decUseful : (P : PatternMatrix) (ps : Pattern) → Dec (NonEmpty (Useful P ps))
 ```
 
-```agda
-decideUseful : (P : PatternMatrix) (ps : Pattern)
-  → Either (Not (Useful P ps)) (Useful P ps)
-```
+`decUseful` の返す証拠が完全であること（$\overrightarrow{p} \setminus P$ を取り尽くしていること）は，まだ証明していないので，今後証明する予定です．
 
 ### 停止性証明
 
-停止性も重要な性質です．コンパイラがカバレッジ検査で無限ループしてしまうのは嬉しくないですよね．
+停止性も重要な性質です．コンパイラがカバレッジ検査で無限ループしてしまうのは嬉しくないからです．
 しかし，元の論文では$\mathcal{U}_\mathrm{rec}$ の停止性の証明が与えられていませんでした．
 
 $\mathcal{U}_\mathrm{rec}$ の停止性証明は結構トリッキーです．というのも，動作原理のパートで見たように，$\mathcal{U}_\mathrm{rec}$ が複雑な再帰構造を持つからです．構造的再帰ではないので整礎帰納法を使うことになりますが，それに用いる尺度を見つける上で以下の部分が困りものです．
 
 1. $\mathcal{S}$ や $\mathcal{D}$ がOrパターンを展開する
-2. $\mathcal{S}$ がワイルドカードパターンを複数のワイルドカードパターンに展開する
+2. $\mathcal{S}$ がワイルドカードパターンを複数のワイルドカードパターンに展開し得る
 
-これらのせいで，単純なパターンの大きさは狭義減少しないどころか増加してしまうことまであります．最終的には，大まかに以下のようなアイデアで，停止性を証明することができました．
+これらのせいで，単純なパターンの大きさは減らないどころか増えてしまうことまであります．最終的には，大まかに以下のようなアイデアで，停止性を証明することができました！
 
 1. パターンの大きさはOrパターンを全部展開してから数える[^5]
 2. ワイルドカードパターンを数えない
-3. 2の結果としてサイズが減らなくなる場合が出てくるので，そのステップで減る別のサイズ（パターン行列の列数など）を組み合わせた辞書式順序を考える
+3. 2の結果としてサイズが狭義減少しなくなる場合が出てくるので，そのステップで減る別のサイズ（パターン行列の列数など）を組み合わせた辞書式順序を考える
 
 ### agda2hsによるHaskellへの変換
 
@@ -437,21 +513,25 @@ $\mathcal{U}_\mathrm{rec}$ の停止性証明は結構トリッキーです．�
 その方法として，今回は[agda2hs](https://github.com/agda/agda2hs)を使うことにしました．
 agda2hsはAgdaのサブセットをなるべく元のコードに近いHaskellコードに変換するツールです．生成コードを読まれることを前提としているのが，Agdaに付属しているHaskellへのコンパイラとは違う点です．
 
-agda2hsでは，Agdaのコードのどの部分をHaskellに変換するかを，[erasure](https://agda.readthedocs.io/en/latest/language/runtime-irrelevance.html)という機能を使って指定します．Agdaコード中で`@0`（または`@erased`）で注釈をつけた部分がHaskell側では消えているという具合です．例えば，型レベルで長さを保持するリストのようなデータ型（よくVectorと呼ばれる）を考えます．長さ部分を`@0`で注釈すると，コンパイル結果として得られるHaskellのデータ型はリストと全く同型なものになります．
+agda2hsでは，Agdaのコードのどの部分をHaskellに変換するかを，[erasure](https://agda.readthedocs.io/en/latest/language/runtime-irrelevance.html)という機能を使って指定します．Agdaコード中で`@0`（または`@erased`）で注釈をつけた部分がHaskell側では消えているという具合です．
+例えば，上の擬似コードで示した `Useful` 型に対して以下のように注釈をつけたとします．
+`witness-disjoint-from-P` と `ps-subsumes-witness` は証明のためだけの情報でありHaskell側では不要なので，消そうというわけです．
 
 ```agda
-data Vector (a : Type) : @0 Nat → Type where
-  Nil  : Vector a 0
-  Cons : ∀ {@0 n} → a → Vector a n → Vector a (suc n)
+record Useful (@0 P : PatternMatrix) (@0 ps : Patterns) : Type where
+  field
+    witness : Patterns
+    @0 witness-disjoint-from-P : ∀ {vs} → vs ≼ witness → vs ≼ P → ⊥
+    @0 ps-subsumes-witness : ∀ {vs} → vs ≼ witness → vs ≼ ps
 ```
+
+これをagda2hsで変換すると，以下のようなHaskellコードを得られます．
 
 ```haskell
-data Vector a
-  = Nil
-  | Cons a (Vector a)
+newtype Useful = Useful { witness :: Patterns }
 ```
 
-このような調子で，カバレッジ検査を形式化したAgdaコードに`@0`をつけていくことで，直接Haskellで実装したものと大差ないコードを得られるようになります！
+このような調子で，形式化全体に頑張って`@0`をつけてまわることで，直接Haskellで実装したものと大差ないコードを得られるようになります！
 
 ## おわりに
 
@@ -464,12 +544,12 @@ data Vector a
 [haskellブランチ](https://github.com/wasabi315/coverage-checking/tree/haskell/lib/CoverageCheck)にはagda2hsで生成したHaskellコードも載せています．
 さらに，HTMLに変換したコードもGitHub Pagesでホストしているので，興味があれば見てみてください．
 
-<https://wasabi315.github.io/coverage-checking>
+https://wasabi315.github.io/coverage-checking
 
 [^1]: 去年のAdvent Calendarにこの記事を書くつもりだったのですが，完成しなかったため今年になってしまいました. 実はこの形式化について論文も書いていて，今後出版される予定です．Pre-printは[ここ](https://wasabi315.github.io/files/wctp2025a.pdf)で公開しています．
 [^2]: [Luc Maranget, Warnings for Pattern Matching](https://doi.org/10.1017/S0956796807006223). この論文はアルゴリズムをいくつか提案しており，$\mathcal{U}_\mathrm{rec}$ はその中の一番基本的なものです．
 [^3]: [Sebastian Graf, Simon Peyton Jones, and Ryan G. Scott, Lower your guards](https://doi.org/10.1145/3408989)
 [^4]: 自分の調べた限り，concurrent workである[Joshua M. Cohen, A Mechanized First-Order Theory of Algebraic Data Types with Pattern Matching](https://doi.org/10.4230/LIPIcs.ITP.2025.5)以外には見つかりませんでした．そしてこの論文も同様に先行研究が見当たらないことを主張しています．
 [^5]: 実際はOrパターンの数もサイズに含めます．展開して数えたサイズだけではOrパターンのステップでサイズが減らなくなるからです．
-[^6]: 現状では，網羅性検査と各節に対しての非冗長性検査を別々に行わなければならないので，節の数に比例した回数だけ $\mathcal{U}_\mathrm{rec}$ を呼び出すことになります．
+[^6]: 現状では，網羅性検査と各節に対しての非冗長性検査をそれぞれ行わなければならないので，節の数に比例した回数だけ $\mathcal{U}_\mathrm{rec}$ を呼び出すことになります．
 [^8]: 元論文とオペランドを逆にしています．
