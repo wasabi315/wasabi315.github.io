@@ -18,14 +18,18 @@ const url = getRelativeLocaleUrl(Astro.currentLocale!, `posts/${id.join("/")}`);
   </h2>
   <p>
     <time>{post.data.date}</time>
-    -
-    {post.data.tags.map((tag) => <Tag tag={tag} />)}
+    {" - "}
+    <span>{post.data.tags.map((tag) => <Tag tag={tag} />)}</span>
   </p>
 </article>
 
 <style lang="scss">
   p {
     color: var(--fg2);
+  }
+  p span {
+    display: inline-flex;
+    column-gap: 0.25rem;
   }
 
   h2 a {

@@ -26,8 +26,8 @@ const { frontmatter } = Astro.props;
       <h1>{frontmatter.title}</h1>
       <p>
         <time>{frontmatter.date}</time>
-        -
-        {frontmatter.tags.map((tag) => <Tag tag={tag} />)}
+        {" - "}
+        <span>{frontmatter.tags.map((tag) => <Tag tag={tag} />)}</span>
       </p>
     </header>
     <MarkdownRenderer>
@@ -47,6 +47,10 @@ const { frontmatter } = Astro.props;
     }
     p {
       color: var(--fg2);
+    }
+    p span {
+      display: inline-flex;
+      column-gap: 0.25rem;
     }
   }
 

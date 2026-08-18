@@ -12,6 +12,7 @@ import rehypeRaw from "rehype-raw";
 import rehypeExternalLinks from "rehype-external-links";
 import icon from "astro-icon";
 import agda from "./src/data/agda.tmLanguage.json";
+import { unified } from "@astrojs/markdown-remark";
 
 // https://astro.build/config
 export default defineConfig({
@@ -24,6 +25,7 @@ export default defineConfig({
     },
     routing: {
       prefixDefaultLocale: true,
+      redirectToDefaultLocale: true,
       fallbackType: "rewrite",
     },
   },
@@ -51,21 +53,23 @@ export default defineConfig({
         "latex",
       ],
     },
-    remarkPlugins: [
-      [remarkToc, { heading: "(table[ -]of[ -])?contents?|toc|目次" }],
-      remarkMath,
-      [remarkLinkCard, { shortenUrl: true }],
-      remarkAlert,
-    ],
-    rehypePlugins: [
-      rehypeRaw,
-      rehypeSlug,
-      [rehypeAutolinkHeadings, { behavior: "append" }],
-      rehypeKatex,
-      [
-        rehypeExternalLinks,
-        { target: "_blank", rel: ["noopener", "noreferrer"] },
+    processor: unified({
+      remarkPlugins: [
+        [remarkToc, { heading: "(table[ -]of[ -])?contents?|toc|目次" }],
+        remarkMath,
+        [remarkLinkCard, { shortenUrl: true }],
+        remarkAlert,
       ],
-    ],
+      rehypePlugins: [
+        rehypeRaw,
+        rehypeSlug,
+        [rehypeAutolinkHeadings, { behavior: "append" }],
+        rehypeKatex,
+        [
+          rehypeExternalLinks,
+          { target: "_blank", rel: ["noopener", "noreferrer"] },
+        ],
+      ],
+    }),
   },
 });
