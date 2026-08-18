@@ -3,7 +3,7 @@ order: 1
 title: "Hasche"
 featuredImage: "./featured-image.png"
 thumbnail: "./thumbnail.png"
-description: "A Scheme-like language interpreter written in Haskell"
+description: "A toy interpreter for a Scheme-like language"
 githubRepository: "wasabi315/Hasche"
 ---
 
@@ -25,14 +25,14 @@ cd Hasche
 cabal build
 ```
 
-The `exec` command is to execute a Scheme file.
+Run the `exec` command to execute a Scheme file.
 
 ```ansi
 $ cabal exec hasche -- exec ./programs/hello.scm
 Hello, world!
 ```
 
-Hit the `repl` command to start a new REPL session and try Hasche interactively.
+Run the `repl` command to start a new REPL session and try Hasche interactively.
 
 ```ansi
 $ cabal exec hasche -- repl
@@ -49,7 +49,7 @@ Hello, world!
 
 ### Pattern matching
 
-Pattern matching is one of the common features in functional programming languages, so why not in Hasche?
+Pattern matching is a common features in functional programming languages, so why not in Hasche?
 Use the `match` special form to perform pattern matching.
 
 ```scheme
@@ -63,7 +63,7 @@ Use the `match` special form to perform pattern matching.
     (display "Failed to match\n")])
 ```
 
-Hasche has two a bit unusual patterns: predicate patterns and rest patterns.
+Hasche has two slightly unusual kinds of patterns: predicate patterns and rest patterns.
 A predicate pattern is of the form `(? <predicate>)`. It matches if the predicate returns `#t` for the scrutinee (the value being matched). Predicate patterns can be sub-patterns, unlike Haskell's pattern guards or OCaml's when guards.
 
 ```scheme
@@ -123,7 +123,7 @@ Unlike procedures created with `define` that operate on values, macros defined w
 
 Here `` ` `` (quasiquote), `,` (unquote), and `,@` (unquote-splicing) are used. Quasiquote is like quote, but it allows interpolation using unquote and unquote-splicing.
 In fact, special forms such as `begin`, `let`, and `cond` are not built into the interpreter; they are implemented as macros in [the standard library](https://github.com/wasabi315/Hasche/blob/5f391d708abe2c6209157637695951dd01283089/lib/stdlib.scm#L86).
-Thanks to the `match` and quasiquote, they can be implemented concisely.
+Thanks to `match` and quasiquotation, they can be implemented concisely.
 
 ```scheme
 ; In lib/stdlib.scm
@@ -152,7 +152,7 @@ We can use `gensym` to generate a unique symbol and avoid variable capture.
 
 (define x 0)
 
-; expands to (let ([x 1]) (set! x (+ x 1))), making x shadowed!
+; expands to (let ([x 1]) (set! x (+ x 1))), causing x to be shadowed!
 (incr x)
 (display x) (newline) ; displays 0
 
@@ -193,6 +193,6 @@ hasche> (save 3)
 
 ## Implementation highlights
 
-Hasche uses a simple tree-walking interpretation approach.
+Hasche uses a simple tree-walking interpreter.
 The evaluator is implemented using the monad transformer stack `ReaderT Env (ContT r IO)`.
 As the monad stack includes `ContT`, the `call/cc` procedure can be implemented straightforwardly.

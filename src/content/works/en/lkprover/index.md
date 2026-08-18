@@ -3,11 +3,11 @@ order: 3
 title: "LkProver"
 featuredImage: "./featured-image.png"
 thumbnail: "./thumbnail.png"
-description: "Automatically generates LaTeX snippets of derivation trees from LK sequents"
+description: "Generates LaTeX derivation trees for LK sequents"
 githubRepository: "wasabi315/LkProver"
 ---
 
-LkProver calculates the derivation tree from an LK sequent and converts it into a corresponding LaTeX snippet.
+LkProver constructs derivation trees for LK sequents and converts them into corresponding LaTeX snippets.
 
 <https://github.com/wasabi315/LkProver>
 
@@ -61,7 +61,7 @@ Here is the input syntax of LkProver. The precedence of connectives follows the 
 
 ## Output format
 
-Currently, the output LaTeX snippet assumes that `bussproofs` package is used.
+Currently, the output LaTeX snippet assumes that the `bussproofs` package is used.
 I will consider supporting other packages including `proof.sty` in the future.
 
 ## Inference Rules
@@ -74,7 +74,7 @@ LkProver adopts the following inference rules (what I learned in a logic lecture
 LkProver is implemented in OCaml. The implementation is very straightforward, just following the inference rules above.
 
 I used [Menhir](http://cambium.inria.fr/~fpottier/menhir/) and [sedlex](https://github.com/ocaml-community/sedlex) for parsing and lexing input sequents.
-My experience with sedlex was great because lexer specifications are embedded in regular OCaml source codes, so we can still get the help of OCaml Language Server, unlike Menhir which is written in separate `.mly` files.
+My experience with sedlex was great because lexer specifications are embedded in regular OCaml source files, so we can benefit from OCaml Language Server, unlike Menhir which is written in separate `.mly` files.
 
 ---
 

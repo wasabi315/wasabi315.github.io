@@ -3,11 +3,11 @@ order: 2
 title: "lazy.js"
 featuredImage: "./featured-image.png"
 thumbnail: "./thumbnail.png"
-description: "A STG-like lazy evaluation mechanism in JavaScript"
+description: "An STG-like lazy evaluation mechanism"
 githubRepository: "wasabi315/lazy"
 ---
 
-lazy.js provides a lazy evaluation mechanism inspired by the eval/apply version of STG used in Haskell before. You can define and evaluate lazy computations in JavaScript using this library.
+lazy.js provides a lazy evaluation mechanism inspired by the eval/apply variant of STG formerly used to implement Haskell. You can define and evaluate lazy computations in JavaScript using this library.
 
 <https://github.com/wasabi315/lazy>
 
@@ -45,7 +45,7 @@ const factBody = Fun((f, n) =>
       const fm = Thunk(() => f(n - 1));
       return mul(n, fm);
     },
-  })
+  }),
 );
 const fact = Thunk(() => fix(factBody));
 
@@ -83,7 +83,7 @@ const main = Thunk(() => {
 Evaluate(main);
 ```
 
-For more examples including the tarai function and Tardis monad, check out the [repository](https://github.com/wasabi315/lazy/tree/main/examples).
+For more examples including the tarai function and the Tardis monad, check out the [repository](https://github.com/wasabi315/lazy/tree/main/examples).
 
 ## API
 
@@ -141,7 +141,7 @@ const filter = Fun((p, xs) =>
         },
         False: () => filter(p, xs),
       }),
-  })
+  }),
 );
 
 const seq = Fun((x, y) => Case(x, { default: (_) => y }));

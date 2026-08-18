@@ -4,6 +4,7 @@ description: "Formalizing a pattern-matching coverage-checking algorithm in Agda
 date: "2025-12-18"
 tags: ["agda", "agda2hs", "coverage-checking"]
 ---
+
 import Box from "../../../../components/Box.astro";
 
 This post is Day 18 of [Proof Assistants Advent Calendar 2025](https://adventar.org/calendars/11438).
@@ -15,7 +16,7 @@ In this post, I will introduce the algorithm and my mechanization in Agda.[^1]
 
 ## Background
 
-Coverage checking for pattern matching is a static analysis that checks whether a match satisfies two nice properties: *exhaustiveness* and *non-redundancy*.
+Coverage checking for pattern matching is a static analysis that checks whether a match satisfies two nice properties: _exhaustiveness_ and _non-redundancy_.
 
 - Exhaustiveness: every value matches some pattern.
 - Non-redundancy: there is no clause that execution can never reach.
@@ -40,7 +41,7 @@ Evaluating `allowed Staff Edit` will raise a runtime exception.
 What about non-redundancy? It also fails.
 In the third clause, the first pattern is not the constructor pattern `Manager` but the variable pattern `manager`.
 So `Staff, Approve` also matches the third clause, and the fourth clause is never reached.
-When there is a redundant clause, it may indicate a mismatch between the programmer's intended case split and the code actually does.
+When there is a redundant clause, it may indicate a mismatch between the programmer's intended case split and what the code actually does.
 
 As this example shows, coverage checking is an important analysis for improving program safety and predictability.
 
@@ -154,19 +155,21 @@ Also, we can see that $\overrightarrow{u}, \overrightarrow{v}, \overrightarrow{w
 ### Pattern usefulness
 
 $\mathcal{U}_\mathrm{rec}$ is not directly an algorithm for exhaustiveness or non-redundancy.
-It checks a property called *usefulness*.
+It checks a property called _usefulness_.
 Usefulness is defined as follows:
 
 <Box headerText="Definition (Usefulness)">
-A pattern vector $\overrightarrow{p}$ is useful with respect to a pattern matrix $P$ (written $\mathcal{U}(P, \overrightarrow{p})$) if:
-1. there exists a value vector $\overrightarrow{v}$ such that
-2. $\overrightarrow{v}$ does not match any row of $P$ ($\overrightarrow{v} \npreceq P$), and
-3. $\overrightarrow{v}$ matches $\overrightarrow{p}$ ($\overrightarrow{v} \preceq \overrightarrow{p}$).
+  A pattern vector $\overrightarrow{p}$ is useful with respect to a pattern
+  matrix $P$ (written $\mathcal{U}(P, \overrightarrow{p})$) if: 1. there exists
+  a value vector $\overrightarrow{v}$ such that 2. $\overrightarrow{v}$ does not
+  match any row of $P$ ($\overrightarrow{v} \npreceq P$), and 3.
+  $\overrightarrow{v}$ matches $\overrightarrow{p}$ ($\overrightarrow{v} \preceq
+  \overrightarrow{p}$).
 </Box>
 
 Continuing the earlier example, for $P$, the wildcard pattern vector $\overrightarrow{p} = (\texttt{\_}\ \ \texttt{\_})$ is useful.
 A witness is $\overrightarrow{w} = (\texttt{One(Nil)}\ \ \texttt{One(Nil)})$, since $\overrightarrow{w} \npreceq P$ and $\overrightarrow{w} \preceq \overrightarrow{p}$.
-Also, we can check that the 6th row of $Q$ is *not* useful with respect to the submatrix consisting of rows 1–5 of $Q$.
+Also, we can check that the 6th row of $Q$ is _not_ useful with respect to the submatrix consisting of rows 1–5 of $Q$.
 
 But, why do we care about usefulness?
 It is because both exhaustiveness and non-redundancy can be rephrased in terms of usefulness.
@@ -237,7 +240,7 @@ We recursively solve the cases where we choose the left or the right side, and t
 
 If the head of $\overrightarrow{p}$ is $c(r_1, \cdots, r_m)$, then any witness value vector $\overrightarrow{v}$ must also start with a value of the form $c(v_1, \cdots, v_m)$.
 Therefore, we can discard rows of $P$ whose head pattern is $c'(\ \cdots)$ with $c' \neq c$.
-Let $\mathcal{S}$ be this filtering operation (called *specialization*).
+Let $\mathcal{S}$ be this filtering operation (called _specialization_).
 Then $\mathcal{U}_\mathrm{rec}$ is defined as follows.
 Nested patterns inside the constructor pattern are pulled out and prepended to the pattern vector:
 
@@ -327,7 +330,7 @@ P = \begin{pmatrix}
 ```
 
 Looking at the first column of $P$, among the constructors of `mylist`, we see `Nil` and `One`, but not `Cons`.
-Now suppose the witness value vector starts with the value of the form `Cons(...)`.
+Now suppose the witness value vector starts with a value of the form `Cons(...)`.
 Then it can only match rows whose first pattern is a wildcard (rows 3 and 4), so we can focus only on those rows:
 
 ```math
@@ -340,7 +343,7 @@ P = \begin{pmatrix}
 \end{align*}
 ```
 
-Now the first column of both $P$ and $\overrightarrow{p}$ is entirely wildcards.
+Now the first column of both $P$ and $\overrightarrow{p}$ consists entirely of wildcards.
 Since that column carries no information, usefulness is determined only by the second column, so we obtain the following smaller problem:
 
 ```math
@@ -416,7 +419,7 @@ That's the basic idea behind how $\mathcal{U}_\mathrm{rec}$ works.
 ## Highlights of the mechanization
 
 Now let's finally look at the mechanization.
-That said, most of what I did is simply translating the operational idea above into Agda, so here I will only highlight a few key parts.
+That said, most of the work simply simply consisted of translating the operational idea above into Agda, so here I will only highlight a few key parts.
 
 ### Correctness proof
 
@@ -478,7 +481,7 @@ In the picture below, we can think of $P$ and $\overrightarrow{p}$ as describing
 
 ![The original definition of usefulness](./original_usefulness.png)
 
-In the extended definition, we want witnesses to be *pattern vectors*.
+In the extended definition, we want witnesses to be _pattern vectors_.
 So we should "inflate" a witness from a point to a set, like $\overrightarrow{q}$ in the picture.
 In other words, we extend a witness to be a subset of the set difference.
 
@@ -487,18 +490,22 @@ In other words, we extend a witness to be a subset of the set difference.
 Formalizing this intuition:
 
 <Box headerText="Definition (Extended Usefulness)">
-A pattern vector $\overrightarrow{p}$ is useful (in the extended sense) with respect to a pattern matrix $P$ if:
-1. there exists a pattern vector $\overrightarrow{q}$ such that
-2. $\overrightarrow{q}$ is disjoint from $P$ ($\forall \overrightarrow{v},\ \overrightarrow{v} \preceq \overrightarrow{q} \implies \overrightarrow{v} \npreceq P$)
-3. $\overrightarrow{q}$ is subsumed by $\overrightarrow{p}$ ($\forall \overrightarrow{v},\ \overrightarrow{v} \preceq \overrightarrow{q} \implies \overrightarrow{v} \preceq \overrightarrow{p}$)
+  A pattern vector $\overrightarrow{p}$ is useful (in the extended sense) with
+  respect to a pattern matrix $P$ if: 1. there exists a pattern vector
+  $\overrightarrow{q}$ such that 2. $\overrightarrow{q}$ is disjoint from $P$
+  ($\forall \overrightarrow{v},\ \overrightarrow{v} \preceq \overrightarrow{q}{" "}
+  \implies \overrightarrow{v} \npreceq P$) 3. $\overrightarrow{q}$ is subsumed
+  by $\overrightarrow{p}$ ($\forall \overrightarrow{v},\ \overrightarrow{v}{" "}
+  \preceq \overrightarrow{q} \implies \overrightarrow{v} \preceq \overrightarrow
+  {p}$)
 </Box>
 
 "Is disjoint from" instead of "does not match", and "is subsumed by" instead of "matches".
 
 What should the algorithm look like for the extended definition?
 It does not need big changes.
-Roughly speaking, the only places we need to change are where the original algorithm took disjunctions (or-patterns, and brute-force splitting for wildcards) in case you want compute all the witnesses.
-Instead of taking a disjunction, we take a union and return *all* witnesses.
+Roughly speaking, we only need to change the places where the original algorithm takes disjunctions (or-patterns, and brute-force splitting for wildcards) because we want to compute all the witnesses.
+Instead of taking a disjunction, we take a union and return _all_ witnesses.
 
 The pseudocode looks like this.
 Besides the extended `Useful`, the return type of `decUseful` is now `Dec (NonEmpty (Useful P ps))`, so it returns a non-empty list of witnesses.
@@ -521,7 +528,7 @@ Termination matters too because we do not want the compiler to loop forever in c
 However, the original paper does not contain a termination proof for $\mathcal{U}_\mathrm{rec}$.
 
 Proving termination for $\mathcal{U}_\mathrm{rec}$ is tricky, because (as we saw above) it has a complex recursion structure.
-It is not structural recursion, so we will need well-founded recursion
+It is not structurally recursive, so it requires well-founded recursion.
 However, finding a good measure is the hard part.
 The following aspects are particularly problematic:
 
@@ -531,20 +538,21 @@ The following aspects are particularly problematic:
 Because of these, a naive pattern size measure does not necessarily decrease, and it can even increase.
 Luckily, I managed to find a suitable measure using roughly the following idea:
 
-1. count pattern size *after fully expanding or-patterns*[^5]
+1. count pattern size _after fully expanding or-patterns_[^5]
 2. do not count wildcards
-3. since (2) can break strict decrease in some cases, combine another decreasing measure (such as the number of columns of the pattern matrix) in a lexicographic order
+3. since (2) can break strict decrease in some cases, combine this measure with another decreasing measure (such as the number of columns of the pattern matrix) lexicographically
 
 ### Compiling to Haskell with agda2hs
 
-Since the goal is a verified *implementation* of a coverage checker, I want to make the Agda code runnable.
+Since the goal is a verified _implementation_ of a coverage checker, I want to make the Agda code runnable.
 For that, I used [agda2hs](https://github.com/agda/agda2hs).
 agda2hs translates a subset of Agda into Haskell while aiming to stay close to the original code (and to generate human-readable Haskell), unlike Agda's built-in Haskell backend.
 
 With agda2hs, we specify which parts of the Agda code should be erased in Haskell using the [erasure](https://agda.readthedocs.io/en/latest/language/runtime-irrelevance.html) feature.
 Parts annotated with `@0` (or `@erased`) in Agda code are erased in the generated Haskell code.
 For example, suppose we annotate the `Useful` type as follows.
-`witness-disjoint-from-P` and `ps-subsumes-witness` are proof-only information, so we want to erase them.
+`witness-disjoint-from-P` and `ps-subsumes-witness` contain only proof-related information, so we want to erase them.
+
 ```agda
 record Useful (@0 P : PatternMatrix) (@0 ps : Patterns) : Type where
   field
@@ -574,10 +582,17 @@ I also host an HTML-rendered version of the code on GitHub Pages, so check it ou
 https://wasabi315.github.io/coverage-checking
 
 [^1]: I planned to write this for [last year's Advent Calendar](https://adventar.org/calendars/10209), but I got stuck on the termination proof, so it ended up being this year. I also wrote a paper about this mechanization, which is going to be published later. The preprint is available [here](https://wasabi315.github.io/files/wctp2025a.pdf).
+
 [^2]: [Luc Maranget, Warnings for Pattern Matching](https://doi.org/10.1017/S0956796807006223). This paper proposes several algorithms and $\mathcal{U}_\mathrm{rec}$ is the most basic one among them.
+
 [^3]: [Sebastian Graf, Simon Peyton Jones, and Ryan G. Scott, Lower your guards](https://doi.org/10.1145/3408989)
-[^4]: As far as I could find, besides the concurrent work [Joshua M. Cohen, A Mechanized First-Order Theory of Algebraic Data Types with Pattern Matching](https://doi.org/10.4230/LIPIcs.ITP.2025.5), I was not able to find much. That paper similarly claims that there was little prior work.
-[^5]: In practice, we also include the number of or-patterns in the size: if we only count size *after* expanding them, then the or-pattern step would no longer decrease the measure.
+
+[^4]: As far as I could find, aside from the concurrent work [Joshua M. Cohen, A Mechanized First-Order Theory of Algebraic Data Types with Pattern Matching](https://doi.org/10.4230/LIPIcs.ITP.2025.5), I was unable to find much. That paper similarly claims that there was little prior work.
+
+[^5]: In practice, we also include the number of or-patterns in the size: if we only count size _after_ expanding them, then the or-pattern step would no longer decrease the measure.
+
 [^6]: Currently, we have to run exhaustiveness checking and (separately) redundancy checking for each clause, which means calling $\mathcal{U}_\mathrm{rec}$ a number of times proportional to the number of clauses.
+
 [^8]: I reverse the operand order compared to the original paper. This order feels more readable to me because it resembles set membership $\in$.
+
 [^9]: If the types of constructor arguments include an empty type (Haskell's `Void`), then "some appropriate value vector" may not exist. So $\mathcal{U}_\mathrm{rec}$ assumes that every type is inhabited.
